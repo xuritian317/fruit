@@ -14,7 +14,13 @@ import com.example.xu.myapplication.base.BaseFragment;
  * A simple {@link Fragment} subclass.
  */
 public class TypeContentFragment extends BaseFragment {
+    private static TypeContentFragment instance;
 
+    public static TypeContentFragment newInstance() {
+        if (instance == null)
+            instance = new TypeContentFragment();
+        return instance;
+    }
 
     @Override
     public int getLayout() {
