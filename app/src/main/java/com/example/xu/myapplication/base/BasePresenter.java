@@ -6,4 +6,9 @@ package com.example.xu.myapplication.base;
  */
 
 public class BasePresenter {
+
+
+
+
+
 }
