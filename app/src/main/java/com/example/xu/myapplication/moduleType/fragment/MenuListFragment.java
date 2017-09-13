@@ -112,7 +112,6 @@ public class MenuListFragment extends BaseFragment<MenuListPresenter> implements
 
         adapter.setItemChecked(position);
         MenuContentFragment fragment = MenuContentFragment.newInstance(menuList.get(position));
-        Logger.e("menuList", menuList.get(position) + "");
         ((TypeContentFragment) getParentFragment()).switchContentFragment(fragment);
 
     }
