@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <FrameLayout
-        android:id="@+id/frame_container"
+        android:id="@+id/container_activity_main"
         android:layout_width="match_parent"
         android:layout_marginBottom="@dimen/bottomBar_height"
         android:layout_height="match_parent"/>

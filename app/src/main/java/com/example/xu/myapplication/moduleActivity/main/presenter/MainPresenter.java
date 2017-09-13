@@ -33,7 +33,7 @@ public class MainPresenter extends BasePresenter {
             view.setFragCollections(ShoppingFragment.newInstance(), THIRD);
             view.setFragCollections(MyFragment.newInstance(), FOURTH);
 
-            view.loadRootFragment(R.id.frame_container, FIRST,
+            view.loadRootFragment(R.id.container_activity_main, FIRST,
                     view.getFragCollections(FIRST),
                     view.getFragCollections(SECOND),
                     view.getFragCollections(THIRD),
