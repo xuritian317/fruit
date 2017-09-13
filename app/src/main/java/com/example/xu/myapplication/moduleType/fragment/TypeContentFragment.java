@@ -77,4 +77,9 @@ public class TypeContentFragment extends BaseFragment<TypeContentPresenter> impl
             contentFragment.replaceFragment(fragment, false);
         }
     }
+
+    @Override
+    public boolean onBackPressedSupport() {
+        return false;
+    }
 }
