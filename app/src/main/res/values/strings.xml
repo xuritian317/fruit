@@ -21,4 +21,11 @@
         <item>Menu13</item>
         <item>Menu14</item>
     </string-array>
+    <string name="editor">编辑</string>
+    <string name="finish">完成</string>
+    <string name="delete">删除</string>
+    <string name="selectAll">全选</string>
+    <string name="amount">合计：</string>
+    <string name="accounts">结算</string>
+    <string name="money">￥39.9</string>
 </resources>
