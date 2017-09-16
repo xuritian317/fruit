@@ -1,14 +1,11 @@
 package com.example.xu.myapplication.moduleType.fragment;
 
-
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.Animation;
 
 import com.example.xu.myapplication.R;
 import com.example.xu.myapplication.base.BaseFragment;
@@ -16,10 +13,8 @@ import com.example.xu.myapplication.moduleType.adapter.MenuAdapter;
 import com.example.xu.myapplication.moduleType.listener.OnItemClickListener;
 import com.example.xu.myapplication.moduleType.presenter.MenuListPresenter;
 import com.example.xu.myapplication.moduleType.viewInterface.IMenuList;
-import com.example.xu.myapplication.util.Logger;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import me.yokeyword.fragmentation.anim.DefaultNoAnimator;
@@ -29,15 +24,12 @@ import me.yokeyword.fragmentation.anim.FragmentAnimator;
  * A simple {@link Fragment} subclass.
  */
 public class MenuListFragment extends BaseFragment<MenuListPresenter> implements IMenuList {
-    private static MenuListFragment instance;
 
     public static MenuListFragment newInstance(ArrayList<String> menuList) {
         Bundle args = new Bundle();
         args.putStringArrayList(ARG_MENUS, menuList);
-        if (instance == null) {
-            instance = new MenuListFragment();
-            instance.setArguments(args);
-        }
+        MenuListFragment instance = new MenuListFragment();
+        instance.setArguments(args);
         return instance;
     }
 
@@ -71,6 +63,17 @@ public class MenuListFragment extends BaseFragment<MenuListPresenter> implements
     @Override
     public void initView(Bundle savedInstanceState) {
 
+    }
+
+    @Override
+    public void setToolbar() {
+
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
         LinearLayoutManager manager = new LinearLayoutManager(_mActivity);
         recyclerView.setLayoutManager(manager);
         adapter = new MenuAdapter(_mActivity);
@@ -84,18 +87,7 @@ public class MenuListFragment extends BaseFragment<MenuListPresenter> implements
             }
         });
 
-        if (savedInstanceState != null) {
-            mCurrentPosition = savedInstanceState.getInt(SAVE_STATE_POSITION);
-            adapter.setItemChecked(mCurrentPosition);
-        } else {
-            mCurrentPosition = 0;
-            adapter.setItemChecked(0);
-        }
-    }
-
-    @Override
-    public void setToolbar() {
-
+        presenter.isSave(savedInstanceState);
     }
 
     @Override
@@ -107,10 +99,9 @@ public class MenuListFragment extends BaseFragment<MenuListPresenter> implements
         if (position == mCurrentPosition) {
             return;
         }
-
         mCurrentPosition = position;
-
         adapter.setItemChecked(position);
+
         MenuContentFragment fragment = MenuContentFragment.newInstance(menuList.get(position));
         ((TypeContentFragment) getParentFragment()).switchContentFragment(fragment);
 
@@ -120,5 +111,15 @@ public class MenuListFragment extends BaseFragment<MenuListPresenter> implements
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(SAVE_STATE_POSITION, mCurrentPosition);
+    }
+
+    @Override
+    public void setCurrentPosition(int position) {
+        mCurrentPosition = position;
+    }
+
+    @Override
+    public void setAdapterCheck(int position) {
+        adapter.setItemChecked(mCurrentPosition);
     }
 }

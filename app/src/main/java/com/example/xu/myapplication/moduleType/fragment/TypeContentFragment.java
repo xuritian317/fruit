@@ -1,6 +1,5 @@
 package com.example.xu.myapplication.moduleType.fragment;
 
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
@@ -10,23 +9,19 @@ import com.example.xu.myapplication.R;
 import com.example.xu.myapplication.base.BaseFragment;
 import com.example.xu.myapplication.moduleType.presenter.TypeContentPresenter;
 import com.example.xu.myapplication.moduleType.viewInterface.ITypeContent;
-import com.example.xu.myapplication.util.Logger;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 import butterknife.BindView;
+import me.yokeyword.fragmentation.ISupportFragment;
 import me.yokeyword.fragmentation.SupportFragment;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class TypeContentFragment extends BaseFragment<TypeContentPresenter> implements ITypeContent {
-    private static TypeContentFragment instance;
+
 
     public static TypeContentFragment newInstance() {
-        if (instance == null)
-            instance = new TypeContentFragment();
+        TypeContentFragment instance = new TypeContentFragment();
         return instance;
     }
 
@@ -56,19 +51,12 @@ public class TypeContentFragment extends BaseFragment<TypeContentPresenter> impl
 
     @Override
     public void initView(Bundle savedInstanceState) {
-        if (findChildFragment(MenuListFragment.class) == null) {
-            ArrayList<String> listMenus = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.array_menu)));
-            MenuListFragment menuListFragment = MenuListFragment.newInstance(listMenus);
-            loadRootFragment(R.id.container_list_type, menuListFragment);
-            // false:  不加入回退栈;  false: 不显示动画
-            loadRootFragment(R.id.container_content_type, MenuContentFragment.newInstance(listMenus.get(0)), false, false);
-        }
+        presenter.init(MenuListFragment.class);
     }
 
     @Override
     public void setToolbar() {
         toolbar.setTitle(R.string.type);
-
     }
 
     public void switchContentFragment(MenuContentFragment fragment) {
@@ -78,8 +66,30 @@ public class TypeContentFragment extends BaseFragment<TypeContentPresenter> impl
         }
     }
 
+
     @Override
     public boolean onBackPressedSupport() {
         return false;
     }
+
+    @Override
+    public <T extends ISupportFragment> T findFragmentIn(Class contentClass) {
+        return (T) findFragment(contentClass);
+    }
+
+    @Override
+    public String[] getResourceList() {
+        return getResources().getStringArray(R.array.array_menu);
+    }
+
+    @Override
+    public void loadRootFrag(int id, ISupportFragment fragment) {
+        loadRootFragment(id, fragment);
+    }
+
+    @Override
+    public void loadRootFrag(int id, ISupportFragment fragment, boolean backFlag, boolean animFlag) {
+        loadRootFragment(id, fragment, backFlag, animFlag);
+    }
+
 }

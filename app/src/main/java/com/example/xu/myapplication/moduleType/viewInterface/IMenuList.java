@@ -7,4 +7,6 @@ import com.example.xu.myapplication.base.BaseViewInterface;
  */
 
 public interface IMenuList extends BaseViewInterface {
+    void setCurrentPosition(int position);
+    void setAdapterCheck(int position);
 }
