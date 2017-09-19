@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.xu.myapplication">
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -16,6 +19,16 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".moduleShopping.fragment.activity.ShoppingPayActivity">
+        </activity>
+        <activity android:name=".moduleMy.fragment.activity.orders.MyOrdersActivity">
+        </activity>
+        <activity android:name=".moduleMy.fragment.activity.setting.MyPersonalActivity">
+        </activity>
+        <activity android:name=".moduleMy.fragment.activity.img.ClipImageActivity">
+        </activity>
+        <activity android:name=".moduleMy.fragment.activity.setting.AccountSettingActivity">
         </activity>
     </application>
 

@@ -21,11 +21,38 @@
         <item>Menu13</item>
         <item>Menu14</item>
     </string-array>
+    <string name="jifen">我的积分</string>
+    <string name="shoucang">我的收藏</string>
+    <string name="xiaoxi">我的消息</string>
+    <string name="tuikuan">退款/售后</string>
+    <string name="yiwancheng">已完成</string>
+    <string name="daishouhuo">待收货</string>
+    <string name="dingdan">我的订单</string>
+    <string name="login_register">登录/注册</string>
     <string name="editor">编辑</string>
     <string name="finish">完成</string>
     <string name="delete">删除</string>
     <string name="selectAll">全选</string>
+    <string name="all">全部</string>
     <string name="amount">合计：</string>
     <string name="accounts">结算</string>
-    <string name="money">￥39.9</string>
+    <string name="money">￥0.0</string>
+    <string name="apple">苹果</string>
+    <string name="user">冬季穿短裤</string>
+    <string name="shoppingCart">购物车(5)</string>
+    <string name="accountSet">账户设置</string>
+    <string name="personal_information">个人资料</string>
+    <string name="shouhuo_address">收货地址</string>
+    <string name="account_safe">账户安全</string>
+
+    <string name="head_img">头像</string>
+    <string name="pet_name">昵称</string>
+    <string name="sex">男</string>
+    <string name="user_sex">性别</string>
+    <string name="birthday">出生日期</string>
+    <string name="birth">1997-02-21</string>
+    <string name="phone_number">手机号</string>
+    <string name="phone">15150570952</string>
+    <string name="email_address">邮箱</string>
+    <string name="email">714081644@qq.com</string>
 </resources>

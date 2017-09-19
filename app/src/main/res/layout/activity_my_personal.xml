@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_gray"
+    android:orientation="vertical"
+    tools:context="com.example.xu.myapplication.moduleMy.fragment.activity.setting.MyPersonalActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_White"
+        android:fitsSystemWindows="true"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp">
+
+        <ImageView
+            android:id="@+id/iv_person_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:background="@mipmap/back_black"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:text="@string/personal_information"
+            android:textColor="@color/color_Black"
+            android:textSize="20sp"/>
+    </android.support.v7.widget.Toolbar>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@color/tab_unSelect">
+    </View>
+
+    <RelativeLayout
+        android:id="@+id/rela_person_head"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@color/color_White">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:text="@string/head_img"
+            android:textColor="@color/color_Black"
+            android:textSize="20sp"/>
+
+        <com.example.xu.myapplication.moduleMy.fragment.view.CircleImageView
+            android:id="@+id/iv_person_head"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/image1"
+            android:src="@mipmap/img_head"/>
+
+        <ImageView
+            android:id="@+id/image1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="15dp"
+            android:background="@mipmap/go"/>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/tab_unSelect">
+    </View>
+
+    <RelativeLayout
+        android:id="@+id/rela_person_petName"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/color_White">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:text="@string/pet_name"
+            android:textColor="@color/color_Black"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:id="@+id/tv_person_petName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/image2"
+            android:text="@string/user"
+            android:textColor="@color/text"
+            android:textSize="18dp"/>
+
+        <ImageView
+            android:id="@+id/image2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="15dp"
+            android:background="@mipmap/go"/>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/tab_unSelect">
+    </View>
+
+    <RelativeLayout
+        android:id="@+id/rela_person_sex"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/color_White">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:text="@string/user_sex"
+            android:textColor="@color/color_Black"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:id="@+id/tv_person_sex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/image3"
+            android:text="@string/sex"
+            android:textColor="@color/text"
+            android:textSize="18dp"/>
+
+        <ImageView
+            android:id="@+id/image3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="15dp"
+            android:background="@mipmap/go"/>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/tab_unSelect">
+    </View>
+
+    <RelativeLayout
+        android:id="@+id/rela_person_birth"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/color_White">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:text="@string/birthday"
+            android:textColor="@color/color_Black"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:id="@+id/tv_person_birth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/image4"
+            android:text="@string/birth"
+            android:textColor="@color/text"
+            android:textSize="18dp"/>
+
+        <ImageView
+            android:id="@+id/image4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="15dp"
+            android:background="@mipmap/go"/>
+    </RelativeLayout>
+
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1dp"-->
+        <!--android:background="@color/tab_unSelect">-->
+    <!--</View>-->
+
+    <!--<RelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="60dp"-->
+        <!--android:background="@color/color_White">-->
+
+
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginLeft="20dp"-->
+            <!--android:text="@string/phone_number"-->
+            <!--android:textColor="@color/color_Black"-->
+            <!--android:textSize="20sp"/>-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/tv_person_phone"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginRight="10dp"-->
+            <!--android:layout_toLeftOf="@+id/image5"-->
+            <!--android:text="@string/phone"-->
+            <!--android:textColor="@color/text"-->
+            <!--android:textSize="18dp"/>-->
+
+        <!--<ImageView-->
+            <!--android:id="@+id/image5"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginRight="20dp"-->
+            <!--android:layout_marginTop="15dp"-->
+            <!--android:background="@mipmap/go"/>-->
+    <!--</RelativeLayout>-->
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/tab_unSelect">
+    </View>
+
+    <RelativeLayout
+        android:id="@+id/rela_person_email"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/color_White">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:text="@string/email_address"
+            android:textColor="@color/color_Black"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:id="@+id/tv_person_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/image6"
+            android:text="@string/email"
+            android:textColor="@color/text"
+            android:textSize="18dp"/>
+
+        <ImageView
+            android:id="@+id/image6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="15dp"
+            android:background="@mipmap/go"/>
+    </RelativeLayout>
+</LinearLayout>

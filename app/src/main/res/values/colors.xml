@@ -7,5 +7,9 @@
     <color name="tab_unSelect">#c9c9c9</color>
     <color name="bg_app">#F1F1F1</color>
     <color name="color_White">#ffffff</color>
-    <color name="color_Black">#000000</color>
+    <color name="color_Black">#191818</color>
+    <color name="color_Red">#FFFF0000</color>
+    <color name="blue">#FF02B7FF</color>
+    <color name="color_gray">#F1F1F1</color>
+    <color name="text">#707070</color>
 </resources>
