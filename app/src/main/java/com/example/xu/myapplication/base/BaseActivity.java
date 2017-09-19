@@ -3,6 +3,8 @@ package com.example.xu.myapplication.base;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 
+import com.example.xu.myapplication.httpRequest.MyOkHttp;
+
 import butterknife.ButterKnife;
 import me.yokeyword.fragmentation.SupportActivity;
 
@@ -56,4 +58,10 @@ public abstract class BaseActivity<T extends BasePresenter> extends SupportActiv
      * 设置toolbar
      */
     public abstract void setToolbar();
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        MyOkHttp.newInstance().cancel(this);
+    }
 }

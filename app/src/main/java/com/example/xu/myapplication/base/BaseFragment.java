@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.xu.myapplication.httpRequest.MyOkHttp;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import me.yokeyword.fragmentation.SupportFragment;
@@ -33,6 +35,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends SupportFragm
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+        MyOkHttp.newInstance().cancel(_mActivity);
     }
 
 
@@ -63,4 +66,6 @@ public abstract class BaseFragment<T extends BasePresenter> extends SupportFragm
      * 设置toolbar
      */
     public abstract void setToolbar();
+
+
 }
