@@ -18,6 +18,7 @@ import android.support.v4.content.FileProvider;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -107,8 +108,8 @@ public class PersonalPresenter extends BasePresenter {
                 .isCenterLabel(true)
                 .setDividerColor(Color.DKGRAY)
                 .setContentSize(21)
-                .setDate(selectedDate)//// 如果不设置的话，默认是系统时间*/
-                .setOutSideCancelable(false)//点击屏幕，点在控件外部范围时，是否取消显示
+                .setDate(selectedDate)// 如果不设置的话，默认是系统时间*/
+                .setOutSideCancelable(true)//点击屏幕，点在控件外部范围时，是否取消显示
                 .setRangDate(startDate, endDate)
                 .setBackgroundId(0x00FFFFFF) //设置外部遮罩颜色
                 .setDecorView(null)
@@ -144,7 +145,7 @@ public class PersonalPresenter extends BasePresenter {
                 .setContentTextSize(21)
                 .setTextColorCenter(Color.DKGRAY)
                 .isCenterLabel(true)
-                .setOutSideCancelable(false)
+                .setOutSideCancelable(true)
                 .setDecorView(null)
                 .isDialog(true)
                 .setSelectOptions(0)
@@ -167,7 +168,27 @@ public class PersonalPresenter extends BasePresenter {
                 ViewGroup.LayoutParams.WRAP_CONTENT);
         window.setBackgroundDrawable(activity.getResources().getDrawable(android.R.color
                 .transparent));
-        window.setOutsideTouchable(false);//点击PopuWindow外面会关闭PopuWindow
+        window.setOutsideTouchable(true);//点击PopuWindow外面会关闭PopuWindow
+
+        window.setFocusable(true);
+        /*
+        解决PopupWindow 与键盘返回键冲突
+         */
+        view.setFocusable(true);// 设置view从键盘能够获取到焦点
+        view.setFocusableInTouchMode(true);//设置view能从触摸获取到焦点
+        view.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (keyCode==KeyEvent.KEYCODE_BACK){
+                    if (window.isShowing()){
+                        window.dismiss();
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+
 
         View parent = LayoutInflater.from(iView.getCon()).inflate(R.layout.activity_main, null);
         window.showAtLocation(parent, Gravity.BOTTOM, 0, 0);
@@ -183,6 +204,7 @@ public class PersonalPresenter extends BasePresenter {
                 activity.getWindow().setAttributes(params);
             }
         });
+
 
         btnCarema.setOnClickListener(new View.OnClickListener() {
             @Override

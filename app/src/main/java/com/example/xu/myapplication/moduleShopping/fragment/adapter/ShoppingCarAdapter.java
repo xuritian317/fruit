@@ -1,6 +1,7 @@
 package com.example.xu.myapplication.moduleShopping.fragment.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,19 +24,17 @@ import java.util.Map;
  * Created by 逝 on 2017/09/14.
  */
 
-public class ShoppingCarAdater extends BaseAdapter {
+public class ShoppingCarAdapter extends BaseAdapter {
 
     private List<FruitBean> objects = new ArrayList<FruitBean>();
     public Map<Integer, Boolean> map_cb = null;
-
+    public List<String> strs = new ArrayList<String>();
     private Context context;
     private LayoutInflater layoutInflater;
-
     private ShoppingFragment fragment;
 
-
-    public ShoppingCarAdater(ShoppingFragment fragment,Context context) {
-        this.fragment=fragment;
+    public ShoppingCarAdapter(ShoppingFragment fragment, Context context) {
+        this.fragment = fragment;
         this.context = context;
         this.layoutInflater = LayoutInflater.from(context);
     }
@@ -49,6 +48,8 @@ public class ShoppingCarAdater extends BaseAdapter {
     }
 
     private void init() {
+        map_cb.clear();
+        strs.clear();
         for (int i = 0; i < objects.size(); i++) {
             map_cb.put(i, false);
         }
@@ -89,12 +90,23 @@ public class ShoppingCarAdater extends BaseAdapter {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 //是否选择 存入map
                 map_cb.put(index, isChecked);
-                fragment.UpView(isChecked,object.getPrice(),object.getNumber());
+
+                fragment.UpView();
             }
         });
         //设置cbShoppingItemSelect选择状态 从map中获得  避免CheckBox在listview中错乱
         holder.cbShoppingItemSelect.setChecked(map_cb.get(index));
 
+        if (holder.cbShoppingItemSelect.isChecked()) {
+
+            strs.add(object.getFruit());
+        } else {
+            for (int i = 0; i < strs.size(); i++) {
+                if (TextUtils.equals(strs.get(i), object.getFruit())) {
+                    strs.remove(i);
+                }
+            }
+        }
 
         holder.shoppingItemAddSub.setBuyMax(20)//最大购买数
                 .setBuyMin(1)//最小购买数，默认是1
@@ -108,12 +120,15 @@ public class ShoppingCarAdater extends BaseAdapter {
                     public void onChangeValue(int value, int position) {
                         // 使用传回来的position设置数据  避免数据错乱
                         objects.get(position).setNumber(value);
-                        fragment.UpView(map_cb.get(index),object.getPrice(),object.getNumber());
+                        fragment.UpView();
                     }
                 });
 
     }
 
+    /**
+     * 构建ViewHolder
+     */
     protected class ViewHolder {
         private CheckBox cbShoppingItemSelect;
         private TextView tvShoppingItemFruit;
@@ -126,9 +141,5 @@ public class ShoppingCarAdater extends BaseAdapter {
             tvShoppingItemPrice = (TextView) view.findViewById(R.id.tv_shopping_itemPrice);
             shoppingItemAddSub = (AddSubUtils) view.findViewById(R.id.shopping_itemAddSub);
         }
-    }
-
-    public interface CheckInterface {
-        void isChecked();
     }
 }

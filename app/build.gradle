@@ -51,4 +51,6 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.1.1'
     //gson
     compile 'com.google.code.gson:gson:2.8.1'
+    //dialog
+    compile 'com.github.1em0nsOft:LemonHello4Android:1.0.1'
 }
