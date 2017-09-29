@@ -11,8 +11,6 @@ public interface ITypeContent extends BaseViewInterface {
 
     <T extends ISupportFragment> T findFragmentIn(Class contentClass);
 
-    String[] getResourceList();
-
     void loadRootFrag(int id ,ISupportFragment fragment);
 
     void loadRootFrag(int id ,ISupportFragment fragment,boolean backFlag,boolean animFlag);

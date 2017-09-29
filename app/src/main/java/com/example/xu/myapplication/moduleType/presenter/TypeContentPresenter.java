@@ -2,11 +2,14 @@ package com.example.xu.myapplication.moduleType.presenter;
 
 import com.example.xu.myapplication.R;
 import com.example.xu.myapplication.base.BasePresenter;
+import com.example.xu.myapplication.moduleType.dao.FruitTypeDao;
+import com.example.xu.myapplication.moduleType.entity.FruitType;
 import com.example.xu.myapplication.moduleType.fragment.MenuContentFragment;
 import com.example.xu.myapplication.moduleType.fragment.MenuListFragment;
 import com.example.xu.myapplication.moduleType.viewInterface.ITypeContent;
+import com.example.xu.myapplication.util.Logger;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Created by xu on 2017/9/13.
@@ -22,7 +25,21 @@ public class TypeContentPresenter extends BasePresenter {
 
     public void init(Class contentClass) {
         if (view.findFragmentIn(contentClass) == null) {
-            ArrayList<String> listMenus = new ArrayList<>(Arrays.asList(view.getResourceList()));
+
+            FruitTypeDao.newInstance(new FruitTypeDao.CallBackFruitType() {
+                @Override
+                public void onSuccess(ArrayList<FruitType> response) {
+                    Logger.e("onSuccess",response.toString());
+                }
+
+                @Override
+                public void onFailure(String message) {
+                    Logger.e("onFailure",message);
+                }
+            }).getFruitType();
+
+            ArrayList<String> listMenus = new ArrayList<>();
+            listMenus.add("测试");
             MenuListFragment menuListFragment = MenuListFragment.newInstance(listMenus);
             view.loadRootFrag(R.id.container_list_type, menuListFragment);
             // false:  不加入回退栈;  false: 不显示动画

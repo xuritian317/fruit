@@ -78,11 +78,6 @@ public class TypeContentFragment extends BaseFragment<TypeContentPresenter> impl
     }
 
     @Override
-    public String[] getResourceList() {
-        return getResources().getStringArray(R.array.array_menu);
-    }
-
-    @Override
     public void loadRootFrag(int id, ISupportFragment fragment) {
         loadRootFragment(id, fragment);
     }
