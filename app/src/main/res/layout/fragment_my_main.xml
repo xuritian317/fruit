@@ -60,14 +60,22 @@
             android:layout_height="match_parent"
             android:background="@color/tab_unSelect"/>
 
-        <TextView
-            android:id="@+id/tv_daishou"
+        <LinearLayout
+            android:id="@+id/linear_daishou"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawableTop="@mipmap/daishouhuo"
             android:gravity="center"
-            android:text="@string/daishouhuo"/>
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_daishou"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@mipmap/daishouhuo"
+                android:gravity="center"
+                android:text="@string/daishouhuo"/>
+        </LinearLayout>
 
         <TextView
             android:id="@+id/tv_wancheng"
@@ -78,14 +86,22 @@
             android:gravity="center"
             android:text="@string/yiwancheng"/>
 
-        <TextView
-            android:id="@+id/tv_tuikuan"
+        <LinearLayout
+            android:id="@+id/linear_tuikuan"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawableTop="@mipmap/tuikuan"
             android:gravity="center"
-            android:text="@string/tuikuan"/>
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_tuikuan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@mipmap/tuikuan"
+                android:gravity="center"
+                android:text="@string/tuikuan"/>
+        </LinearLayout>
     </LinearLayout>
 
     <View

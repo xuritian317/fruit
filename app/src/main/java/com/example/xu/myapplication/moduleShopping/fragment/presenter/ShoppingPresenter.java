@@ -10,13 +10,19 @@ import android.widget.TextView;
 
 import com.example.xu.myapplication.R;
 import com.example.xu.myapplication.base.BasePresenter;
-import com.example.xu.myapplication.moduleShopping.fragment.Bean.FruitBean;
+import com.example.xu.myapplication.moduleShopping.fragment.bean.FruitBean;
 import com.example.xu.myapplication.moduleShopping.fragment.adapter.ShoppingCarAdapter;
+import com.example.xu.myapplication.moduleShopping.fragment.dao.ShoppingCarDao;
 import com.example.xu.myapplication.moduleShopping.fragment.viewInterface.IShopping;
+import com.example.xu.myapplication.util.ToastUtils;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by 逝 on 2017/09/18.
@@ -35,20 +41,86 @@ public class ShoppingPresenter extends BasePresenter {
      * 跳转Activity
      */
     public void toActivity(Class<?> cls) {
+        int size = 0;
+        for (int i = 0; i < lists.size(); i++) {
+            if (lists.get(i).isChecked()) {
+                size++;
+            }
+        }
+        if (size == 0) {
+            ToastUtils.showToast(view.getCon(), "请选择商品哦！");
+            return;
+        }
         Intent intent = new Intent(view.getCon(), cls);
         view.getAct().startActivity(intent);
     }
 
-    public List<FruitBean> addList() {
+    public List<FruitBean> addList(final TextView tvShopingCart) {
         lists = new ArrayList<FruitBean>();
-        lists.add(0, new FruitBean("苹果", 2.0, 2));
-        lists.add(1, new FruitBean("香蕉", 3.0, 3));
-        lists.add(2, new FruitBean("西瓜", 4.0, 1));
-        lists.add(3, new FruitBean("葡萄", 3.0, 2));
-        lists.add(4, new FruitBean("哈密瓜", 2.0, 1));
-        lists.add(5, new FruitBean("荔枝", 5.0, 5));
-        lists.add(6, new FruitBean("梨", 3.0, 2));
-        lists.add(7, new FruitBean("火龙果", 4.0, 2));
+//        MyOkHttp.newInstance().get("http://www.mobilebooks.cn/api/t-shopping-cars", null, new
+//                RawResponseHandler() {
+//                    @Override
+//                    public void onSuccess(int statusCode, String response) {
+//                        Log.e("shopping", statusCode+"");
+//                        try {
+//                            JSONArray array = new JSONArray(response);
+//                            Log.e("array", array.length() + "");
+//                            JSONObject jo = null;
+//                            JSONObject jo_goods = null;
+//                            for (int i = 0; i < array.length(); i++) {
+//                                jo = array.getJSONObject(i);
+//                                FruitBean info = new FruitBean();
+//                                info.setNumber(jo.getInt("goodsCount"));
+//                                String good = jo.getString("goods");
+//                                jo_goods = new JSONObject(good);
+//                                info.setFruit(jo_goods.getString("goodsName"));
+//                                info.setPrice(jo_goods.getDouble("goodsPrice"));
+//                                info.setFruit_img(jo_goods.getString("goodsImage"));
+//                                info.setChecked(false);
+//                                lists.add(info);
+//                            }
+//                            tvShopingCart.setText("购物车(" + lists.size() + ")");
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(int statusCode, String error_msg) {
+//
+//                    }
+//                });
+        ShoppingCarDao.newInstance(new ShoppingCarDao.CallBackShoppingCarDao() {
+            @Override
+            public void onSuccess(String response) {
+                try {
+                    JSONArray array = new JSONArray(response);
+                    Log.e("array", array.length() + "");
+                    JSONObject jo = null;
+                    JSONObject jo_goods = null;
+                    for (int i = 0; i < array.length(); i++) {
+                        jo = array.getJSONObject(i);
+                        FruitBean info = new FruitBean();
+                        info.setNumber(jo.getInt("goodsCount"));
+                        String good = jo.getString("goods");
+                        jo_goods = new JSONObject(good);
+                        info.setFruit(jo_goods.getString("goodsName"));
+                        info.setPrice(jo_goods.getDouble("goodsPrice"));
+                        info.setFruit_img(jo_goods.getString("goodsImage"));
+                        info.setChecked(false);
+                        lists.add(info);
+                    }
+                    tvShopingCart.setText("购物车(" + lists.size() + ")");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String message) {
+
+            }
+        }).getFruit();
         return lists;
     }
 
@@ -84,18 +156,16 @@ public class ShoppingPresenter extends BasePresenter {
      * 设置全选按钮
      *
      * @param isChecked 是否被选中
-     * @param map_cb    map
      */
-    public void cbSelectAllChanged(boolean isChecked,
-                                   Map<Integer, Boolean> map_cb) {
+    public void cbSelectAllChanged(boolean isChecked) {
         if (isChecked) {
-            for (int i = 0; i < map_cb.size(); i++) {
-                map_cb.put(i, true);
+            for (int i = 0; i < lists.size(); i++) {
+                lists.get(i).setChecked(true);
             }
         } else {
             if (a == 1) {
-                for (int i = 0; i < map_cb.size(); i++) {
-                    map_cb.put(i, false);
+                for (int i = 0; i < lists.size(); i++) {
+                    lists.get(i).setChecked(false);
                 }
             }
         }
@@ -106,20 +176,25 @@ public class ShoppingPresenter extends BasePresenter {
      *
      * @param tvShopingMoney 显示总价的TextView控件
      * @param cbSelectAll    全选控件
-     * @param map_cb         map
      */
-    public void UpdataSum(TextView tvShopingMoney, CheckBox cbSelectAll,
-                          Map<Integer, Boolean> map_cb) {
+    public void UpdataSum(TextView tvShopingMoney, CheckBox cbSelectAll) {
         double sum = 0;
         int size = 0;
-        for (int i = 0; i < map_cb.size(); i++) {
-            if (map_cb.get(i)) {
+        BigDecimal bd;
+        for (int i = 0; i < lists.size(); i++) {
+            if (lists.get(i).isChecked()) {
                 size++;
-                sum += lists.get(i).getPrice() * lists.get(i).getNumber();
+                /**
+                 * 解决 double 进行运算时，经常出现精度丢失的问题
+                 */
+                bd = new BigDecimal(Double.toString(sum));
+                sum = bd.add(new BigDecimal(Double.toString(lists.get(i).getPrice()))
+                        .multiply(new BigDecimal(Double.toString(lists.get(i).getNumber()))))
+                        .doubleValue();
             }
         }
         tvShopingMoney.setText("￥" + sum);
-        if (size == map_cb.size()) {
+        if (size == lists.size()) {
             cbSelectAll.setChecked(true);
             a = 1;
         } else {
@@ -130,13 +205,13 @@ public class ShoppingPresenter extends BasePresenter {
 
     /**
      * 获取选中商品数量
-     * @param map_cb
+     *
      * @return 返回选中的数量
      */
-    public int getGoodsNum(Map<Integer, Boolean> map_cb) {
+    public int getGoodsNum() {
         int size = 0;
-        for (int i = 0; i < map_cb.size(); i++) {
-            if (map_cb.get(i)) {
+        for (int i = 0; i < lists.size(); i++) {
+            if (lists.get(i).isChecked()) {
                 size++;
             }
         }
@@ -145,10 +220,11 @@ public class ShoppingPresenter extends BasePresenter {
 
     /**
      * 删除商品操作
+     *
      * @param adapter
      * @param cbSelectAll
      */
-    public void deleteGoods(ShoppingCarAdapter adapter,CheckBox cbSelectAll) {
+    public void deleteGoods(ShoppingCarAdapter adapter, CheckBox cbSelectAll) {
         for (int i = 0; i < adapter.strs.size(); i++) {
             for (int j = 0; j < lists.size(); j++) {
                 if (TextUtils.equals(adapter.strs.get(i), lists.get(j).getFruit())) {
@@ -157,7 +233,7 @@ public class ShoppingPresenter extends BasePresenter {
             }
         }
 
-        if (cbSelectAll.isChecked()){
+        if (cbSelectAll.isChecked()) {
             lists.clear();
             cbSelectAll.setChecked(false);
         }

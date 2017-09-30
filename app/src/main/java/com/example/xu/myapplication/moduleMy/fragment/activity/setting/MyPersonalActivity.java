@@ -32,6 +32,7 @@ public class MyPersonalActivity extends BaseActivity<PersonalPresenter> implemen
     @OnClick(R.id.iv_person_back)
     public void back() {
         finish();
+//        overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
     }
 
     @BindView(R.id.rela_person_head)
@@ -130,6 +131,10 @@ public class MyPersonalActivity extends BaseActivity<PersonalPresenter> implemen
         presenter.getActivityResult(requestCode, resultCode, data, ivMyHead);
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
 
     @Override
     public Context getCon() {

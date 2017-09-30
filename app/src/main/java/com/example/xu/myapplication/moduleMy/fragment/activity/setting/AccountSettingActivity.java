@@ -2,8 +2,9 @@ package com.example.xu.myapplication.moduleMy.fragment.activity.setting;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -12,15 +13,14 @@ import android.widget.RelativeLayout;
 import com.example.xu.myapplication.R;
 import com.example.xu.myapplication.base.BaseActivity;
 import com.example.xu.myapplication.moduleMy.fragment.presenter.AccountSettingPresenter;
-import com.example.xu.myapplication.moduleMy.fragment.presenter.PersonalPresenter;
 import com.example.xu.myapplication.moduleMy.fragment.view.CircleImageView;
 import com.example.xu.myapplication.moduleMy.fragment.viewInterface.IAccountSetting;
-import com.example.xu.myapplication.moduleMy.fragment.viewInterface.IMyPersonal;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class AccountSettingActivity extends BaseActivity<AccountSettingPresenter> implements IAccountSetting {
+public class AccountSettingActivity extends BaseActivity<AccountSettingPresenter> implements
+        IAccountSetting {
 
     @BindView(R.id.iv_setting_back)
     ImageView ivSettingBack;

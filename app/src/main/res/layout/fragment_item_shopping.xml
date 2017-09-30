@@ -34,10 +34,10 @@
             android:button="@drawable/checkbox_style"/>
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:background="@mipmap/fruit"/>
+            android:id="@+id/iv_shopping_itemImg"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_marginLeft="30dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -2,6 +2,7 @@ package com.example.xu.myapplication.moduleMy.fragment.presenter;
 
 import android.content.Intent;
 
+import com.example.xu.myapplication.R;
 import com.example.xu.myapplication.base.BasePresenter;
 import com.example.xu.myapplication.moduleMy.fragment.viewInterface.IAccountSetting;
 

@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.example.xu.myapplication.R;
 import com.example.xu.myapplication.base.BaseMainFragment;
+import com.example.xu.myapplication.moduleShopping.fragment.bean.FruitBean;
 import com.example.xu.myapplication.moduleShopping.fragment.activity.ShoppingPayActivity;
 import com.example.xu.myapplication.moduleShopping.fragment.adapter.ShoppingCarAdapter;
 import com.example.xu.myapplication.moduleShopping.fragment.presenter.ShoppingPresenter;
@@ -24,6 +25,8 @@ import net.lemonsoft.lemonhello.LemonHelloAction;
 import net.lemonsoft.lemonhello.LemonHelloInfo;
 import net.lemonsoft.lemonhello.LemonHelloView;
 import net.lemonsoft.lemonhello.interfaces.LemonHelloActionDelegate;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -42,7 +45,10 @@ public class ShoppingFragment extends BaseMainFragment<ShoppingPresenter> implem
     }
 
     private ShoppingCarAdapter adapter;
+    private List<FruitBean> lists;
 
+    @BindView(R.id.tv_shopingCart)
+    TextView tvShopingCart;
     @BindView(R.id.cb_editor)
     public CheckBox cbEditor;
     @BindView(R.id.lv_shopping)
@@ -84,6 +90,14 @@ public class ShoppingFragment extends BaseMainFragment<ShoppingPresenter> implem
 
     @Override
     public void initData() {
+        adapter = new ShoppingCarAdapter(this, getActivity());
+        lvShopping.setAdapter(adapter);
+        adapter.setData(presenter.addList(tvShopingCart));
+    }
+
+    @Override
+    public void initView(Bundle savedInstanceState) {
+
         cbEditor.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -95,17 +109,10 @@ public class ShoppingFragment extends BaseMainFragment<ShoppingPresenter> implem
         cbSelectAll.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                presenter.cbSelectAllChanged(isChecked, adapter.map_cb);
+                presenter.cbSelectAllChanged(isChecked);
                 adapter.notifyDataSetChanged();
             }
         });
-    }
-
-    @Override
-    public void initView(Bundle savedInstanceState) {
-        adapter = new ShoppingCarAdapter(this, getActivity());
-        lvShopping.setAdapter(adapter);
-        adapter.setData(presenter.addList());
     }
 
     @Override
@@ -117,10 +124,10 @@ public class ShoppingFragment extends BaseMainFragment<ShoppingPresenter> implem
      * 计算选购商品总价格
      */
     public void UpView() {
-        presenter.UpdataSum(tvShopingMoney, cbSelectAll, adapter.map_cb);
+        presenter.UpdataSum(tvShopingMoney, cbSelectAll);
         adapter.notifyDataSetChanged();
 
-        if (cbEditor.isChecked()){
+        if (cbEditor.isChecked()) {
             tvShopingMoney.setText("￥0.00");
         }
     }
@@ -130,7 +137,7 @@ public class ShoppingFragment extends BaseMainFragment<ShoppingPresenter> implem
      */
     private void dialog_delete() {
 
-        LemonHello.getErrorHello(null, "确定删除这" + presenter.getGoodsNum(adapter.map_cb) + "种商品吗？")
+        LemonHello.getErrorHello(null, "确定删除这" + presenter.getGoodsNum() + "种商品吗？")
                 .setContentFontSize(18)
                 .setWidth(300)
                 .addAction(new LemonHelloAction("取消", new LemonHelloActionDelegate() {
@@ -146,7 +153,7 @@ public class ShoppingFragment extends BaseMainFragment<ShoppingPresenter> implem
                     public void onClick(LemonHelloView helloView, LemonHelloInfo
                             helloInfo, LemonHelloAction helloAction) {
                         //删除并更新列表
-                        presenter.deleteGoods(adapter,cbSelectAll);
+                        presenter.deleteGoods(adapter, cbSelectAll);
                         //dialog隐藏
                         helloView.hide();
                     }
@@ -164,6 +171,4 @@ public class ShoppingFragment extends BaseMainFragment<ShoppingPresenter> implem
     public Activity getAct() {
         return getActivity();
     }
-
-
 }

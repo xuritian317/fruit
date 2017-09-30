@@ -1,10 +1,13 @@
 package com.example.xu.myapplication.moduleMy.fragment;
 
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -19,6 +22,7 @@ import com.example.xu.myapplication.moduleMy.fragment.viewInterface.IMy;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import q.rorbin.badgeview.QBadgeView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -55,13 +59,16 @@ public class MyFragment extends BaseMainFragment<MyPresenter> implements IMy {
         toMyOrdersActivity(0);
     }
 
-    @BindView(R.id.tv_daishou)
-    TextView tvDaishou;
+    @BindView(R.id.linear_daishou)
+    LinearLayout linearDaishou;
 
-    @OnClick(R.id.tv_daishou)
+    @OnClick(R.id.linear_daishou)
     public void daishu() {
         toMyOrdersActivity(1);
     }
+
+    @BindView(R.id.tv_daishou)
+    TextView tvDaishou;
 
     @BindView(R.id.tv_wancheng)
     TextView tvWancheng;
@@ -71,13 +78,16 @@ public class MyFragment extends BaseMainFragment<MyPresenter> implements IMy {
         toMyOrdersActivity(2);
     }
 
-    @BindView(R.id.tv_tuikuan)
-    TextView tvTuikuan;
+    @BindView(R.id.linear_tuikuan)
+    LinearLayout linearTuikuan;
 
-    @OnClick(R.id.tv_tuikuan)
+    @OnClick(R.id.linear_tuikuan)
     public void tuikuan() {
         toMyOrdersActivity(3);
     }
+
+    @BindView(R.id.tv_tuikuan)
+    TextView tvTuikuan;
 
     @BindView(R.id.linear_xiaoxi)
     LinearLayout linearXiaoxi;
@@ -99,6 +109,21 @@ public class MyFragment extends BaseMainFragment<MyPresenter> implements IMy {
     @Override
     public void initData() {
 
+        QBadgeView badge_daishou=new QBadgeView(getActivity());
+        badge_daishou.bindTarget(tvDaishou);
+        badge_daishou.setBadgeGravity(Gravity.END | Gravity.TOP);
+        badge_daishou.setBadgeTextColor(getResources().getColor(R.color.color_White));
+        badge_daishou.setBadgeBackgroundColor(getResources().getColor(R.color.blue));
+        badge_daishou.setBadgeNumber(3);
+        badge_daishou.setBadgePadding(1,false);
+
+        QBadgeView badge_tuikuan=new QBadgeView(getActivity());
+        badge_tuikuan.bindTarget(tvTuikuan);
+        badge_tuikuan.setBadgeGravity(Gravity.END | Gravity.TOP);
+        badge_tuikuan.setBadgeTextColor(getResources().getColor(R.color.color_White));
+        badge_tuikuan.setBadgeBackgroundColor(getResources().getColor(R.color.blue));
+        badge_tuikuan.setBadgeNumber(3);
+        badge_tuikuan.setBadgePadding(-1,false);
     }
 
     @Override
@@ -121,7 +146,9 @@ public class MyFragment extends BaseMainFragment<MyPresenter> implements IMy {
     }
 
     @Override
-    public void toStartActivity(Intent intent) {
-        startActivity(intent);
+    public Activity getAct() {
+        return getActivity();
     }
+
+
 }

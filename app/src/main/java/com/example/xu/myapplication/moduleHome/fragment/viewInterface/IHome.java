@@ -1,16 +1,15 @@
-package com.example.xu.myapplication.moduleMy.fragment.viewInterface;
+package com.example.xu.myapplication.moduleHome.fragment.viewInterface;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 
 import com.example.xu.myapplication.base.BaseViewInterface;
 
 /**
- * Created by 逝 on 2017/09/18.
+ * Created by 逝 on 2017/09/30.
  */
 
-public interface IMy extends BaseViewInterface {
+public interface IHome extends BaseViewInterface {
     /**
      * 获取activity实例
      * @return activity
@@ -22,5 +21,4 @@ public interface IMy extends BaseViewInterface {
      * @return activity
      */
     Activity getAct();
-
 }

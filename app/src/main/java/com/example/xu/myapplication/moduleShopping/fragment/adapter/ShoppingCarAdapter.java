@@ -8,17 +8,17 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.xu.myapplication.R;
-import com.example.xu.myapplication.moduleShopping.fragment.Bean.FruitBean;
+import com.example.xu.myapplication.moduleShopping.fragment.bean.FruitBean;
 import com.example.xu.myapplication.moduleShopping.fragment.ShoppingFragment;
 import com.jmf.addsubutils.AddSubUtils;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by 逝 on 2017/09/14.
@@ -27,7 +27,6 @@ import java.util.Map;
 public class ShoppingCarAdapter extends BaseAdapter {
 
     private List<FruitBean> objects = new ArrayList<FruitBean>();
-    public Map<Integer, Boolean> map_cb = null;
     public List<String> strs = new ArrayList<String>();
     private Context context;
     private LayoutInflater layoutInflater;
@@ -40,7 +39,6 @@ public class ShoppingCarAdapter extends BaseAdapter {
     }
 
     public void setData(List<FruitBean> objects) {
-        map_cb = new HashMap<Integer, Boolean>();
         this.objects = objects;
         //初始化Map
         init();
@@ -48,11 +46,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
     }
 
     private void init() {
-        map_cb.clear();
         strs.clear();
-        for (int i = 0; i < objects.size(); i++) {
-            map_cb.put(i, false);
-        }
     }
 
     @Override
@@ -84,18 +78,21 @@ public class ShoppingCarAdapter extends BaseAdapter {
         //TODO implement
         holder.tvShoppingItemFruit.setText(object.getFruit());
         holder.tvShoppingItemPrice.setText("￥" + object.getPrice());
+
+        //获取商品图片
+        Glide.with(context).load(object.getFruit_img()).into(holder.ivShoppingItemImg);
+
         holder.cbShoppingItemSelect.setOnCheckedChangeListener(new CompoundButton
                 .OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 //是否选择 存入map
-                map_cb.put(index, isChecked);
-
+                object.setChecked(isChecked);
                 fragment.UpView();
             }
         });
-        //设置cbShoppingItemSelect选择状态 从map中获得  避免CheckBox在listview中错乱
-        holder.cbShoppingItemSelect.setChecked(map_cb.get(index));
+        //设置cbShoppingItemSelect选择状态 避免CheckBox在listview中错乱
+        holder.cbShoppingItemSelect.setChecked(object.isChecked());
 
         if (holder.cbShoppingItemSelect.isChecked()) {
 
@@ -132,12 +129,14 @@ public class ShoppingCarAdapter extends BaseAdapter {
     protected class ViewHolder {
         private CheckBox cbShoppingItemSelect;
         private TextView tvShoppingItemFruit;
+        private ImageView ivShoppingItemImg;
         private TextView tvShoppingItemPrice;
         private AddSubUtils shoppingItemAddSub;
 
         public ViewHolder(View view) {
             cbShoppingItemSelect = (CheckBox) view.findViewById(R.id.cb_shopping_itemSelect);
             tvShoppingItemFruit = (TextView) view.findViewById(R.id.tv_shopping_itemFruit);
+            ivShoppingItemImg= (ImageView) view.findViewById(R.id.iv_shopping_itemImg);
             tvShoppingItemPrice = (TextView) view.findViewById(R.id.tv_shopping_itemPrice);
             shoppingItemAddSub = (AddSubUtils) view.findViewById(R.id.shopping_itemAddSub);
         }
