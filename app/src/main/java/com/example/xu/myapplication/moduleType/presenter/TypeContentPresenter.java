@@ -29,21 +29,20 @@ public class TypeContentPresenter extends BasePresenter {
             FruitTypeDao.newInstance(new FruitTypeDao.CallBackFruitType() {
                 @Override
                 public void onSuccess(ArrayList<FruitType> response) {
-                    Logger.e("onSuccess",response.toString());
-                }
+                    Logger.e("onSuccess",response.size()+"\tsuccess for getting data from internet");
 
+                    MenuListFragment menuListFragment = MenuListFragment.newInstance(response);
+                    view.loadRootFrag(R.id.container_list_type, menuListFragment);
+                    // false:  不加入回退栈;  false: 不显示动画
+                    view.loadRootFrag(R.id.container_content_type, MenuContentFragment.newInstance(response.get(0).getGoods()), false, false);
+
+                }
                 @Override
                 public void onFailure(String message) {
                     Logger.e("onFailure",message);
                 }
             }).getFruitType();
 
-            ArrayList<String> listMenus = new ArrayList<>();
-            listMenus.add("测试");
-            MenuListFragment menuListFragment = MenuListFragment.newInstance(listMenus);
-            view.loadRootFrag(R.id.container_list_type, menuListFragment);
-            // false:  不加入回退栈;  false: 不显示动画
-            view.loadRootFrag(R.id.container_content_type, MenuContentFragment.newInstance(listMenus.get(0)), false, false);
         }
     }
 

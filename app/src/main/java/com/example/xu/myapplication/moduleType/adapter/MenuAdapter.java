@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.xu.myapplication.R;
+import com.example.xu.myapplication.moduleType.entity.FruitType;
 import com.example.xu.myapplication.moduleType.listener.OnItemClickListener;
 
 import java.util.ArrayList;
@@ -22,12 +23,10 @@ import java.util.List;
 public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MyViewHolder> {
     private LayoutInflater mInflater;
     private Context mContext;
-    private List<String> mItems = new ArrayList<>();
 
+    private List<FruitType> fruitList = new ArrayList<>();
     private SparseBooleanArray mBooleanArray;
-
     private OnItemClickListener mClickListener;
-
     private int mLastCheckedPosition = -1;
 
     public MenuAdapter(Context context) {
@@ -35,13 +34,15 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MyViewHolder> 
         mContext = context;
     }
 
-    public void setDatas(List<String> items) {
-        mItems.clear();
-        mItems.addAll(items);
+    public void setDatas(List<FruitType> items) {
+        fruitList.clear();
+        fruitList.addAll(items);
 
-        mBooleanArray = new SparseBooleanArray(mItems.size());
+        mBooleanArray = new SparseBooleanArray(fruitList.size());
     }
-
+    public ArrayList<FruitType.GoodsBean> getGoods(int position){
+        return fruitList.get(0).getGoods();
+    }
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.item_menu, parent, false);
@@ -69,12 +70,12 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MyViewHolder> 
             holder.itemView.setBackgroundColor(Color.WHITE);
             holder.tvName.setTextColor(mContext.getResources().getColor(R.color.colorAccent));
         }
-        holder.tvName.setText(mItems.get(position));
+        holder.tvName.setText(fruitList.get(position).getClassifyName());
     }
 
     @Override
     public int getItemCount() {
-        return mItems.size();
+        return fruitList.size();
     }
 
     public void setItemChecked(int position) {

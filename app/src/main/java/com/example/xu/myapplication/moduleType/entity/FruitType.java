@@ -1,12 +1,16 @@
 package com.example.xu.myapplication.moduleType.entity;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by xu on 2017/9/29.
  */
 
-public class FruitType {
+public class FruitType implements Parcelable {
 
     /**
      * classifyName : string
@@ -22,7 +26,28 @@ public class FruitType {
     private String createTime;
     private int id;
     private String updateTime;
-    private List<GoodsBean> goods;
+    private ArrayList<GoodsBean> goods;
+
+    protected FruitType(Parcel in) {
+        classifyName = in.readString();
+        classifyType = in.readInt();
+        createTime = in.readString();
+        id = in.readInt();
+        updateTime = in.readString();
+        goods = in.readArrayList(null);
+    }
+
+    public static final Creator<FruitType> CREATOR = new Creator<FruitType>() {
+        @Override
+        public FruitType createFromParcel(Parcel in) {
+            return new FruitType(in);
+        }
+
+        @Override
+        public FruitType[] newArray(int size) {
+            return new FruitType[size];
+        }
+    };
 
     public String getClassifyName() {
         return classifyName;
@@ -64,15 +89,31 @@ public class FruitType {
         this.updateTime = updateTime;
     }
 
-    public List<GoodsBean> getGoods() {
+    public ArrayList<GoodsBean> getGoods() {
         return goods;
     }
 
-    public void setGoods(List<GoodsBean> goods) {
+    public void setGoods(ArrayList<GoodsBean> goods) {
         this.goods = goods;
     }
 
-    public static class GoodsBean {
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(classifyName);
+        dest.writeInt(classifyType);
+        dest.writeString(createTime);
+        dest.writeInt(id);
+        dest.writeString(updateTime);
+        dest.writeList(goods);
+
+    }
+
+    public static class GoodsBean implements Parcelable {
         /**
          * createTime : 2017-09-29T08:13:08.844Z
          * effect : string
@@ -100,6 +141,51 @@ public class FruitType {
         private String nutritionInfo;
         private int temperature;
         private String updateTime;
+
+        protected GoodsBean(Parcel in) {
+            createTime = in.readString();
+            effect = in.readString();
+            goodsClassify = in.readInt();
+            goodsImage = in.readString();
+            goodsIntroduction = in.readString();
+            goodsName = in.readString();
+            goodsPrice = in.readString();
+            hot = in.readInt();
+            id = in.readInt();
+            nutritionInfo = in.readString();
+            temperature = in.readInt();
+            updateTime = in.readString();
+        }
+
+        @Override
+        public String toString() {
+            return "GoodsBean{" +
+                    "createTime='" + createTime + '\'' +
+                    ", effect='" + effect + '\'' +
+                    ", goodsClassify=" + goodsClassify +
+                    ", goodsImage='" + goodsImage + '\'' +
+                    ", goodsIntroduction='" + goodsIntroduction + '\'' +
+                    ", goodsName='" + goodsName + '\'' +
+                    ", goodsPrice='" + goodsPrice + '\'' +
+                    ", hot=" + hot +
+                    ", id=" + id +
+                    ", nutritionInfo='" + nutritionInfo + '\'' +
+                    ", temperature=" + temperature +
+                    ", updateTime='" + updateTime + '\'' +
+                    '}';
+        }
+
+        public static final Creator<GoodsBean> CREATOR = new Creator<GoodsBean>() {
+            @Override
+            public GoodsBean createFromParcel(Parcel in) {
+                return new GoodsBean(in);
+            }
+
+            @Override
+            public GoodsBean[] newArray(int size) {
+                return new GoodsBean[size];
+            }
+        };
 
         public String getCreateTime() {
             return createTime;
@@ -195,6 +281,27 @@ public class FruitType {
 
         public void setUpdateTime(String updateTime) {
             this.updateTime = updateTime;
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(createTime);
+            dest.writeString(effect);
+            dest.writeInt(goodsClassify);
+            dest.writeString(goodsImage);
+            dest.writeString(goodsIntroduction);
+            dest.writeString(goodsName);
+            dest.writeString(goodsPrice);
+            dest.writeInt(hot);
+            dest.writeInt(id);
+            dest.writeString(nutritionInfo);
+            dest.writeInt(temperature);
+            dest.writeString(updateTime);
         }
     }
 

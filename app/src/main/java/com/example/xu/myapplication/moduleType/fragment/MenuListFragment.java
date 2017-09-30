@@ -10,6 +10,7 @@ import android.view.View;
 import com.example.xu.myapplication.R;
 import com.example.xu.myapplication.base.BaseFragment;
 import com.example.xu.myapplication.moduleType.adapter.MenuAdapter;
+import com.example.xu.myapplication.moduleType.entity.FruitType;
 import com.example.xu.myapplication.moduleType.listener.OnItemClickListener;
 import com.example.xu.myapplication.moduleType.presenter.MenuListPresenter;
 import com.example.xu.myapplication.moduleType.viewInterface.IMenuList;
@@ -25,9 +26,9 @@ import me.yokeyword.fragmentation.anim.FragmentAnimator;
  */
 public class MenuListFragment extends BaseFragment<MenuListPresenter> implements IMenuList {
 
-    public static MenuListFragment newInstance(ArrayList<String> menuList) {
+    public static MenuListFragment newInstance(ArrayList<FruitType> fruitList) {
         Bundle args = new Bundle();
-        args.putStringArrayList(ARG_MENUS, menuList);
+        args.putParcelableArrayList(ARG_MENUS,fruitList);
         MenuListFragment instance = new MenuListFragment();
         instance.setArguments(args);
         return instance;
@@ -37,7 +38,7 @@ public class MenuListFragment extends BaseFragment<MenuListPresenter> implements
     RecyclerView recyclerView;
 
     private MenuAdapter adapter;
-    private ArrayList<String> menuList;
+    private ArrayList<FruitType> fruitList;
     private int mCurrentPosition = -1;
 
     private static final String ARG_MENUS = "arg_menus";
@@ -57,7 +58,7 @@ public class MenuListFragment extends BaseFragment<MenuListPresenter> implements
     public void initData() {
         Bundle args = getArguments();
         if (args != null)
-            menuList = args.getStringArrayList(ARG_MENUS);
+            fruitList = args.getParcelableArrayList(ARG_MENUS);
     }
 
     @Override
@@ -78,7 +79,7 @@ public class MenuListFragment extends BaseFragment<MenuListPresenter> implements
         recyclerView.setLayoutManager(manager);
         adapter = new MenuAdapter(_mActivity);
         recyclerView.setAdapter(adapter);
-        adapter.setDatas(menuList);
+        adapter.setDatas(fruitList);
 
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
@@ -102,7 +103,7 @@ public class MenuListFragment extends BaseFragment<MenuListPresenter> implements
         mCurrentPosition = position;
         adapter.setItemChecked(position);
 
-        MenuContentFragment fragment = MenuContentFragment.newInstance(menuList.get(position));
+        MenuContentFragment fragment = MenuContentFragment.newInstance(fruitList.get(position).getGoods());
         ((TypeContentFragment) getParentFragment()).switchContentFragment(fragment);
 
     }

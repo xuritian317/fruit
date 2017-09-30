@@ -4,11 +4,11 @@
     android:layout_height="match_parent"
     tools:context="com.example.xu.myapplication.moduleType.fragment.MenuContentFragment">
 
-    <TextView
-        android:text="1"
-        android:id="@+id/tv_menu_content"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_menu_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center" />
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
 
 </FrameLayout>
