@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">蔬果配送</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -21,6 +21,10 @@
         <item>Menu13</item>
         <item>Menu14</item>
     </string-array>
+    <string name="xianshi">限时特价</string>
+    <string name="xianguo">鲜果特惠</string>
+    <string name="taocan">优惠套餐</string>
+
     <string name="jifen">我的积分</string>
     <string name="shoucang">我的收藏</string>
     <string name="xiaoxi">我的消息</string>

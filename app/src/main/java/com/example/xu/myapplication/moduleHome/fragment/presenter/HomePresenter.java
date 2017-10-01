@@ -1,14 +1,21 @@
 package com.example.xu.myapplication.moduleHome.fragment.presenter;
 
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import com.example.xu.myapplication.base.BasePresenter;
 import com.example.xu.myapplication.httpRequest.MyOkHttp;
 import com.example.xu.myapplication.httpRequest.response.RawResponseHandler;
 import com.example.xu.myapplication.moduleHome.fragment.adapter.BargainAdapter;
+import com.example.xu.myapplication.moduleHome.fragment.adapter.RecommendsAdapter_0;
+import com.example.xu.myapplication.moduleHome.fragment.adapter.RecommendsAdapter_1;
 import com.example.xu.myapplication.moduleHome.fragment.bean.BargainBean;
+import com.example.xu.myapplication.moduleHome.fragment.bean.RecommendsBean_0;
+import com.example.xu.myapplication.moduleHome.fragment.bean.RecommendsBean_1;
 import com.example.xu.myapplication.moduleHome.fragment.dao.BargainDao;
 import com.example.xu.myapplication.moduleHome.fragment.dao.HomeDao;
+import com.example.xu.myapplication.moduleHome.fragment.dao.RecommendsDao_0;
+import com.example.xu.myapplication.moduleHome.fragment.dao.RecommendsDao_1;
 import com.example.xu.myapplication.moduleHome.fragment.loader.GlideImageLoader;
 import com.example.xu.myapplication.moduleHome.fragment.viewInterface.IHome;
 import com.youth.banner.Banner;
@@ -69,11 +76,17 @@ public class HomePresenter extends BasePresenter {
         }).getAdvertise();
     }
 
-    public void getBargain(final BargainAdapter adapter){
+    /**
+     * 限时特价
+     * @param adapter
+     * @param rvHomeBargain
+     */
+    public void getBargain(final BargainAdapter adapter, final RecyclerView rvHomeBargain){
         BargainDao.newInstance(new BargainDao.CallBackBargainBean() {
             @Override
             public void onSuccess(ArrayList<BargainBean> response) {
                 adapter.setData(response);
+                rvHomeBargain.setAdapter(adapter);
             }
             @Override
             public void onFailure(String message) {
@@ -81,4 +94,37 @@ public class HomePresenter extends BasePresenter {
             }
         }).getBargain();
     }
+
+    /**
+     * 获取鲜果优惠模块
+     * @param adapter0
+     */
+    public void getRecommends0(final RecommendsAdapter_0 adapter0){
+        RecommendsDao_0.newInstance(new RecommendsDao_0.CallBackRecommendsBean() {
+            @Override
+            public void onSuccess(ArrayList<RecommendsBean_0> response) {
+                adapter0.setData(response);
+            }
+
+            @Override
+            public void onFailure(String message) {
+
+            }
+        }).getRecommends0();
+    }
+
+    public void getRecommends1(final RecommendsAdapter_1 adapter0){
+        RecommendsDao_1.newInstance(new RecommendsDao_1.CallBackRecommendsBean() {
+            @Override
+            public void onSuccess(ArrayList<RecommendsBean_1> response) {
+                adapter0.setData(response);
+            }
+
+            @Override
+            public void onFailure(String message) {
+
+            }
+        }).getRecommends1();
+    }
+
 }
