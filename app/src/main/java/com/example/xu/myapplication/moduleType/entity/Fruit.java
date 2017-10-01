@@ -4,13 +4,12 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by xu on 2017/9/29.
  */
 
-public class FruitType implements Parcelable {
+public class Fruit implements Parcelable {
 
     /**
      * classifyName : string
@@ -26,9 +25,9 @@ public class FruitType implements Parcelable {
     private String createTime;
     private int id;
     private String updateTime;
-    private ArrayList<GoodsBean> goods;
+    private ArrayList<GoodsDetail> goods;
 
-    protected FruitType(Parcel in) {
+    protected Fruit(Parcel in) {
         classifyName = in.readString();
         classifyType = in.readInt();
         createTime = in.readString();
@@ -37,15 +36,15 @@ public class FruitType implements Parcelable {
         goods = in.readArrayList(null);
     }
 
-    public static final Creator<FruitType> CREATOR = new Creator<FruitType>() {
+    public static final Creator<Fruit> CREATOR = new Creator<Fruit>() {
         @Override
-        public FruitType createFromParcel(Parcel in) {
-            return new FruitType(in);
+        public Fruit createFromParcel(Parcel in) {
+            return new Fruit(in);
         }
 
         @Override
-        public FruitType[] newArray(int size) {
-            return new FruitType[size];
+        public Fruit[] newArray(int size) {
+            return new Fruit[size];
         }
     };
 
@@ -89,11 +88,11 @@ public class FruitType implements Parcelable {
         this.updateTime = updateTime;
     }
 
-    public ArrayList<GoodsBean> getGoods() {
+    public ArrayList<GoodsDetail> getGoods() {
         return goods;
     }
 
-    public void setGoods(ArrayList<GoodsBean> goods) {
+    public void setGoods(ArrayList<GoodsDetail> goods) {
         this.goods = goods;
     }
 
@@ -113,7 +112,7 @@ public class FruitType implements Parcelable {
 
     }
 
-    public static class GoodsBean implements Parcelable {
+    public static class GoodsDetail implements Parcelable {
         /**
          * createTime : 2017-09-29T08:13:08.844Z
          * effect : string
@@ -129,20 +128,20 @@ public class FruitType implements Parcelable {
          * updateTime : 2017-09-29T08:13:08.845Z
          */
 
-        private String createTime;
-        private String effect;
-        private int goodsClassify;
-        private String goodsImage;
-        private String goodsIntroduction;
+        private int id;
         private String goodsName;
         private String goodsPrice;
-        private int hot;
-        private int id;
-        private String nutritionInfo;
+        private String goodsImage;
+        private int goodsClassify;
+        private String goodsIntroduction;
         private int temperature;
+        private String nutritionInfo;
+        private String effect;
+        private int hot;
+        private String createTime;
         private String updateTime;
 
-        protected GoodsBean(Parcel in) {
+        protected GoodsDetail(Parcel in) {
             createTime = in.readString();
             effect = in.readString();
             goodsClassify = in.readInt();
@@ -157,33 +156,16 @@ public class FruitType implements Parcelable {
             updateTime = in.readString();
         }
 
-        @Override
-        public String toString() {
-            return "GoodsBean{" +
-                    "createTime='" + createTime + '\'' +
-                    ", effect='" + effect + '\'' +
-                    ", goodsClassify=" + goodsClassify +
-                    ", goodsImage='" + goodsImage + '\'' +
-                    ", goodsIntroduction='" + goodsIntroduction + '\'' +
-                    ", goodsName='" + goodsName + '\'' +
-                    ", goodsPrice='" + goodsPrice + '\'' +
-                    ", hot=" + hot +
-                    ", id=" + id +
-                    ", nutritionInfo='" + nutritionInfo + '\'' +
-                    ", temperature=" + temperature +
-                    ", updateTime='" + updateTime + '\'' +
-                    '}';
-        }
 
-        public static final Creator<GoodsBean> CREATOR = new Creator<GoodsBean>() {
+        public static final Creator<GoodsDetail> CREATOR = new Creator<GoodsDetail>() {
             @Override
-            public GoodsBean createFromParcel(Parcel in) {
-                return new GoodsBean(in);
+            public GoodsDetail createFromParcel(Parcel in) {
+                return new GoodsDetail(in);
             }
 
             @Override
-            public GoodsBean[] newArray(int size) {
-                return new GoodsBean[size];
+            public GoodsDetail[] newArray(int size) {
+                return new GoodsDetail[size];
             }
         };
 
@@ -303,11 +285,13 @@ public class FruitType implements Parcelable {
             dest.writeInt(temperature);
             dest.writeString(updateTime);
         }
+
+
     }
 
     @Override
     public String toString() {
-        return "FruitType{" +
+        return "Fruit{" +
                 "classifyName='" + classifyName + '\'' +
                 ", classifyType=" + classifyType +
                 ", createTime='" + createTime + '\'' +

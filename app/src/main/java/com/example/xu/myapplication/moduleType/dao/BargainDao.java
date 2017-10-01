@@ -3,41 +3,41 @@ package com.example.xu.myapplication.moduleType.dao;
 import com.example.xu.myapplication.Common;
 import com.example.xu.myapplication.httpRequest.MyOkHttp;
 import com.example.xu.myapplication.httpRequest.response.GsonResponseHandler;
-import com.example.xu.myapplication.moduleType.entity.Fruit;
+import com.example.xu.myapplication.moduleType.entity.Bargain;
 
 import java.util.ArrayList;
 
 /**
- * Created by xu on 2017/9/29.
+ * Created by xu on 2017/10/1.
  */
 
-public class FruitTypeDao {
-    private CallBackFruitType callback;
+public class BargainDao {
+    private CallBackBargain callback;
 
-    private static FruitTypeDao instance;
+    private static BargainDao instance;
 
-    private FruitTypeDao(CallBackFruitType callback) {
+    private BargainDao(CallBackBargain callback) {
         this.callback = callback;
     }
 
-    public static FruitTypeDao newInstance(CallBackFruitType callback) {
+    public static BargainDao newInstance(CallBackBargain callback) {
         if (instance == null) {
-            instance = new FruitTypeDao(callback);
+            instance = new BargainDao(callback);
         }
         return instance;
     }
 
-    public interface CallBackFruitType {
-        void onSuccess(ArrayList<Fruit> response);
+    public interface CallBackBargain {
+        void onSuccess(ArrayList<Bargain> response);
 
         void onFailure(String message);
     }
 
-    public void getFruitType() {
+    public void getPackType() {
 
-        MyOkHttp.newInstance().get(Common.URL_FRUIT_TYPE, null, new GsonResponseHandler<ArrayList<Fruit>>() {
+        MyOkHttp.newInstance().get(Common.URL_BARGAIN, null, new GsonResponseHandler<ArrayList<Bargain>>() {
             @Override
-            public void onSuccess(int statusCode, ArrayList<Fruit> response) {
+            public void onSuccess(int statusCode, ArrayList<Bargain> response) {
                 callback.onSuccess(response);
             }
 
@@ -48,6 +48,4 @@ public class FruitTypeDao {
         });
 
     }
-
-
 }

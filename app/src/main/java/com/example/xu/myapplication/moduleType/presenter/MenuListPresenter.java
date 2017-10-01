@@ -3,7 +3,16 @@ package com.example.xu.myapplication.moduleType.presenter;
 import android.os.Bundle;
 
 import com.example.xu.myapplication.base.BasePresenter;
+import com.example.xu.myapplication.moduleType.dao.FruitAreaDao;
+import com.example.xu.myapplication.moduleType.dao.FruitTypeDao;
+import com.example.xu.myapplication.moduleType.dao.PackSizeDao;
+import com.example.xu.myapplication.moduleType.dao.PackTypeDao;
+import com.example.xu.myapplication.moduleType.entity.Fruit;
+import com.example.xu.myapplication.moduleType.fragment.MenuContentFragment;
 import com.example.xu.myapplication.moduleType.viewInterface.IMenuList;
+import com.example.xu.myapplication.util.Logger;
+
+import java.util.ArrayList;
 
 /**
  * Created by xu on 2017/9/13.
@@ -26,5 +35,78 @@ public class MenuListPresenter extends BasePresenter {
             view.setCurrentPosition(0);
             view.setAdapterCheck(0);
         }
+    }
+
+    public void showContent(int position) {
+        if (position == 0 || position == 3 || position == 6 || position == 8 || position == view.getCurrentPosition())
+            return;
+        view.setCurrentPosition(position);
+        view.setAdapterCheck(position);
+        switch (position) {
+            case 1:
+                FruitTypeDao.newInstance(new FruitTypeDao.CallBackFruitType() {
+                    @Override
+                    public void onSuccess(ArrayList<Fruit> response) {
+
+                        MenuContentFragment fragment = MenuContentFragment.newInstance(response.get(0).getGoods());
+                        view.switchFragment(fragment);
+                    }
+
+                    @Override
+                    public void onFailure(String message) {
+                        Logger.e("FruitTypeDao", "onFailure");
+                    }
+                }).getFruitType();
+                break;
+            case 2:
+                FruitAreaDao.newInstance(new FruitAreaDao.CallBackFruitArea() {
+                    @Override
+                    public void onSuccess(ArrayList<Fruit> response) {
+                        MenuContentFragment fragment = MenuContentFragment.newInstance(response.get(0).getGoods());
+                        view.switchFragment(fragment);
+                    }
+
+                    @Override
+                    public void onFailure(String message) {
+                        Logger.e("FruitAreaDao", "onFailure");
+                    }
+                }).getFruitArea();
+                break;
+            case 4:
+                PackTypeDao.newInstance(new PackTypeDao.CallBackPackType() {
+                    @Override
+                    public void onSuccess(ArrayList<Fruit> response) {
+                        MenuContentFragment fragment = MenuContentFragment.newInstance(response.get(0).getGoods());
+                        view.switchFragment(fragment);
+                    }
+
+                    @Override
+                    public void onFailure(String message) {
+                        Logger.e("FruitTypeDao", "onFailure");
+                    }
+                }).getPackType();
+                break;
+            case 5:
+                PackSizeDao.newInstance(new PackSizeDao.CallBackPackSize() {
+                    @Override
+                    public void onSuccess(ArrayList<Fruit> response) {
+                        MenuContentFragment fragment = MenuContentFragment.newInstance(response.get(0).getGoods());
+                        view.switchFragment(fragment);
+                    }
+
+                    @Override
+                    public void onFailure(String message) {
+                        Logger.e("FruitTypeDao", "onFailure");
+                    }
+                }).getPackType();
+                break;
+            case 7:
+                break;
+            case 9:
+                break;
+            default:
+                break;
+        }
+
     }
 }

@@ -8,34 +8,34 @@ import com.example.xu.myapplication.moduleType.entity.Fruit;
 import java.util.ArrayList;
 
 /**
- * Created by xu on 2017/9/29.
+ * Created by xu on 2017/10/1.
  */
 
-public class FruitTypeDao {
-    private CallBackFruitType callback;
+public class FruitAreaDao {
+    private CallBackFruitArea callback;
 
-    private static FruitTypeDao instance;
+    private static FruitAreaDao instance;
 
-    private FruitTypeDao(CallBackFruitType callback) {
+    private FruitAreaDao(CallBackFruitArea callback) {
         this.callback = callback;
     }
 
-    public static FruitTypeDao newInstance(CallBackFruitType callback) {
+    public static FruitAreaDao newInstance(CallBackFruitArea callback) {
         if (instance == null) {
-            instance = new FruitTypeDao(callback);
+            instance = new FruitAreaDao(callback);
         }
         return instance;
     }
 
-    public interface CallBackFruitType {
+    public interface CallBackFruitArea {
         void onSuccess(ArrayList<Fruit> response);
 
         void onFailure(String message);
     }
 
-    public void getFruitType() {
+    public void getFruitArea() {
 
-        MyOkHttp.newInstance().get(Common.URL_FRUIT_TYPE, null, new GsonResponseHandler<ArrayList<Fruit>>() {
+        MyOkHttp.newInstance().get(Common.URL_FRUIT_AREA, null, new GsonResponseHandler<ArrayList<Fruit>>() {
             @Override
             public void onSuccess(int statusCode, ArrayList<Fruit> response) {
                 callback.onSuccess(response);
@@ -48,6 +48,4 @@ public class FruitTypeDao {
         });
 
     }
-
-
 }

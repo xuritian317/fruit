@@ -10,6 +10,9 @@ import com.example.xu.myapplication.base.BaseFragment;
 import com.example.xu.myapplication.moduleType.presenter.TypeContentPresenter;
 import com.example.xu.myapplication.moduleType.viewInterface.ITypeContent;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import butterknife.BindView;
 import me.yokeyword.fragmentation.ISupportFragment;
 import me.yokeyword.fragmentation.SupportFragment;
@@ -51,7 +54,8 @@ public class TypeContentFragment extends BaseFragment<TypeContentPresenter> impl
 
     @Override
     public void initView(Bundle savedInstanceState) {
-        presenter.init(MenuListFragment.class);
+        ArrayList<String> listMenus = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.array_menu)));
+        presenter.init(MenuListFragment.class,listMenus);
     }
 
     @Override

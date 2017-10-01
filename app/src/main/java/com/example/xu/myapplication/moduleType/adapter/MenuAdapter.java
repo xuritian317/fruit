@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.xu.myapplication.R;
-import com.example.xu.myapplication.moduleType.entity.FruitType;
 import com.example.xu.myapplication.moduleType.listener.OnItemClickListener;
 
 import java.util.ArrayList;
@@ -21,10 +20,11 @@ import java.util.List;
  * Created by YoKeyword on 16/2/10.
  */
 public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MyViewHolder> {
+
     private LayoutInflater mInflater;
     private Context mContext;
 
-    private List<FruitType> fruitList = new ArrayList<>();
+    private List<String> dataList = new ArrayList<>();
     private SparseBooleanArray mBooleanArray;
     private OnItemClickListener mClickListener;
     private int mLastCheckedPosition = -1;
@@ -34,15 +34,13 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MyViewHolder> 
         mContext = context;
     }
 
-    public void setDatas(List<FruitType> items) {
-        fruitList.clear();
-        fruitList.addAll(items);
+    public void setData(List<String> items) {
+        dataList.clear();
+        dataList.addAll(items);
 
-        mBooleanArray = new SparseBooleanArray(fruitList.size());
+        mBooleanArray = new SparseBooleanArray(dataList.size());
     }
-    public ArrayList<FruitType.GoodsBean> getGoods(int position){
-        return fruitList.get(0).getGoods();
-    }
+
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.item_menu, parent, false);
@@ -61,6 +59,14 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MyViewHolder> 
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
+        holder.tvName.setText(dataList.get(position));
+        if (position == 0 || position == 3 || position == 6 || position == 8) {
+            holder.viewLine.setVisibility(View.INVISIBLE);
+            holder.itemView.setBackgroundResource(R.color.bg_app);
+//            holder.tvName.setTextSize(10);
+            holder.tvName.setTextColor(mContext.getResources().getColor(R.color.blue));
+            return;
+        }
         if (!mBooleanArray.get(position)) {
             holder.viewLine.setVisibility(View.INVISIBLE);
             holder.itemView.setBackgroundResource(R.color.bg_app);
@@ -70,12 +76,11 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MyViewHolder> 
             holder.itemView.setBackgroundColor(Color.WHITE);
             holder.tvName.setTextColor(mContext.getResources().getColor(R.color.colorAccent));
         }
-        holder.tvName.setText(fruitList.get(position).getClassifyName());
     }
 
     @Override
     public int getItemCount() {
-        return fruitList.size();
+        return dataList.size();
     }
 
     public void setItemChecked(int position) {

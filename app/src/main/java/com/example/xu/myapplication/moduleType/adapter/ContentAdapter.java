@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.xu.myapplication.R;
-import com.example.xu.myapplication.moduleType.entity.FruitType;
+import com.example.xu.myapplication.moduleType.entity.Fruit;
 import com.example.xu.myapplication.moduleType.listener.OnItemClickListener;
 
 import java.util.ArrayList;
@@ -23,13 +23,13 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ViewHold
     private OnItemClickListener mClickListener;
     private LayoutInflater mInflater;
     private Context mContext;
-    private ArrayList<FruitType.GoodsBean> goodsData = new ArrayList<>();
+    private ArrayList<Fruit.GoodsDetail> goodsData = new ArrayList<>();
 
     public ContentAdapter(Context mContext) {
         this.mContext = mContext;
         mInflater = LayoutInflater.from(mContext);
     }
-    public void setData(ArrayList<FruitType.GoodsBean> data){
+    public void setData(ArrayList<Fruit.GoodsDetail> data){
         goodsData.clear();
         goodsData.addAll(data);
     }
@@ -51,7 +51,7 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        FruitType.GoodsBean bean = goodsData.get(position);
+        Fruit.GoodsDetail bean = goodsData.get(position);
         Glide.with(mContext).load(bean.getGoodsImage()).into(holder.imgFruit);
         holder.imgFruit.setImageResource(R.mipmap.ic_launcher);
         holder.tvName.setText(bean.getGoodsName());

@@ -5,21 +5,17 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="type">分类</string>
     <string-array name="array_menu">
-        <item>Ranking</item>
-        <item>Menu1</item>
-        <item>Menu2</item>
-        <item>Menu3</item>
-        <item>Menu4</item>
-        <item>Menu5</item>
-        <item>Menu6</item>
-        <item>Menu7</item>
-        <item>Menu8</item>
-        <item>Menu9</item>
-        <item>Menu10</item>
-        <item>Menu11</item>
-        <item>Menu12</item>
-        <item>Menu13</item>
-        <item>Menu14</item>
+        <item>-鲜果-</item>
+        <item>品类</item>
+        <item>产地</item>
+        <item>-固定套餐-</item>
+        <item>种类</item>
+        <item>规格</item>
+        <item>-特价-</item>
+        <item>特价</item>
+        <item>-自定义套餐-</item>
+        <item>自定义套餐</item>
+
     </string-array>
     <string name="xianshi">限时特价</string>
     <string name="xianguo">鲜果特惠</string>
