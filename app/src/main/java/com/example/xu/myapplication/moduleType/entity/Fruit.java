@@ -25,7 +25,15 @@ public class Fruit implements Parcelable {
     private String createTime;
     private int id;
     private String updateTime;
-    private ArrayList<GoodsDetail> goods;
+    private ArrayList<FruitDetail> goods;
+
+    public Fruit() {
+    }
+
+    public Fruit(String classifyName, ArrayList<FruitDetail> goods) {
+        this.classifyName = classifyName;
+        this.goods = goods;
+    }
 
     protected Fruit(Parcel in) {
         classifyName = in.readString();
@@ -88,11 +96,11 @@ public class Fruit implements Parcelable {
         this.updateTime = updateTime;
     }
 
-    public ArrayList<GoodsDetail> getGoods() {
+    public ArrayList<FruitDetail> getGoods() {
         return goods;
     }
 
-    public void setGoods(ArrayList<GoodsDetail> goods) {
+    public void setGoods(ArrayList<FruitDetail> goods) {
         this.goods = goods;
     }
 
@@ -112,7 +120,7 @@ public class Fruit implements Parcelable {
 
     }
 
-    public static class GoodsDetail implements Parcelable {
+    public static class FruitDetail implements Parcelable {
         /**
          * createTime : 2017-09-29T08:13:08.844Z
          * effect : string
@@ -141,7 +149,7 @@ public class Fruit implements Parcelable {
         private String createTime;
         private String updateTime;
 
-        protected GoodsDetail(Parcel in) {
+        protected FruitDetail(Parcel in) {
             createTime = in.readString();
             effect = in.readString();
             goodsClassify = in.readInt();
@@ -156,16 +164,21 @@ public class Fruit implements Parcelable {
             updateTime = in.readString();
         }
 
+        public FruitDetail(String goodsName, String goodsPrice, String goodsImage) {
+            this.goodsName = goodsName;
+            this.goodsPrice = goodsPrice;
+            this.goodsImage = goodsImage;
+        }
 
-        public static final Creator<GoodsDetail> CREATOR = new Creator<GoodsDetail>() {
+        public static final Creator<FruitDetail> CREATOR = new Creator<FruitDetail>() {
             @Override
-            public GoodsDetail createFromParcel(Parcel in) {
-                return new GoodsDetail(in);
+            public FruitDetail createFromParcel(Parcel in) {
+                return new FruitDetail(in);
             }
 
             @Override
-            public GoodsDetail[] newArray(int size) {
-                return new GoodsDetail[size];
+            public FruitDetail[] newArray(int size) {
+                return new FruitDetail[size];
             }
         };
 
@@ -286,7 +299,23 @@ public class Fruit implements Parcelable {
             dest.writeString(updateTime);
         }
 
-
+        @Override
+        public String toString() {
+            return "FruitDetail{" +
+                    "id=" + id +
+                    ", goodsName='" + goodsName + '\'' +
+                    ", goodsPrice='" + goodsPrice + '\'' +
+                    ", goodsImage='" + goodsImage + '\'' +
+                    ", goodsClassify=" + goodsClassify +
+                    ", goodsIntroduction='" + goodsIntroduction + '\'' +
+                    ", temperature=" + temperature +
+                    ", nutritionInfo='" + nutritionInfo + '\'' +
+                    ", effect='" + effect + '\'' +
+                    ", hot=" + hot +
+                    ", createTime='" + createTime + '\'' +
+                    ", updateTime='" + updateTime + '\'' +
+                    '}';
+        }
     }
 
     @Override

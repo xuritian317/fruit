@@ -2,11 +2,15 @@ package com.example.xu.myapplication.moduleType.presenter;
 
 import android.os.Bundle;
 
+import com.example.xu.myapplication.Common;
 import com.example.xu.myapplication.base.BasePresenter;
+import com.example.xu.myapplication.moduleType.dao.BargainDao;
+import com.example.xu.myapplication.moduleType.dao.FruitAllDao;
 import com.example.xu.myapplication.moduleType.dao.FruitAreaDao;
 import com.example.xu.myapplication.moduleType.dao.FruitTypeDao;
 import com.example.xu.myapplication.moduleType.dao.PackSizeDao;
 import com.example.xu.myapplication.moduleType.dao.PackTypeDao;
+import com.example.xu.myapplication.moduleType.entity.Bargain;
 import com.example.xu.myapplication.moduleType.entity.Fruit;
 import com.example.xu.myapplication.moduleType.fragment.MenuContentFragment;
 import com.example.xu.myapplication.moduleType.viewInterface.IMenuList;
@@ -32,8 +36,8 @@ public class MenuListPresenter extends BasePresenter {
             view.setCurrentPosition(mCurrentPosition);
             view.setAdapterCheck(mCurrentPosition);
         } else {
-            view.setCurrentPosition(0);
-            view.setAdapterCheck(0);
+            view.setCurrentPosition(1);
+            view.setAdapterCheck(1);
         }
     }
 
@@ -48,7 +52,7 @@ public class MenuListPresenter extends BasePresenter {
                     @Override
                     public void onSuccess(ArrayList<Fruit> response) {
 
-                        MenuContentFragment fragment = MenuContentFragment.newInstance(response.get(0).getGoods());
+                        MenuContentFragment fragment = MenuContentFragment.newInstance(response);
                         view.switchFragment(fragment);
                     }
 
@@ -62,7 +66,7 @@ public class MenuListPresenter extends BasePresenter {
                 FruitAreaDao.newInstance(new FruitAreaDao.CallBackFruitArea() {
                     @Override
                     public void onSuccess(ArrayList<Fruit> response) {
-                        MenuContentFragment fragment = MenuContentFragment.newInstance(response.get(0).getGoods());
+                        MenuContentFragment fragment = MenuContentFragment.newInstance(response);
                         view.switchFragment(fragment);
                     }
 
@@ -76,7 +80,7 @@ public class MenuListPresenter extends BasePresenter {
                 PackTypeDao.newInstance(new PackTypeDao.CallBackPackType() {
                     @Override
                     public void onSuccess(ArrayList<Fruit> response) {
-                        MenuContentFragment fragment = MenuContentFragment.newInstance(response.get(0).getGoods());
+                        MenuContentFragment fragment = MenuContentFragment.newInstance(response);
                         view.switchFragment(fragment);
                     }
 
@@ -90,7 +94,7 @@ public class MenuListPresenter extends BasePresenter {
                 PackSizeDao.newInstance(new PackSizeDao.CallBackPackSize() {
                     @Override
                     public void onSuccess(ArrayList<Fruit> response) {
-                        MenuContentFragment fragment = MenuContentFragment.newInstance(response.get(0).getGoods());
+                        MenuContentFragment fragment = MenuContentFragment.newInstance(response);
                         view.switchFragment(fragment);
                     }
 
@@ -101,8 +105,40 @@ public class MenuListPresenter extends BasePresenter {
                 }).getPackType();
                 break;
             case 7:
+                BargainDao.newInstance(new BargainDao.CallBackBargain() {
+                    @Override
+                    public void onSuccess(ArrayList<Bargain> response) {
+                        ArrayList<Fruit.FruitDetail> detailList = new ArrayList<Fruit.FruitDetail>();
+                        for (Bargain bargain : response) {
+                            detailList.add(new Fruit.FruitDetail(bargain.getBargainName(), bargain.getBargainPrice(), bargain.getBargainImage()));
+                        }
+                        ArrayList<Fruit> fruitList = new ArrayList<Fruit>();
+                        fruitList.add(new Fruit(Common.NAME_FRUIT_TYPE,detailList));
+                        MenuContentFragment fragment = MenuContentFragment.newInstance(fruitList);
+                        view.switchFragment(fragment);
+                    }
+
+                    @Override
+                    public void onFailure(String message) {
+                        Logger.e("FruitTypeDao", "onFailure");
+                    }
+                }).getPackType();
                 break;
             case 9:
+                FruitAllDao.newInstance(new FruitAllDao.CallBackFruitAll() {
+                    @Override
+                    public void onSuccess(ArrayList<Fruit.FruitDetail> response) {
+                        ArrayList<Fruit> fruitList = new ArrayList<Fruit>();
+                        fruitList.add(new Fruit(Common.NAME_FRUIT_TYPE,response));
+                        MenuContentFragment fragment = MenuContentFragment.newInstance(fruitList);
+                        view.switchFragment(fragment);
+                    }
+
+                    @Override
+                    public void onFailure(String message) {
+                        Logger.e("FruitTypeDao", "onFailure");
+                    }
+                }).getFruitType();
                 break;
             default:
                 break;

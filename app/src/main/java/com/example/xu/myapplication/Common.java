@@ -5,10 +5,15 @@ package com.example.xu.myapplication;
  */
 
 public class Common {
-    public static String URL_FRUIT_TYPE = "http://www.mobilebooks.cn/api/t-classType-0";
-    public static String URL_FRUIT_AREA = "http://www.mobilebooks.cn/api/t-classType-1";
-    public static String URL_PACK_TYPE = "http://www.mobilebooks.cn/api/t-classType-2";
-    public static String URL_PACK_SIZE = "http://www.mobilebooks.cn/api/t-classType-3";
+
+    public static String NAME_FRUIT_TYPE ="fruit_type";
+    public static String URL_FRUIT_TYPE ="http://www.mobilebooks.cn/api/t-classType-0";
+    public static String URL_FRUIT_AREA ="http://www.mobilebooks.cn/api/t-classType-1";
+    public static String URL_PACK_TYPE ="http://www.mobilebooks.cn/api/t-classType-2";
+    public static String URL_PACK_SIZE ="http://www.mobilebooks.cn/api/t-classType-3";
+    public static String URL_GOODS_ALL ="http://www.mobilebooks.cn/api/t-goodsAll";
+
+
     //查询特价商品
     public static String URL_BARGAIN = "http://www.mobilebooks.cn/api/t-bargains";
     //查询购物车

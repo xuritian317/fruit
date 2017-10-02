@@ -1,6 +1,13 @@
 package com.example.xu.myapplication.moduleType.adapter;
 
 import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.ColorFilter;
+import android.graphics.PixelFormat;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.IntRange;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,15 +30,20 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ViewHold
     private OnItemClickListener mClickListener;
     private LayoutInflater mInflater;
     private Context mContext;
-    private ArrayList<Fruit.GoodsDetail> goodsData = new ArrayList<>();
+    private ArrayList<Fruit.FruitDetail> goodsData = new ArrayList<>();
 
     public ContentAdapter(Context mContext) {
         this.mContext = mContext;
         mInflater = LayoutInflater.from(mContext);
     }
-    public void setData(ArrayList<Fruit.GoodsDetail> data){
+    public void setData(ArrayList<Fruit.FruitDetail> data){
         goodsData.clear();
         goodsData.addAll(data);
+    }
+    public void updateData(ArrayList<Fruit.FruitDetail> data){
+        goodsData.clear();
+        goodsData.addAll(data);
+        notifyDataSetChanged();
     }
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -51,7 +63,7 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Fruit.GoodsDetail bean = goodsData.get(position);
+        Fruit.FruitDetail bean = goodsData.get(position);
         Glide.with(mContext).load(bean.getGoodsImage()).into(holder.imgFruit);
         holder.imgFruit.setImageResource(R.mipmap.ic_launcher);
         holder.tvName.setText(bean.getGoodsName());

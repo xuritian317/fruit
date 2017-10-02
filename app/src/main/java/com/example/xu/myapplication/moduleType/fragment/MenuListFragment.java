@@ -76,11 +76,11 @@ public class MenuListFragment extends BaseFragment<MenuListPresenter> implements
 
         LinearLayoutManager manager = new LinearLayoutManager(_mActivity);
         recyclerView.setLayoutManager(manager);
-        adapter = new MenuAdapter(_mActivity);
+        adapter = new MenuAdapter(_mActivity,data);
         recyclerView.setAdapter(adapter);
-        adapter.setData(data);
 
         presenter.showContent(1);
+        adapter.setItemChecked(1);
 
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override

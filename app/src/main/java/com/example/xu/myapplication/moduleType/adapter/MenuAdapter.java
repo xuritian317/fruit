@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.xu.myapplication.R;
 import com.example.xu.myapplication.moduleType.listener.OnItemClickListener;
+import com.example.xu.myapplication.util.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,12 +30,9 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MyViewHolder> 
     private OnItemClickListener mClickListener;
     private int mLastCheckedPosition = -1;
 
-    public MenuAdapter(Context context) {
+    public MenuAdapter(Context context, List<String> items) {
         mInflater = LayoutInflater.from(context);
         mContext = context;
-    }
-
-    public void setData(List<String> items) {
         dataList.clear();
         dataList.addAll(items);
 
@@ -63,15 +61,18 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MyViewHolder> 
         if (position == 0 || position == 3 || position == 6 || position == 8) {
             holder.viewLine.setVisibility(View.INVISIBLE);
             holder.itemView.setBackgroundResource(R.color.bg_app);
-//            holder.tvName.setTextSize(10);
             holder.tvName.setTextColor(mContext.getResources().getColor(R.color.blue));
             return;
         }
+        if (mLastCheckedPosition == 1)
+            mBooleanArray.put(1, true);
         if (!mBooleanArray.get(position)) {
+            Logger.e("mBooleanArray", "false\t" + position);
             holder.viewLine.setVisibility(View.INVISIBLE);
             holder.itemView.setBackgroundResource(R.color.bg_app);
             holder.tvName.setTextColor(Color.BLACK);
         } else {
+            Logger.e("mBooleanArray", "true\t" + position);
             holder.viewLine.setVisibility(View.VISIBLE);
             holder.itemView.setBackgroundColor(Color.WHITE);
             holder.tvName.setTextColor(mContext.getResources().getColor(R.color.colorAccent));
@@ -84,6 +85,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MyViewHolder> 
     }
 
     public void setItemChecked(int position) {
+        Logger.e("position", "" + position);
         mBooleanArray.put(position, true);
 
         if (mLastCheckedPosition > -1) {
