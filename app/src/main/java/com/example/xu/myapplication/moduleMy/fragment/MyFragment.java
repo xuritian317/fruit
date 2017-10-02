@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.example.xu.myapplication.R;
 import com.example.xu.myapplication.base.BaseMainFragment;
+import com.example.xu.myapplication.moduleActivity.main.activity.LoginActivity;
 import com.example.xu.myapplication.moduleMy.fragment.activity.setting.AccountSettingActivity;
 import com.example.xu.myapplication.moduleMy.fragment.activity.setting.MyPersonalActivity;
 import com.example.xu.myapplication.moduleMy.fragment.presenter.MyPresenter;
@@ -40,7 +41,7 @@ public class MyFragment extends BaseMainFragment<MyPresenter> implements IMy {
     CircleImageView ivMyHead;
     @OnClick(R.id.iv_MyHead)
     public void toPersonActivity(){
-        presenter.toActivity(MyPersonalActivity.class);
+        presenter.toActivity(LoginActivity.class,MyPersonalActivity.class);
     }
     @BindView(R.id.tv_MyUserName)
     TextView tvMyUserName;
@@ -48,7 +49,7 @@ public class MyFragment extends BaseMainFragment<MyPresenter> implements IMy {
     ImageView ivMySetting;
     @OnClick(R.id.iv_MySetting)
     public void toSettingActivity(){
-        presenter.toActivity(AccountSettingActivity.class);
+        presenter.toActivity(AccountSettingActivity.class,null);
     }
 
     @BindView(R.id.tv_dingdan)

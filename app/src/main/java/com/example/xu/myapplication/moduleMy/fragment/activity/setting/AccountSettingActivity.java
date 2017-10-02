@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 
 import com.example.xu.myapplication.R;
 import com.example.xu.myapplication.base.BaseActivity;
+import com.example.xu.myapplication.moduleActivity.main.activity.LoginActivity;
 import com.example.xu.myapplication.moduleMy.fragment.presenter.AccountSettingPresenter;
 import com.example.xu.myapplication.moduleMy.fragment.view.CircleImageView;
 import com.example.xu.myapplication.moduleMy.fragment.viewInterface.IAccountSetting;
@@ -38,7 +39,7 @@ public class AccountSettingActivity extends BaseActivity<AccountSettingPresenter
 
     @OnClick(R.id.rela_setting_head)
     public void toPersonalActivity() {
-        presenter.startIntent(MyPersonalActivity.class);
+        presenter.startIntent(LoginActivity.class,MyPersonalActivity.class);
     }
 
     @Override

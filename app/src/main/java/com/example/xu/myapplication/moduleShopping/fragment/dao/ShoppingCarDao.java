@@ -1,5 +1,6 @@
 package com.example.xu.myapplication.moduleShopping.fragment.dao;
 
+import com.example.xu.myapplication.Common;
 import com.example.xu.myapplication.httpRequest.MyOkHttp;
 import com.example.xu.myapplication.httpRequest.response.RawResponseHandler;
 
@@ -24,7 +25,7 @@ public class ShoppingCarDao {
 
     public void getFruit() {
 
-        MyOkHttp.newInstance().get("http://www.mobilebooks.cn/api/t-shopping-cars", null, new
+        MyOkHttp.newInstance().get(Common.URL_SHOPPING_CAR, null, new
                 RawResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, String response) {

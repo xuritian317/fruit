@@ -12,12 +12,13 @@ import com.example.xu.myapplication.moduleActivity.main.viewInterface.IMain;
 import com.example.xu.myapplication.moduleActivity.main.presenter.MainPresenter;
 import com.example.xu.myapplication.moduleHome.fragment.HomeContentFragment;
 import com.example.xu.myapplication.moduleHome.fragment.HomeFragment;
-import com.example.xu.myapplication.moduleMy.fragment.MyContentFragment;
 import com.example.xu.myapplication.moduleMy.fragment.MyFragment;
+import com.example.xu.myapplication.moduleMy.fragment.MyContentFragment;
 import com.example.xu.myapplication.moduleShopping.fragment.ShoppingContentFragment;
 import com.example.xu.myapplication.moduleShopping.fragment.ShoppingFragment;
 import com.example.xu.myapplication.moduleType.fragment.TypeContentFragment;
 import com.example.xu.myapplication.moduleType.fragment.TypeFragment;
+import com.example.xu.myapplication.util.SPUtil;
 
 import butterknife.BindView;
 import me.yokeyword.fragmentation.SupportFragment;
@@ -25,6 +26,7 @@ import me.yokeyword.fragmentation.SupportFragment;
 public class MainActivity extends BaseActivity<MainPresenter> implements IMain, BaseMainFragment.OnBackToFirstListener {
 
     private SupportFragment[] mFragments;
+    private SPUtil util;
 
     @BindView(R.id.bottomBar)
      BottomBar mBottomBar;
@@ -43,6 +45,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMain, 
     @Override
     public void initData() {
         mFragments = new SupportFragment[4];
+
+        util=new SPUtil(MainActivity.this);
+        util.putInt("isUser",0);
     }
 
     @Override

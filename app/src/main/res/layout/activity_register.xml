@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_White"
+    android:orientation="vertical"
+    tools:context="com.example.xu.myapplication.moduleActivity.main.activity.RegisterActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_White"
+        android:fitsSystemWindows="true"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp">
+
+        <ImageView
+            android:id="@+id/iv_register_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:background="@mipmap/back_green"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:text="@string/register_user"
+            android:textColor="@color/green"
+            android:textSize="20sp"/>
+    </android.support.v7.widget.Toolbar>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@color/tab_unSelect"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="20dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="13dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:src="@mipmap/ic_mobile_flag"/>
+
+        <com.chaychan.viewlib.PowerfulEditText
+            android:id="@+id/pet_register_phone"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="10dp"
+            android:layout_weight="2"
+            android:background="@null"
+            android:drawableRight="@mipmap/ic_clear"
+            android:hint="输入手机号"
+            android:inputType="number"
+            app:funcType="canClear"/>
+
+        <TextView
+            android:id="@+id/tv_register_phoneCode"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/btn_style"
+            android:gravity="center"
+            android:text="获取验证码"
+            android:textColor="@color/green"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:layout_marginTop="8dp"
+        android:background="@color/tab_unSelect"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="13dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:src="@mipmap/phone_code"/>
+
+        <com.chaychan.viewlib.PowerfulEditText
+            android:id="@+id/pet_phoneCode"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:drawableRight="@mipmap/ic_clear"
+            android:hint="输入验证码"
+            android:inputType="number"
+            app:funcType="canClear"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:layout_marginTop="5dp"
+        android:background="@color/tab_unSelect"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="13dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:src="@mipmap/ic_password_flag"/>
+
+        <com.chaychan.viewlib.PowerfulEditText
+            android:id="@+id/pet_register_pwd1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:drawableRight="@mipmap/ic_clear"
+            android:hint="输入密码"
+            app:funcType="canClear"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:layout_marginTop="5dp"
+        android:background="@color/tab_unSelect"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="13dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:src="@mipmap/ic_password_flag"/>
+
+        <com.chaychan.viewlib.PowerfulEditText
+            android:id="@+id/pet_register_pwd2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:drawableRight="@mipmap/ic_clear"
+            android:hint="再次输入密码"
+            app:funcType="canClear"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:layout_marginTop="5dp"
+        android:background="@color/tab_unSelect"/>
+
+    <Button
+        android:id="@+id/btn_register"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_margin="15dp"
+        android:background="@drawable/button_style"
+        android:text="@string/register"
+        android:textColor="@color/white"
+        android:textSize="18dp"/>
+</LinearLayout>

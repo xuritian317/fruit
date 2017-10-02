@@ -2,10 +2,10 @@ package com.example.xu.myapplication.moduleMy.fragment.presenter;
 
 import android.content.Intent;
 
-import com.example.xu.myapplication.R;
 import com.example.xu.myapplication.base.BasePresenter;
 import com.example.xu.myapplication.moduleMy.fragment.activity.orders.MyOrdersActivity;
 import com.example.xu.myapplication.moduleMy.fragment.viewInterface.IMy;
+import com.example.xu.myapplication.util.SPUtil;
 
 /**
  * Created by 逝 on 2017/09/18.
@@ -13,13 +13,16 @@ import com.example.xu.myapplication.moduleMy.fragment.viewInterface.IMy;
 
 public class MyPresenter extends BasePresenter {
     private IMy view;
+    private SPUtil util;
 
     public MyPresenter(IMy view) {
         this.view = view;
+        util = new SPUtil(this.view.getCon());
     }
 
     /**
      * 跳转到 MyOrdersActivity
+     *
      * @param value 对应MyOrdersActivity中第几个fragment
      */
     public void toMyOrdersActivity(int value) {
@@ -29,10 +32,23 @@ public class MyPresenter extends BasePresenter {
     }
 
     /**
-     *跳转Activity
+     * 跳转Activity
      */
-    public void toActivity(Class<?> cls){
-        Intent intent = new Intent(view.getCon(), cls);
-        view.getAct().startActivity(intent);
+    public void toActivity(Class<?> cls0, Class<?> cls1) {
+        int id;
+        if (cls1 == null) {
+            view.getAct().startActivity(new Intent(view.getCon(), cls0));
+        } else {
+            id=util.getInt("isUser",0);
+            switch (id){
+                case 0:
+                    view.getAct().startActivity(new Intent(view.getCon(), cls0));
+                    break;
+                case 1:
+                    view.getAct().startActivity(new Intent(view.getCon(), cls1));
+                    break;
+            }
+
+        }
     }
 }

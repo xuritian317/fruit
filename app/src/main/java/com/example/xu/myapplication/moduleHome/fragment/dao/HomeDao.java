@@ -1,5 +1,6 @@
 package com.example.xu.myapplication.moduleHome.fragment.dao;
 
+import com.example.xu.myapplication.Common;
 import com.example.xu.myapplication.httpRequest.MyOkHttp;
 import com.example.xu.myapplication.httpRequest.response.GsonResponseHandler;
 import com.example.xu.myapplication.httpRequest.response.RawResponseHandler;
@@ -27,7 +28,7 @@ public class HomeDao {
     }
 
     public void getAdvertise() {
-        MyOkHttp.newInstance().get("http://www.mobilebooks.cn/api/t-advertisements", null, new
+        MyOkHttp.newInstance().get(Common.URL_ADVERTISEMENTS, null, new
                 RawResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, String response) {

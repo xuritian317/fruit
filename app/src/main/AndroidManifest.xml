@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.xu.myapplication">
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+          package="com.example.xu.myapplication">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
@@ -15,9 +16,9 @@
         android:theme="@style/AppTheme.NoActionBar">
         <activity android:name=".moduleActivity.main.activity.MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity android:name=".moduleShopping.fragment.activity.ShoppingPayActivity">
@@ -29,6 +30,14 @@
         <activity android:name=".moduleMy.fragment.activity.img.ClipImageActivity">
         </activity>
         <activity android:name=".moduleMy.fragment.activity.setting.AccountSettingActivity">
+        </activity>
+        <activity android:name=".moduleMy.fragment.activity.setting.NickNameActivity">
+        </activity>
+        <activity android:name=".moduleMy.fragment.activity.setting.EmailActivity">
+        </activity>
+        <activity android:name=".moduleActivity.main.activity.LoginActivity">
+        </activity>
+        <activity android:name=".moduleActivity.main.activity.RegisterActivity">
         </activity>
     </application>
 

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.xu.myapplication.moduleMy.fragment.activity.setting.NickNameActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_White"
+        android:fitsSystemWindows="true"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp">
+
+        <ImageView
+            android:id="@+id/iv_nick_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:background="@mipmap/back_black"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:text="@string/change_nickname"
+            android:textColor="@color/color_Black"
+            android:textSize="20sp"/>
+    </android.support.v7.widget.Toolbar>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@color/tab_unSelect"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/color_White"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <com.chaychan.viewlib.PowerfulEditText
+            android:id="@+id/pet_nickName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@color/color_White"
+            android:textSize="18sp"
+            app:funcType="canClear"
+            android:drawableRight="@mipmap/ic_clear"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:text="3-16位字符，可由中文、英文大小写、数字、“_”组成!"/>
+
+    <Button
+        android:id="@+id/btn_changeNick"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:background="@drawable/button_style"
+        android:text="@string/save"
+        android:textColor="@color/color_White"/>
+</LinearLayout>

@@ -1,5 +1,6 @@
 package com.example.xu.myapplication.moduleHome.fragment.dao;
 
+import com.example.xu.myapplication.Common;
 import com.example.xu.myapplication.httpRequest.MyOkHttp;
 import com.example.xu.myapplication.httpRequest.response.GsonResponseHandler;
 import com.example.xu.myapplication.moduleHome.fragment.bean.BargainBean;
@@ -26,7 +27,7 @@ public class BargainDao {
     }
 
     public void getBargain() {
-        MyOkHttp.newInstance().get("http://www.mobilebooks.cn/api/t-bargains", null,
+        MyOkHttp.newInstance().get(Common.URL_BARGAIN, null,
                 new GsonResponseHandler<ArrayList<BargainBean>>() {
                     @Override
                     public void onSuccess(int statusCode, ArrayList<BargainBean> response) {

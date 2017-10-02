@@ -32,7 +32,6 @@ public class MyPersonalActivity extends BaseActivity<PersonalPresenter> implemen
     @OnClick(R.id.iv_person_back)
     public void back() {
         finish();
-//        overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
     }
 
     @BindView(R.id.rela_person_head)
@@ -51,7 +50,7 @@ public class MyPersonalActivity extends BaseActivity<PersonalPresenter> implemen
 
     @OnClick(R.id.rela_person_petName)
     public void setPetName() {
-
+        presenter.startIntent(NickNameActivity.class);
     }
 
     @BindView(R.id.tv_person_sex)
@@ -84,7 +83,7 @@ public class MyPersonalActivity extends BaseActivity<PersonalPresenter> implemen
 
     @OnClick(R.id.rela_person_email)
     public void setEmail() {
-
+        presenter.startIntent(EmailActivity.class);
     }
 
     @Override

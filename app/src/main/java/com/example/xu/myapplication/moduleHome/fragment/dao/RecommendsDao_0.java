@@ -1,5 +1,6 @@
 package com.example.xu.myapplication.moduleHome.fragment.dao;
 
+import com.example.xu.myapplication.Common;
 import com.example.xu.myapplication.httpRequest.MyOkHttp;
 import com.example.xu.myapplication.httpRequest.response.GsonResponseHandler;
 import com.example.xu.myapplication.moduleHome.fragment.bean.BargainBean;
@@ -27,7 +28,7 @@ public class RecommendsDao_0 {
     }
 
     public void getRecommends0() {
-        MyOkHttp.newInstance().get("http://www.mobilebooks.cn/api/t-home-recommends-0", null,
+        MyOkHttp.newInstance().get(Common.URL_RECOMMENDS_0, null,
                 new GsonResponseHandler<ArrayList<RecommendsBean_0>>() {
                     @Override
                     public void onSuccess(int statusCode, ArrayList<RecommendsBean_0> response) {

@@ -2,6 +2,8 @@ package com.example.xu.myapplication;
 
 import android.app.Application;
 
+import com.vondear.rxtools.RxTool;
+
 import me.yokeyword.fragmentation.Fragmentation;
 import me.yokeyword.fragmentation.helper.ExceptionHandler;
 
@@ -14,7 +16,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
+        RxTool.init(this);
         Fragmentation.builder()
                 // 设置 栈视图 模式为 悬浮球模式   SHAKE: 摇一摇唤出  默认NONE：隐藏， 仅在Debug环境生效
                 .stackViewMode(Fragmentation.BUBBLE)

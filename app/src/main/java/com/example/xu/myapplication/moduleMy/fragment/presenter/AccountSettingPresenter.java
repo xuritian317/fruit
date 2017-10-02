@@ -5,6 +5,7 @@ import android.content.Intent;
 import com.example.xu.myapplication.R;
 import com.example.xu.myapplication.base.BasePresenter;
 import com.example.xu.myapplication.moduleMy.fragment.viewInterface.IAccountSetting;
+import com.example.xu.myapplication.util.SPUtil;
 
 /**
  * Created by 逝 on 2017/09/18.
@@ -13,14 +14,22 @@ import com.example.xu.myapplication.moduleMy.fragment.viewInterface.IAccountSett
 public class AccountSettingPresenter extends BasePresenter {
 
     private IAccountSetting view;
+    private SPUtil util;
 
     public AccountSettingPresenter(IAccountSetting view) {
         this.view = view;
+        util=new SPUtil(this.view.getCon());
     }
 
-    public void startIntent(Class<?> cls){
-        Intent intent=new Intent(view.getCon(),cls);
-        view.getAct().startActivity(intent);
+    public void startIntent(Class<?> cls0,Class<?> cls1){
+        switch (util.getInt("isUser",0)){
+            case 0:
+                view.getAct().startActivity(new Intent(view.getCon(), cls0));
+                break;
+            case 1:
+                view.getAct().startActivity(new Intent(view.getCon(), cls1));
+                break;
+        }
     }
 
 }
