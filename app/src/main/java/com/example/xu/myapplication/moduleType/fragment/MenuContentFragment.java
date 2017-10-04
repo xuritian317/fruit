@@ -41,7 +41,6 @@ public class MenuContentFragment extends BaseFragment {
     }
 
     private static final String ARG_MENU = "arg_menu";
-    private static final String ARG_TYPE = "arg_type";
 
     private ArrayList<Fruit> goodsList = new ArrayList<>();
     private ContentAdapter adapter;
@@ -103,7 +102,6 @@ public class MenuContentFragment extends BaseFragment {
         for (int i = 0; i < goodsList.size(); i++) {
             typeList.add(goodsList.get(i).getClassifyName());
         }
-        Logger.e("typeList", typeList.toString());
         if (goodsList.size() != 1) {
             btnType1.setText(typeList.get(0));
             btnType2.setText(typeList.get(1));

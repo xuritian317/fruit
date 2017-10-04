@@ -21,8 +21,13 @@ public class PackSizeDao {
     }
 
     public static PackSizeDao newInstance(CallBackPackSize callback) {
+        // if already inited, no need to get lock everytime
         if (instance == null) {
-            instance = new PackSizeDao(callback);
+            synchronized (PackSizeDao.class) {
+                if (instance == null) {
+                    instance = new PackSizeDao(callback);
+                }
+            }
         }
         return instance;
     }

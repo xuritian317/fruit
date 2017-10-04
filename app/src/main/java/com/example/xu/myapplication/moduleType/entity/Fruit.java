@@ -170,6 +170,21 @@ public class Fruit implements Parcelable {
             this.goodsImage = goodsImage;
         }
 
+        public FruitDetail(Bargain.FruitDetail fruitDetail) {
+            this.id = fruitDetail.getId();
+            this.goodsName = fruitDetail.getGoodsName();
+            this.goodsPrice = fruitDetail.getGoodsPrice();
+            this.goodsImage = fruitDetail.getGoodsImage();
+            this.goodsClassify = fruitDetail.getGoodsClassify();
+            this.goodsIntroduction = fruitDetail.getGoodsIntroduction();
+            this.temperature = fruitDetail.getTemperature();
+            this.nutritionInfo = fruitDetail.getNutritionInfo();
+            this.effect = fruitDetail.getEffect();
+            this.hot = fruitDetail.getHot();
+            this.createTime = fruitDetail.getCreateTime();
+            this.updateTime = fruitDetail.getUpdateTime();
+        }
+
         public static final Creator<FruitDetail> CREATOR = new Creator<FruitDetail>() {
             @Override
             public FruitDetail createFromParcel(Parcel in) {

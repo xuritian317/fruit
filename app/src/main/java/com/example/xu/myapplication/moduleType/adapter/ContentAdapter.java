@@ -1,13 +1,6 @@
 package com.example.xu.myapplication.moduleType.adapter;
 
 import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.ColorFilter;
-import android.graphics.PixelFormat;
-import android.graphics.drawable.Drawable;
-import android.support.annotation.IntRange;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.example.xu.myapplication.GlideApp;
 import com.example.xu.myapplication.R;
 import com.example.xu.myapplication.moduleType.entity.Fruit;
 import com.example.xu.myapplication.moduleType.listener.OnItemClickListener;
@@ -39,6 +33,7 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ViewHold
     public void setData(ArrayList<Fruit.FruitDetail> data){
         goodsData.clear();
         goodsData.addAll(data);
+        notifyDataSetChanged();
     }
     public void updateData(ArrayList<Fruit.FruitDetail> data){
         goodsData.clear();
@@ -64,7 +59,7 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ViewHold
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Fruit.FruitDetail bean = goodsData.get(position);
-        Glide.with(mContext).load(bean.getGoodsImage()).into(holder.imgFruit);
+        GlideApp.with(mContext).load(bean.getGoodsImage()).diskCacheStrategy(DiskCacheStrategy.ALL).centerCrop().into(holder.imgFruit);
         holder.imgFruit.setImageResource(R.mipmap.ic_launcher);
         holder.tvName.setText(bean.getGoodsName());
     }

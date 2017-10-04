@@ -21,8 +21,13 @@ public class BargainDao {
     }
 
     public static BargainDao newInstance(CallBackBargain callback) {
+        // if already inited, no need to get lock everytime
         if (instance == null) {
-            instance = new BargainDao(callback);
+            synchronized (BargainDao.class) {
+                if (instance == null) {
+                    instance = new BargainDao(callback);
+                }
+            }
         }
         return instance;
     }

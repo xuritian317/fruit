@@ -21,8 +21,13 @@ public class FruitTypeDao {
     }
 
     public static FruitTypeDao newInstance(CallBackFruitType callback) {
+        // if already inited, no need to get lock everytime
         if (instance == null) {
-            instance = new FruitTypeDao(callback);
+            synchronized (FruitTypeDao.class) {
+                if (instance == null) {
+                    instance = new FruitTypeDao(callback);
+                }
+            }
         }
         return instance;
     }

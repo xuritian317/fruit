@@ -14,15 +14,20 @@ import java.util.ArrayList;
 public class FruitAreaDao {
     private CallBackFruitArea callback;
 
-    private static FruitAreaDao instance;
+    private static FruitAreaDao instance = null;
 
     private FruitAreaDao(CallBackFruitArea callback) {
         this.callback = callback;
     }
 
     public static FruitAreaDao newInstance(CallBackFruitArea callback) {
+        // if already inited, no need to get lock everytime
         if (instance == null) {
-            instance = new FruitAreaDao(callback);
+            synchronized (FruitAreaDao.class) {
+                if (instance == null) {
+                    instance = new FruitAreaDao(callback);
+                }
+            }
         }
         return instance;
     }

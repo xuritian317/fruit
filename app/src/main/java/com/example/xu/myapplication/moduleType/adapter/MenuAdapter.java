@@ -67,12 +67,10 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MyViewHolder> 
         if (mLastCheckedPosition == 1)
             mBooleanArray.put(1, true);
         if (!mBooleanArray.get(position)) {
-            Logger.e("mBooleanArray", "false\t" + position);
             holder.viewLine.setVisibility(View.INVISIBLE);
             holder.itemView.setBackgroundResource(R.color.bg_app);
             holder.tvName.setTextColor(Color.BLACK);
         } else {
-            Logger.e("mBooleanArray", "true\t" + position);
             holder.viewLine.setVisibility(View.VISIBLE);
             holder.itemView.setBackgroundColor(Color.WHITE);
             holder.tvName.setTextColor(mContext.getResources().getColor(R.color.colorAccent));
@@ -85,7 +83,6 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MyViewHolder> 
     }
 
     public void setItemChecked(int position) {
-        Logger.e("position", "" + position);
         mBooleanArray.put(position, true);
 
         if (mLastCheckedPosition > -1) {
