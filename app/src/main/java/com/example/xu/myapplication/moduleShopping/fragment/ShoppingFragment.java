@@ -92,7 +92,7 @@ public class ShoppingFragment extends BaseMainFragment<ShoppingPresenter> implem
     public void initData() {
         adapter = new ShoppingCarAdapter(this, getActivity());
         lvShopping.setAdapter(adapter);
-        adapter.setData(presenter.addList(tvShopingCart));
+        presenter.addList(adapter,tvShopingCart);
     }
 
     @Override

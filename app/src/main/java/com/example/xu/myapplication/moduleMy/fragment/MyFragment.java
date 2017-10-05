@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -21,7 +20,6 @@ import com.example.xu.myapplication.moduleMy.fragment.viewInterface.IMy;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import q.rorbin.badgeview.QBadgeView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -136,7 +134,7 @@ public class MyFragment extends BaseMainFragment<MyPresenter> implements IMy {
     @Override
     public void onResume() {
         super.onResume();
-        presenter.getOrders(tvDaishou,tvEvaluate,tvTuikuan);
+        presenter.getUser(ivMyHead, tvMyUserName, tvDaishou, tvEvaluate, tvTuikuan);
     }
 
     @Override

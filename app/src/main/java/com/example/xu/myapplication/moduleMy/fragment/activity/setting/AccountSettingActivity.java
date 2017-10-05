@@ -8,6 +8,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.example.xu.myapplication.R;
 import com.example.xu.myapplication.base.BaseActivity;
@@ -24,6 +25,8 @@ public class AccountSettingActivity extends BaseActivity<AccountSettingPresenter
 
     @BindView(R.id.iv_setting_back)
     ImageView ivSettingBack;
+    @BindView(R.id.tv_setting_nick)
+    TextView tvSettingNick;
     @BindView(R.id.iv_setting_head)
     CircleImageView ivSettingHead;
     @BindView(R.id.rela_address)
@@ -80,6 +83,12 @@ public class AccountSettingActivity extends BaseActivity<AccountSettingPresenter
     @Override
     public void setToolbar() {
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        presenter.getUser(ivSettingHead,tvSettingNick);
     }
 
     @Override

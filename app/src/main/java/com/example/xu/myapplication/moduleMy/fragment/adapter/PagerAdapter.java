@@ -67,7 +67,6 @@ public class PagerAdapter extends BaseAdapter {
 
     private void initializeViews(OrdersBean object, ViewHolder holder) {
         //TODO implement
-        Logger.e("adapter", mForm + "");
         switch (mForm) {
             case 0:
                 Glide.with(context).load(object.getGoods().getGoodsImage()).into(holder

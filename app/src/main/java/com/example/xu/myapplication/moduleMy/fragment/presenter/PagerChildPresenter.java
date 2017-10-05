@@ -1,15 +1,25 @@
 package com.example.xu.myapplication.moduleMy.fragment.presenter;
 
 import android.content.Intent;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.xu.myapplication.Common;
 import com.example.xu.myapplication.base.BasePresenter;
 import com.example.xu.myapplication.httpRequest.MyOkHttp;
-import com.example.xu.myapplication.httpRequest.response.GsonResponseHandler;
+import com.example.xu.myapplication.httpRequest.response.JsonResponseHandler;
 import com.example.xu.myapplication.moduleMy.fragment.activity.orders.MyOrdersActivity;
 import com.example.xu.myapplication.moduleMy.fragment.adapter.PagerAdapter;
 import com.example.xu.myapplication.moduleMy.fragment.bean.OrdersBean;
 import com.example.xu.myapplication.moduleMy.fragment.viewInterface.IPagerChild;
+import com.example.xu.myapplication.util.SPUtil;
+import com.google.gson.Gson;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,11 +30,14 @@ import java.util.List;
 
 public class PagerChildPresenter extends BasePresenter {
     private IPagerChild view;
+    private SPUtil util;
 
+    private List<OrdersBean> objects = new ArrayList<OrdersBean>();
     private List<OrdersBean> lists = new ArrayList<OrdersBean>();
 
     public PagerChildPresenter(IPagerChild view) {
         this.view = view;
+        util = new SPUtil(this.view.getCon());
     }
 
     /**
@@ -48,62 +61,113 @@ public class PagerChildPresenter extends BasePresenter {
 
     /**
      * 获取订单数据
-     * @param adapter 填充数据 adapter
-     * @param mFrom  根据没mFrom的值 分类订单
+     *
+     * @param adapter      填充数据 adapter
+     * @param mFrom        根据没mFrom的值 分类订单
+     * @param lvItemOrders
+     * @param tvChildTishi
      */
-    public void getOrders(final PagerAdapter adapter, final int mFrom) {
+    public void getOrders(final PagerAdapter adapter, final int mFrom, final ListView lvItemOrders,
+                          final TextView tvChildTishi) {
+        lists.clear();
+        String phone = util.getString(SPUtil.IS_USER, "");
+        if (TextUtils.equals(util.getString(SPUtil.IS_USER, ""), "")) {
+            return;
+        }
+        JSONObject jo = new JSONObject();
+        try {
+            jo.put("phoneNumber", phone);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
-        MyOkHttp.newInstance().get(Common.URL_GET_ORDERS, null,
-                new GsonResponseHandler<ArrayList<OrdersBean>>() {
+        MyOkHttp.newInstance().postJson(Common.URL_GET_USER, jo, new JsonResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, JSONObject response) {
+                Gson gson = new Gson();
+                OrdersBean bean = null;
+                try {
+                    String orders = response.getString("orders");
+                    JSONArray array = new JSONArray(orders);
+                    for (int i = 0; i < array.length(); i++) {
+                        bean = gson.fromJson(array.getJSONObject(i).toString(), OrdersBean.class);
+                        objects.add(bean);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
-                    @Override
-                    public void onSuccess(int statusCode, ArrayList<OrdersBean> objects) {
-                        lists.clear();
-                        switch (mFrom) {
-                            case 0:
-                                adapter.setDatas(objects);
-                                break;
-                            case 1:
-                                for (int i = 0; i < objects.size(); i++) {
-                                    if (objects.get(i).getOrderState() == 1) {
-                                        lists.add(objects.get(i));
-                                    }
-                                }
-                                adapter.setDatas(lists);
-                                break;
-                            case 2:
-                                for (int i = 0; i < objects.size(); i++) {
-                                    if (objects.get(i).getOrderState() == 0) {
-                                        lists.add(objects.get(i));
-                                    }
-                                }
-                                adapter.setDatas(lists);
-                                break;
-                            case 3:
-                                for (int i = 0; i < objects.size(); i++) {
-                                    if (objects.get(i).getOrderState() == 0 && objects.get(i)
-                                            .getReviewState() ==
-                                            1) {
-                                        lists.add(objects.get(i));
-                                    }
-                                }
-                                adapter.setDatas(lists);
-                                break;
-                            case 4:
-                                for (int i = 0; i < objects.size(); i++) {
-                                    if (objects.get(i).getOrderState() == 2) {
-                                        lists.add(objects.get(i));
-                                    }
-                                }
-                                adapter.setDatas(lists);
-                                break;
+                switch (mFrom) {
+                    case 0:
+                        if (objects.size() != 0) {
+                            lvItemOrders.setVisibility(View.VISIBLE);
+                        } else {
+                            tvChildTishi.setVisibility(View.VISIBLE);
                         }
-                    }
+                        adapter.setDatas(objects);
+                        break;
+                    case 1:
+                        for (int i = 0; i < objects.size(); i++) {
+                            if (objects.get(i).getOrderState() == 1) {
+                                lists.add(objects.get(i));
+                            }
+                        }
+                        if (lists.size() != 0) {
+                            lvItemOrders.setVisibility(View.VISIBLE);
+                        } else {
+                            tvChildTishi.setVisibility(View.VISIBLE);
+                        }
+                        adapter.setDatas(lists);
+                        break;
+                    case 2:
+                        for (int i = 0; i < objects.size(); i++) {
+                            if (objects.get(i).getOrderState() == 0) {
+                                lists.add(objects.get(i));
+                            }
+                        }
+                        if (lists.size() != 0) {
+                            lvItemOrders.setVisibility(View.VISIBLE);
+                        } else {
+                            tvChildTishi.setVisibility(View.VISIBLE);
+                        }
+                        adapter.setDatas(lists);
+                        break;
+                    case 3:
+                        for (int i = 0; i < objects.size(); i++) {
+                            if (objects.get(i).getOrderState() == 0 && objects.get(i)
+                                    .getReviewState() ==
+                                    1) {
+                                lists.add(objects.get(i));
+                            }
+                        }
+                        if (lists.size() != 0) {
+                            lvItemOrders.setVisibility(View.VISIBLE);
+                        } else {
+                            tvChildTishi.setVisibility(View.VISIBLE);
+                        }
+                        adapter.setDatas(lists);
+                        break;
+                    case 4:
+                        for (int i = 0; i < objects.size(); i++) {
+                            if (objects.get(i).getOrderState() == 2) {
+                                lists.add(objects.get(i));
+                            }
+                        }
+                        if (lists.size() != 0) {
+                            lvItemOrders.setVisibility(View.VISIBLE);
+                        } else {
+                            tvChildTishi.setVisibility(View.VISIBLE);
+                        }
+                        adapter.setDatas(lists);
+                        break;
+                }
+            }
 
-                    @Override
-                    public void onFailure(int statusCode, String error_msg) {
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
 
-                    }
-                });
+            }
+        });
+
     }
 }

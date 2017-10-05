@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -86,6 +87,8 @@ public class MyPersonalActivity extends BaseActivity<PersonalPresenter> implemen
         presenter.startIntent(EmailActivity.class);
     }
 
+    @BindView(R.id.btn_personal_save)
+    Button btnPersonalSave;
     @Override
     public void setPresenter() {
         presenter = new PersonalPresenter(this);
@@ -131,8 +134,9 @@ public class MyPersonalActivity extends BaseActivity<PersonalPresenter> implemen
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onResume() {
+        super.onResume();
+        presenter.getUser(ivMyHead,tvPersonPetName,tvPersonSex,tvPersonBirth,tvPersonEmail);
     }
 
     @Override

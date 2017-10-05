@@ -61,8 +61,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="10dp"
-            android:layout_toLeftOf="@+id/image1"
-            android:src="@mipmap/img_head"/>
+            android:layout_toLeftOf="@+id/image1"/>
 
         <ImageView
             android:id="@+id/image1"
@@ -104,7 +103,6 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
             android:layout_toLeftOf="@+id/image2"
-            android:text="@string/user"
             android:textColor="@color/text"
             android:textSize="18dp"/>
 
@@ -148,7 +146,6 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
             android:layout_toLeftOf="@+id/image3"
-            android:text="@string/sex"
             android:textColor="@color/text"
             android:textSize="18dp"/>
 
@@ -192,7 +189,6 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
             android:layout_toLeftOf="@+id/image4"
-            android:text="@string/birth"
             android:textColor="@color/text"
             android:textSize="18dp"/>
 
@@ -206,49 +202,6 @@
             android:layout_marginTop="15dp"
             android:background="@mipmap/go"/>
     </RelativeLayout>
-
-    <!--<View-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="1dp"-->
-        <!--android:background="@color/tab_unSelect">-->
-    <!--</View>-->
-
-    <!--<RelativeLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="60dp"-->
-        <!--android:background="@color/color_White">-->
-
-
-        <!--<TextView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:layout_marginLeft="20dp"-->
-            <!--android:text="@string/phone_number"-->
-            <!--android:textColor="@color/color_Black"-->
-            <!--android:textSize="20sp"/>-->
-
-        <!--<TextView-->
-            <!--android:id="@+id/tv_person_phone"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:layout_marginRight="10dp"-->
-            <!--android:layout_toLeftOf="@+id/image5"-->
-            <!--android:text="@string/phone"-->
-            <!--android:textColor="@color/text"-->
-            <!--android:textSize="18dp"/>-->
-
-        <!--<ImageView-->
-            <!--android:id="@+id/image5"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_alignParentRight="true"-->
-            <!--android:layout_centerVertical="true"-->
-            <!--android:layout_marginRight="20dp"-->
-            <!--android:layout_marginTop="15dp"-->
-            <!--android:background="@mipmap/go"/>-->
-    <!--</RelativeLayout>-->
 
     <View
         android:layout_width="match_parent"
@@ -279,7 +232,6 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
             android:layout_toLeftOf="@+id/image6"
-            android:text="@string/email"
             android:textColor="@color/text"
             android:textSize="18dp"/>
 
@@ -293,4 +245,14 @@
             android:layout_marginTop="15dp"
             android:background="@mipmap/go"/>
     </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_personal_save"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_margin="20dp"
+        android:background="@drawable/button_style"
+        android:text="@string/save"
+        android:textColor="@color/white"
+        android:textSize="18dp"/>
 </LinearLayout>

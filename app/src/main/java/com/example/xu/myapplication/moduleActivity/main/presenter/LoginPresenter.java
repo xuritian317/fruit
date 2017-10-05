@@ -40,7 +40,7 @@ public class LoginPresenter extends BasePresenter {
     }
 
     public void getUser(PowerfulEditText petLoginPhone,PowerfulEditText petLoginPwd){
-        String phone=petLoginPhone.getText().toString().trim();
+        final String phone=petLoginPhone.getText().toString().trim();
         final String pwd=petLoginPwd.getText().toString().trim();
         String key = "0?(13|14|15|18|17)[0-9]{9}";
         if (TextUtils.isEmpty(phone)||TextUtils.isEmpty(pwd)){
@@ -65,9 +65,8 @@ public class LoginPresenter extends BasePresenter {
             public void onSuccess(int statusCode, JSONObject response) {
                 try {
                     String password=response.getString("password");
-                    int id=response.getInt("id");
                     if (TextUtils.equals(pwd,password)){
-                        util.putInt(SPUtil.IS_USER,id);
+                        util.putString(SPUtil.IS_USER,phone);
                         view.getAct().finish();
                     } else {
                         ToastUtils.showToast(view.getCon(),"密码输入错误，请重试");

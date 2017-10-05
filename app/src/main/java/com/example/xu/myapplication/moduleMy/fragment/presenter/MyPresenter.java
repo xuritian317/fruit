@@ -1,7 +1,9 @@
 package com.example.xu.myapplication.moduleMy.fragment.presenter;
 
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.TextView;
 
 import com.example.xu.myapplication.Common;
@@ -9,10 +11,17 @@ import com.example.xu.myapplication.R;
 import com.example.xu.myapplication.base.BasePresenter;
 import com.example.xu.myapplication.httpRequest.MyOkHttp;
 import com.example.xu.myapplication.httpRequest.response.GsonResponseHandler;
+import com.example.xu.myapplication.httpRequest.response.JsonResponseHandler;
 import com.example.xu.myapplication.moduleMy.fragment.activity.orders.MyOrdersActivity;
 import com.example.xu.myapplication.moduleMy.fragment.bean.OrdersBean;
+import com.example.xu.myapplication.moduleMy.fragment.view.CircleImageView;
 import com.example.xu.myapplication.moduleMy.fragment.viewInterface.IMy;
+import com.example.xu.myapplication.util.Logger;
 import com.example.xu.myapplication.util.SPUtil;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -51,52 +60,12 @@ public class MyPresenter extends BasePresenter {
             return;
         }
 
-        if (util.getInt(SPUtil.IS_USER, 0) == 0) {
+        if (TextUtils.equals(util.getString(SPUtil.IS_USER, ""), "")) {
             view.getAct().startActivity(new Intent(view.getCon(), cls0));
         } else {
             view.getAct().startActivity(new Intent(view.getCon(), cls1));
         }
     }
-
-    /**
-     * 获取不同类别订单的数量
-     *
-     * @param tv1 需要显示的右上角角标的控件
-     * @param tv2 ..
-     * @param tv3 ..
-     */
-    public void getOrders(final TextView tv1, final TextView tv2, final TextView tv3) {
-        MyOkHttp.newInstance().get(Common.URL_GET_ORDERS, null,
-                new GsonResponseHandler<ArrayList<OrdersBean>>() {
-
-                    @Override
-                    public void onSuccess(int statusCode, ArrayList<OrdersBean> response) {
-                        int daishou = 0;
-                        int pingjia = 0;
-                        int tuikuan = 0;
-                        for (int i = 0; i < response.size(); i++) {
-                            if (response.get(i).getOrderState() == 1) {
-                                daishou++;
-                            } else if (response.get(i).getOrderState() == 2) {
-                                tuikuan++;
-                            } else if (response.get(i).getOrderState() == 0 && response.get(i)
-                                    .getReviewState() == 1) {
-                                pingjia++;
-                            }
-                        }
-                        showBadgeView(tv1, daishou);
-                        showBadgeView(tv2, pingjia);
-                        showBadgeView(tv3, tuikuan);
-                    }
-
-                    @Override
-                    public void onFailure(int statusCode, String error_msg) {
-
-                    }
-                });
-
-    }
-
 
     /**
      * 显示BadgeView 标记
@@ -115,5 +84,81 @@ public class MyPresenter extends BasePresenter {
         badge.setBadgeBackgroundColor(view.getCon().getResources().getColor(R.color.blue));
         badge.setBadgeNumber(badgeNumber);
         badge.setBadgePadding(1, false);
+    }
+
+    /**
+     * 根据用户手机号 获取用户所有信息
+     * @param ivMyHead  头像控件
+     * @param tvMyUserName 昵称控件
+     * @param tv1 需要显示的右上角角标的控件
+     * @param tv2 ...
+     * @param tv3 ...
+     */
+    public void getUser(final CircleImageView ivMyHead, final TextView tvMyUserName,
+                        final TextView tv1, final TextView tv2, final TextView tv3) {
+        String phone = util.getString(SPUtil.IS_USER, "");
+        if (TextUtils.equals(util.getString(SPUtil.IS_USER, ""), "")) {
+            return;
+        }
+        Logger.e("phone", phone + "");
+        JSONObject jo = new JSONObject();
+        try {
+            jo.put("phoneNumber", phone);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        MyOkHttp.newInstance().postJson(Common.URL_GET_USER, jo, new JsonResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, JSONObject response) {
+                try {
+                    String nickName = response.getString("nickName");
+                    String headImage = response.getString("headImage");
+                    String orders = response.getString("orders");
+                    //昵称
+                    if (TextUtils.equals(nickName, "null")) {
+                        tvMyUserName.setVisibility(View.GONE);
+                    } else {
+                        tvMyUserName.setVisibility(View.VISIBLE);
+                        tvMyUserName.setText(nickName);
+                    }
+
+                    //头像
+                    if (TextUtils.equals(headImage, "null")) {
+                        ivMyHead.setImageDrawable(view.getCon().getResources().getDrawable(R
+                                .mipmap.img_head));
+                    } else {
+
+                    }
+                    //订单
+                    JSONArray array = new JSONArray(orders);
+                    JSONObject jo;
+                    int daishou = 0;
+                    int pingjia = 0;
+                    int tuikuan = 0;
+                    for (int i = 0; i < array.length(); i++) {
+                        jo = array.getJSONObject(i);
+                        if (jo.getInt("orderState") == 1) {
+                            daishou++;
+                        } else if (jo.getInt("orderState") == 2) {
+                            tuikuan++;
+                        } else if (jo.getInt("orderState") == 0 && jo.getInt("orderState") == 1) {
+                            pingjia++;
+                        }
+
+                        showBadgeView(tv1, daishou);
+                        showBadgeView(tv2, pingjia);
+                        showBadgeView(tv3, tuikuan);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+
+            }
+        });
     }
 }

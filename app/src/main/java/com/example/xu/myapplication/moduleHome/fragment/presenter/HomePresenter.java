@@ -63,7 +63,6 @@ public class HomePresenter extends BasePresenter {
                     banner.setDelayTime(1500);//设置轮播时间
                     banner.setIndicatorGravity(BannerConfig.CENTER);//设置指示器的位置
                     banner.start();
-                    Log.e("imgs", imgs.size()+"");//6
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

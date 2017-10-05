@@ -12,12 +12,11 @@
 
         <com.example.xu.myapplication.moduleMy.fragment.view.CircleImageView
             android:id="@+id/iv_MyHead"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="30dp"
-            android:src="@mipmap/img_head"/>
+            android:layout_marginLeft="30dp"/>
 
         <TextView
             android:id="@+id/tv_MyUserName"
@@ -27,6 +26,7 @@
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@id/iv_MyHead"
             android:text="@string/login_register"
+            android:visibility="gone"
             android:textColor="@color/color_White"/>
 
         <ImageView

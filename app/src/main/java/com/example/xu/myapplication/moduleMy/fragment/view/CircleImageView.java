@@ -292,11 +292,6 @@ public class CircleImageView extends ImageView {
         initializeBitmap();
     }
 
-    @Override
-    public void setImageResource(@DrawableRes int resId) {
-        super.setImageResource(resId);
-        initializeBitmap();
-    }
 
     @Override
     public void setImageURI(Uri uri) {

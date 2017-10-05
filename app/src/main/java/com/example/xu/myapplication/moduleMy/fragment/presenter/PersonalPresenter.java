@@ -15,6 +15,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
@@ -30,11 +31,20 @@ import android.widget.TextView;
 import com.bigkoo.pickerview.OptionsPickerView;
 import com.bigkoo.pickerview.TimePickerView;
 import com.example.xu.myapplication.BuildConfig;
+import com.example.xu.myapplication.Common;
 import com.example.xu.myapplication.R;
 import com.example.xu.myapplication.base.BasePresenter;
+import com.example.xu.myapplication.httpRequest.MyOkHttp;
+import com.example.xu.myapplication.httpRequest.response.JsonResponseHandler;
 import com.example.xu.myapplication.moduleMy.fragment.activity.img.ClipImageActivity;
+import com.example.xu.myapplication.moduleMy.fragment.view.CircleImageView;
 import com.example.xu.myapplication.moduleMy.fragment.viewInterface.IMyPersonal;
 import com.example.xu.myapplication.util.FileUtil;
+import com.example.xu.myapplication.util.Logger;
+import com.example.xu.myapplication.util.SPUtil;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -53,6 +63,7 @@ import static android.app.Activity.RESULT_OK;
 
 public class PersonalPresenter extends BasePresenter {
     private IMyPersonal iView;
+    private SPUtil util;
 
     private TimePickerView pvTime;
     private OptionsPickerView opSex;
@@ -75,6 +86,7 @@ public class PersonalPresenter extends BasePresenter {
 
     public PersonalPresenter(IMyPersonal view) {
         this.iView = view;
+        util = new SPUtil(this.iView.getCon());
     }
 
     public void startIntent(Class<?> cls) {
@@ -179,8 +191,8 @@ public class PersonalPresenter extends BasePresenter {
         view.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (keyCode==KeyEvent.KEYCODE_BACK){
-                    if (window.isShowing()){
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    if (window.isShowing()) {
                         window.dismiss();
                         return true;
                     }
@@ -402,5 +414,82 @@ public class PersonalPresenter extends BasePresenter {
         intent.putExtra("type", type);
         intent.setData(uri);
         iView.getAct().startActivityForResult(intent, REQUEST_CROP_PHOTO);
+    }
+
+    public void getUser(final CircleImageView ivMyHead, final TextView tvPersonPetName,
+                        final TextView tvPersonSex, final TextView tvPersonBirth,
+                        final TextView tvPersonEmail) {
+        String phone = util.getString(SPUtil.IS_USER, "");
+        if (TextUtils.equals(util.getString(SPUtil.IS_USER, ""), "")) {
+            return;
+        }
+        Logger.e("phone", phone + "");
+        JSONObject jo = new JSONObject();
+        try {
+            jo.put("phoneNumber", phone);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        MyOkHttp.newInstance().postJson(Common.URL_GET_USER, jo, new JsonResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, JSONObject response) {
+                try {
+                    String nickName = response.getString("nickName");
+                    String headImage = response.getString("headImage");
+                    String birthday = response.getString("birthday");
+                    int sex = response.getInt("sex");
+                    String email = response.getString("email");
+
+                    //头像
+                    if (TextUtils.equals(headImage, "null")) {
+                        ivMyHead.setImageDrawable(iView.getCon().getResources().getDrawable(
+                                R.mipmap.img_head));
+                    } else {
+
+                    }
+                    //昵称
+                    if (TextUtils.equals(nickName, "null")) {
+                        tvPersonPetName.setText("");
+                    } else {
+                        tvPersonPetName.setText(nickName);
+                    }
+                    //生日
+                    if (TextUtils.equals(birthday, "null")) {
+                        tvPersonBirth.setText("");
+                    } else {
+                        tvPersonBirth.setText(birthday.substring(0,10));
+                    }
+                    //性别
+                    switch (sex){
+                        case 0:
+                            tvPersonSex.setText("男");
+                            break;
+                        case 1:
+                            tvPersonSex.setText("女");
+                            break;
+                        case 2:
+                            tvPersonSex.setText("保密");
+                            break;
+                        default:
+                            tvPersonSex.setText("保密");
+                            break;
+                    }
+                    //邮箱
+                    if (TextUtils.equals(email, "null")) {
+                        tvPersonEmail.setText("");
+                    } else {
+                        tvPersonEmail.setText(email);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+
+            }
+        });
     }
 }
