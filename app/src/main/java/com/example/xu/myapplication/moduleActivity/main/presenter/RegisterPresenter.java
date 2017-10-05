@@ -8,6 +8,7 @@ import com.chaychan.viewlib.PowerfulEditText;
 import com.example.xu.myapplication.base.BasePresenter;
 import com.example.xu.myapplication.moduleActivity.main.viewInterface.IRegister;
 import com.example.xu.myapplication.util.ToastUtils;
+import com.vondear.rxtools.RxTool;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -42,19 +43,8 @@ public class RegisterPresenter extends BasePresenter {
             ToastUtils.showToast(view.getCon(), "请输入正确的手机号！");
             return;
         }
-        tvRegisterPhoneCode.setEnabled(false);
-        new CountDownTimer(60000, 1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                tvRegisterPhoneCode.setText(millisUntilFinished / 1000L + "s后重试");
-            }
-
-            @Override
-            public void onFinish() {
-                tvRegisterPhoneCode.setEnabled(true);
-                tvRegisterPhoneCode.setText("获取验证码");
-            }
-        }.start();
+        //倒计时
+        RxTool.countDown(tvRegisterPhoneCode,60000,1000,"获取验证码");
     }
 
     /**

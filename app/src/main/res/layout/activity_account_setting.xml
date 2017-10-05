@@ -82,6 +82,7 @@
     </View>
 
     <RelativeLayout
+        android:id="@+id/rela_address"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="@color/color_White">
@@ -112,6 +113,7 @@
     </View>
 
     <RelativeLayout
+        android:id="@+id/rela_account_safe"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="@color/color_White">

@@ -4,10 +4,8 @@ package com.example.xu.myapplication.moduleMy.fragment;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -39,17 +37,20 @@ public class MyFragment extends BaseMainFragment<MyPresenter> implements IMy {
 
     @BindView(R.id.iv_MyHead)
     CircleImageView ivMyHead;
+
     @OnClick(R.id.iv_MyHead)
-    public void toPersonActivity(){
-        presenter.toActivity(LoginActivity.class,MyPersonalActivity.class);
+    public void toPersonActivity() {
+        presenter.toActivity(LoginActivity.class, MyPersonalActivity.class);
     }
+
     @BindView(R.id.tv_MyUserName)
     TextView tvMyUserName;
     @BindView(R.id.iv_MySetting)
     ImageView ivMySetting;
+
     @OnClick(R.id.iv_MySetting)
-    public void toSettingActivity(){
-        presenter.toActivity(AccountSettingActivity.class,null);
+    public void toSettingActivity() {
+        presenter.toActivity(AccountSettingActivity.class, null);
     }
 
     @BindView(R.id.tv_dingdan)
@@ -57,7 +58,7 @@ public class MyFragment extends BaseMainFragment<MyPresenter> implements IMy {
 
     @OnClick(R.id.tv_dingdan)
     public void dingdan() {
-        toMyOrdersActivity(0);
+        presenter.toMyOrdersActivity(0);
     }
 
     @BindView(R.id.linear_daishou)
@@ -65,7 +66,7 @@ public class MyFragment extends BaseMainFragment<MyPresenter> implements IMy {
 
     @OnClick(R.id.linear_daishou)
     public void daishu() {
-        toMyOrdersActivity(1);
+        presenter.toMyOrdersActivity(1);
     }
 
     @BindView(R.id.tv_daishou)
@@ -76,7 +77,17 @@ public class MyFragment extends BaseMainFragment<MyPresenter> implements IMy {
 
     @OnClick(R.id.tv_wancheng)
     public void wancheng() {
-        toMyOrdersActivity(2);
+        presenter.toMyOrdersActivity(2);
+    }
+
+    @BindView(R.id.tv_evaluate)
+    TextView tvEvaluate;
+    @BindView(R.id.linear_evaluate)
+    LinearLayout linearEvaluate;
+
+    @OnClick(R.id.linear_evaluate)
+    public void evaluate() {
+        presenter.toMyOrdersActivity(3);
     }
 
     @BindView(R.id.linear_tuikuan)
@@ -84,7 +95,7 @@ public class MyFragment extends BaseMainFragment<MyPresenter> implements IMy {
 
     @OnClick(R.id.linear_tuikuan)
     public void tuikuan() {
-        toMyOrdersActivity(3);
+        presenter.toMyOrdersActivity(4);
     }
 
     @BindView(R.id.tv_tuikuan)
@@ -110,21 +121,6 @@ public class MyFragment extends BaseMainFragment<MyPresenter> implements IMy {
     @Override
     public void initData() {
 
-        QBadgeView badge_daishou=new QBadgeView(getActivity());
-        badge_daishou.bindTarget(tvDaishou);
-        badge_daishou.setBadgeGravity(Gravity.END | Gravity.TOP);
-        badge_daishou.setBadgeTextColor(getResources().getColor(R.color.color_White));
-        badge_daishou.setBadgeBackgroundColor(getResources().getColor(R.color.blue));
-        badge_daishou.setBadgeNumber(3);
-        badge_daishou.setBadgePadding(1,false);
-
-        QBadgeView badge_tuikuan=new QBadgeView(getActivity());
-        badge_tuikuan.bindTarget(tvTuikuan);
-        badge_tuikuan.setBadgeGravity(Gravity.END | Gravity.TOP);
-        badge_tuikuan.setBadgeTextColor(getResources().getColor(R.color.color_White));
-        badge_tuikuan.setBadgeBackgroundColor(getResources().getColor(R.color.blue));
-        badge_tuikuan.setBadgeNumber(3);
-        badge_tuikuan.setBadgePadding(-1,false);
     }
 
     @Override
@@ -137,8 +133,10 @@ public class MyFragment extends BaseMainFragment<MyPresenter> implements IMy {
 
     }
 
-    public void toMyOrdersActivity(int value) {
-        presenter.toMyOrdersActivity(value);
+    @Override
+    public void onResume() {
+        super.onResume();
+        presenter.getOrders(tvDaishou,tvEvaluate,tvTuikuan);
     }
 
     @Override
@@ -150,6 +148,5 @@ public class MyFragment extends BaseMainFragment<MyPresenter> implements IMy {
     public Activity getAct() {
         return getActivity();
     }
-
 
 }

@@ -8,7 +8,7 @@ import android.support.v4.view.ViewPager;
 
 import com.example.xu.myapplication.R;
 import com.example.xu.myapplication.base.BaseActivity;
-import com.example.xu.myapplication.moduleMy.fragment.adapter.FrgmentAdapter;
+import com.example.xu.myapplication.moduleMy.fragment.adapter.FragmentAdapter;
 import com.example.xu.myapplication.moduleMy.fragment.presenter.OrdersPresenter;
 import com.example.xu.myapplication.moduleMy.fragment.viewInterface.IOrders;
 import com.example.xu.myapplication.util.Logger;
@@ -38,11 +38,13 @@ public class MyOrdersActivity extends BaseActivity<OrdersPresenter> implements I
         tabOrders.addTab(tabOrders.newTab().setText(R.string.dingdan));
         tabOrders.addTab(tabOrders.newTab().setText(R.string.daishouhuo));
         tabOrders.addTab(tabOrders.newTab().setText(R.string.yiwancheng));
+        tabOrders.addTab(tabOrders.newTab().setText(R.string.evaluate));
         tabOrders.addTab(tabOrders.newTab().setText(R.string.tuikuan));
 
-        vpOrders.setAdapter(new FrgmentAdapter(getSupportFragmentManager(),
+        vpOrders.setAdapter(new FragmentAdapter(getSupportFragmentManager(),
                 getString(R.string.dingdan), getString(R.string.daishouhuo),
-                getString(R.string.yiwancheng), getString(R.string.tuikuan)));
+                getString(R.string.yiwancheng), getString(R.string.evaluate),
+                getString(R.string.tuikuan)));
         tabOrders.setupWithViewPager(vpOrders);
 
     }
@@ -50,8 +52,6 @@ public class MyOrdersActivity extends BaseActivity<OrdersPresenter> implements I
     @Override
     public void initView(Bundle savedInstanceState) {
         index = this.getIntent().getIntExtra("order", 0);
-        Logger.e("index", index + "");
-
         //设置第几个tab被选中
         tabOrders.getTabAt(index).select();
     }

@@ -13,7 +13,6 @@ public class Common {
     public static String URL_PACK_SIZE ="http://www.mobilebooks.cn/api/t-classType-3";
     public static String URL_GOODS_ALL ="http://www.mobilebooks.cn/api/t-goods";
 
-
     //查询特价商品
     public static String URL_BARGAIN = "http://www.mobilebooks.cn/api/t-bargains";
     //查询购物车
@@ -24,4 +23,12 @@ public class Common {
     public static String URL_RECOMMENDS_0 = "http://www.mobilebooks.cn/api/t-home-recommends-0";
     //查询优惠套餐
     public static String URL_RECOMMENDS_1 = "http://www.mobilebooks.cn/api/t-home-recommends-1";
+    //查询收货地址
+    public static String URL_GET_ADDRESS = "http://www.mobilebooks.cn/api/t-receive-addresses";
+    //查询收货地址
+    public static String URL_CREATE_ADDRESS = "http://www.mobilebooks.cn/api/t-receive-addresses";
+    //查询订单
+    public static String URL_GET_ORDERS = "http://www.mobilebooks.cn/api/t-orders";
+    //查询用户，返回用户所有信息
+    public static String URL_GET_USER = "http://www.mobilebooks.cn/api/t-usersByPhoneNumber";
 }

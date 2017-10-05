@@ -38,6 +38,10 @@
         </activity>
         <activity android:name=".moduleActivity.main.activity.RegisterActivity">
         </activity>
+        <activity android:name=".moduleMy.fragment.activity.setting.QueryAddressActivity">
+        </activity>
+        <activity android:name=".moduleMy.fragment.activity.setting.AddAddressActivity">
+        </activity>
     </application>
 
 </manifest>

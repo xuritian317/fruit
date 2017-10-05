@@ -59,9 +59,9 @@ public class BargainAdapter extends RecyclerView.Adapter<BargainAdapter.ViewHold
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         BargainBean bean=lists.get(position);
-        holder.tvBargainName.setText(bean.getBargainName());
-        holder.tvBargainPrice.setText("￥"+bean.getBargainPrice()+"/"+bean.getBargainCount()+"个");
-        Glide.with(context).load(bean.getBargainImage()).into(holder.ivBargainImg);
+        holder.tvBargainName.setText(bean.getGoods().getGoodsName());
+        holder.tvBargainPrice.setText("￥"+bean.getGoods().getGoodsPrice()+"/"+bean.getBargainCount()+"个");
+        Glide.with(context).load(bean.getGoods().getGoodsImage()).into(holder.ivBargainImg);
     }
 
     @Override

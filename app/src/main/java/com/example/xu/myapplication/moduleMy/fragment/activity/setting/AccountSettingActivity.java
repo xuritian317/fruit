@@ -3,8 +3,7 @@ package com.example.xu.myapplication.moduleMy.fragment.activity.setting;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.KeyEvent;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -25,21 +24,31 @@ public class AccountSettingActivity extends BaseActivity<AccountSettingPresenter
 
     @BindView(R.id.iv_setting_back)
     ImageView ivSettingBack;
-
-    @OnClick(R.id.iv_setting_back)
-    public void goBack() {
-        finish();
-    }
-
     @BindView(R.id.iv_setting_head)
     CircleImageView ivSettingHead;
-
+    @BindView(R.id.rela_address)
+    RelativeLayout relaAddress;
+    @BindView(R.id.rela_account_safe)
+    RelativeLayout relaAccountSafe;
     @BindView(R.id.rela_setting_head)
     RelativeLayout relaSettingHead;
 
-    @OnClick(R.id.rela_setting_head)
-    public void toPersonalActivity() {
-        presenter.startIntent(LoginActivity.class,MyPersonalActivity.class);
+    @OnClick({R.id.iv_setting_back, R.id.rela_setting_head, R.id.rela_address,
+            R.id.rela_account_safe})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.iv_setting_back:
+                finish();
+                break;
+            case R.id.rela_setting_head:
+                presenter.startIntent(LoginActivity.class, MyPersonalActivity.class);
+                break;
+            case R.id.rela_address:
+                presenter.startIntent(QueryAddressActivity.class, null);
+                break;
+            case R.id.rela_account_safe:
+                break;
+        }
     }
 
     @Override

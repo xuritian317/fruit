@@ -307,8 +307,8 @@ public class PersonalPresenter extends BasePresenter {
                     if (uri == null) {
                         return;
                     }
-
                     String path = FileUtil.getRealFilePathFromUri(iView.getCon(), uri);
+                    Log.e("path", path);
                     Bitmap bitmap = BitmapFactory.decodeFile(path);
                     if (type == 1) {
                         iv.setImageBitmap(bitmap);
@@ -363,9 +363,7 @@ public class PersonalPresenter extends BasePresenter {
         try {
             byte[] bitmapArray;
             bitmapArray = Base64.decode(str, Base64.DEFAULT);
-            bitmap =
-                    BitmapFactory.decodeByteArray(bitmapArray, 0,
-                            bitmapArray.length);
+            bitmap = BitmapFactory.decodeByteArray(bitmapArray, 0, bitmapArray.length);
             return bitmap;
         } catch (Exception e) {
             return null;

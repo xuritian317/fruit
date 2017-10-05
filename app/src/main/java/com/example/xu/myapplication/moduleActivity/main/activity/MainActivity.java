@@ -26,7 +26,6 @@ import me.yokeyword.fragmentation.SupportFragment;
 public class MainActivity extends BaseActivity<MainPresenter> implements IMain, BaseMainFragment.OnBackToFirstListener {
 
     private SupportFragment[] mFragments;
-    private SPUtil util;
 
     @BindView(R.id.bottomBar)
      BottomBar mBottomBar;
@@ -45,9 +44,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMain, 
     @Override
     public void initData() {
         mFragments = new SupportFragment[4];
-
-        util=new SPUtil(MainActivity.this);
-        util.putInt("isUser",0);
     }
 
     @Override

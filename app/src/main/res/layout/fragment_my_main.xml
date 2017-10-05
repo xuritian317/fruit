@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:orientation="horizontal"
-        android:weightSum="4">
+        android:weightSum="5">
 
         <TextView
             android:id="@+id/tv_dingdan"
@@ -86,6 +86,22 @@
             android:gravity="center"
             android:text="@string/yiwancheng"/>
 
+        <LinearLayout
+            android:id="@+id/linear_evaluate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_evaluate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@mipmap/evaluate"
+                android:gravity="center"
+                android:text="@string/evaluate"/>
+        </LinearLayout>
         <LinearLayout
             android:id="@+id/linear_tuikuan"
             android:layout_width="0dp"

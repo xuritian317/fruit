@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.example.xu.myapplication.R;
 import com.example.xu.myapplication.base.BasePresenter;
+import com.example.xu.myapplication.httpRequest.MyOkHttp;
+import com.example.xu.myapplication.httpRequest.response.RawResponseHandler;
 import com.example.xu.myapplication.moduleShopping.fragment.bean.FruitBean;
 import com.example.xu.myapplication.moduleShopping.fragment.adapter.ShoppingCarAdapter;
 import com.example.xu.myapplication.moduleShopping.fragment.dao.ShoppingCarDao;
@@ -57,70 +59,70 @@ public class ShoppingPresenter extends BasePresenter {
 
     public List<FruitBean> addList(final TextView tvShopingCart) {
         lists = new ArrayList<FruitBean>();
-//        MyOkHttp.newInstance().get("http://www.mobilebooks.cn/api/t-shopping-cars", null, new
-//                RawResponseHandler() {
-//                    @Override
-//                    public void onSuccess(int statusCode, String response) {
-//                        Log.e("shopping", statusCode+"");
-//                        try {
-//                            JSONArray array = new JSONArray(response);
-//                            Log.e("array", array.length() + "");
-//                            JSONObject jo = null;
-//                            JSONObject jo_goods = null;
-//                            for (int i = 0; i < array.length(); i++) {
-//                                jo = array.getJSONObject(i);
-//                                FruitBean info = new FruitBean();
-//                                info.setNumber(jo.getInt("goodsCount"));
-//                                String good = jo.getString("goods");
-//                                jo_goods = new JSONObject(good);
-//                                info.setFruit(jo_goods.getString("goodsName"));
-//                                info.setPrice(jo_goods.getDouble("goodsPrice"));
-//                                info.setFruit_img(jo_goods.getString("goodsImage"));
-//                                info.setChecked(false);
-//                                lists.add(info);
-//                            }
-//                            tvShopingCart.setText("购物车(" + lists.size() + ")");
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onFailure(int statusCode, String error_msg) {
-//
-//                    }
-//                });
-        ShoppingCarDao.newInstance(new ShoppingCarDao.CallBackShoppingCarDao() {
-            @Override
-            public void onSuccess(String response) {
-                try {
-                    JSONArray array = new JSONArray(response);
-                    Log.e("array", array.length() + "");
-                    JSONObject jo = null;
-                    JSONObject jo_goods = null;
-                    for (int i = 0; i < array.length(); i++) {
-                        jo = array.getJSONObject(i);
-                        FruitBean info = new FruitBean();
-                        info.setNumber(jo.getInt("goodsCount"));
-                        String good = jo.getString("goods");
-                        jo_goods = new JSONObject(good);
-                        info.setFruit(jo_goods.getString("goodsName"));
-                        info.setPrice(jo_goods.getDouble("goodsPrice"));
-                        info.setFruit_img(jo_goods.getString("goodsImage"));
-                        info.setChecked(false);
-                        lists.add(info);
+        MyOkHttp.newInstance().get("http://www.mobilebooks.cn/api/t-shopping-cars", null, new
+                RawResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, String response) {
+                        Log.e("shopping", statusCode+"");
+                        try {
+                            JSONArray array = new JSONArray(response);
+                            Log.e("array", array.length() + "");
+                            JSONObject jo = null;
+                            JSONObject jo_goods = null;
+                            for (int i = 0; i < array.length(); i++) {
+                                jo = array.getJSONObject(i);
+                                FruitBean info = new FruitBean();
+                                info.setNumber(jo.getInt("goodsCount"));
+                                String good = jo.getString("goods");
+                                jo_goods = new JSONObject(good);
+                                info.setFruit(jo_goods.getString("goodsName"));
+                                info.setPrice(jo_goods.getDouble("goodsPrice"));
+                                info.setFruit_img(jo_goods.getString("goodsImage"));
+                                info.setChecked(false);
+                                lists.add(info);
+                            }
+                            tvShopingCart.setText("购物车(" + lists.size() + ")");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
-                    tvShopingCart.setText("购物车(" + lists.size() + ")");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
 
-            @Override
-            public void onFailure(String message) {
+                    @Override
+                    public void onFailure(int statusCode, String error_msg) {
 
-            }
-        }).getFruit();
+                    }
+                });
+//        ShoppingCarDao.newInstance(new ShoppingCarDao.CallBackShoppingCarDao() {
+//            @Override
+//            public void onSuccess(String response) {
+//                try {
+//                    JSONArray array = new JSONArray(response);
+//                    Log.e("array", array.length() + "");
+//                    JSONObject jo = null;
+//                    JSONObject jo_goods = null;
+//                    for (int i = 0; i < array.length(); i++) {
+//                        jo = array.getJSONObject(i);
+//                        FruitBean info = new FruitBean();
+//                        info.setNumber(jo.getInt("goodsCount"));
+//                        String good = jo.getString("goods");
+//                        jo_goods = new JSONObject(good);
+//                        info.setFruit(jo_goods.getString("goodsName"));
+//                        info.setPrice(jo_goods.getDouble("goodsPrice"));
+//                        info.setFruit_img(jo_goods.getString("goodsImage"));
+//                        info.setChecked(false);
+//                        lists.add(info);
+//                    }
+//                    tvShopingCart.setText("购物车(" + lists.size() + ")");
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(String message) {
+//
+//            }
+//        }).getFruit();
         return lists;
     }
 

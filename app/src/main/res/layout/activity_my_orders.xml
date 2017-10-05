@@ -40,61 +40,12 @@
         android:id="@+id/tab_orders"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabSelectedTextColor="@color/blue"
-        app:tabTextColor="@color/tab_unSelect"
-        app:tabIndicatorColor="@color/blue">
+        app:tabIndicatorColor="@color/green"
+        app:tabSelectedTextColor="@color/green"
+        app:tabTextColor="@color/tab_unSelect">
 
     </android.support.design.widget.TabLayout>
 
-    <!--<RadioGroup-->
-        <!--android:id="@+id/rg_orders"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginBottom="10dp"-->
-        <!--android:layout_marginTop="10dp"-->
-        <!--android:orientation="horizontal"-->
-        <!--android:weightSum="4">-->
-
-        <!--<RadioButton-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_weight="1"-->
-            <!--android:button="@null"-->
-            <!--android:gravity="center"-->
-            <!--android:text="@string/all"-->
-            <!--android:textColor="@drawable/radiobutton_style"-->
-            <!--android:textSize="17sp"/>-->
-
-        <!--<RadioButton-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_weight="1"-->
-            <!--android:button="@null"-->
-            <!--android:gravity="center"-->
-            <!--android:text="@string/daishouhuo"-->
-            <!--android:textColor="@drawable/radiobutton_style"-->
-            <!--android:textSize="17sp"/>-->
-
-        <!--<RadioButton-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_weight="1"-->
-            <!--android:button="@null"-->
-            <!--android:gravity="center"-->
-            <!--android:text="@string/yiwancheng"-->
-            <!--android:textColor="@drawable/radiobutton_style"-->
-            <!--android:textSize="17sp"/>-->
-
-        <!--<RadioButton-->
-            <!--android:layout_width="0dp"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_weight="1"-->
-            <!--android:button="@null"-->
-            <!--android:gravity="center"-->
-            <!--android:text="@string/tuikuan"-->
-            <!--android:textColor="@drawable/radiobutton_style"-->
-            <!--android:textSize="17sp"/>-->
-    <!--</RadioGroup>-->
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"

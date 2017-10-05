@@ -5,7 +5,6 @@ package com.example.xu.myapplication.moduleHome.fragment.bean;
  */
 
 public class RecommendsBean_0 {
-
     /**
      * id : 1
      * place : null

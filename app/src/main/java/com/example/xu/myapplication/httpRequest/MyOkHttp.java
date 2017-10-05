@@ -41,6 +41,7 @@ public class MyOkHttp {
 
     private OkHttpClient client;
     private static MyOkHttp instance;
+    private static final MediaType JSON= MediaType.parse("application/json; charset=utf-8");
 
     public MyOkHttp() {
         client = new OkHttpClient();
@@ -82,9 +83,7 @@ public class MyOkHttp {
                 builder.add(entry.getKey(), entry.getValue());
             }
         }
-
         Request request;
-
         //发起request
         if(context == null) {
             request = new Request.Builder()
@@ -102,6 +101,48 @@ public class MyOkHttp {
 
         client.newCall(request).enqueue(new MyCallback(new Handler(), responseHandler));
     }
+
+    /**
+     *post请求  提交json数据
+     * @param url URL地址
+     * @param jsonObject 数据
+     * @param responseHandler 回调
+     */
+    public void postJson(final String url, final JSONObject jsonObject,
+                         final IResponseHandler responseHandler) {
+        postJson(null,url,jsonObject,responseHandler);
+    }
+
+    /**
+     * post请求  提交json数据
+     * @param context 发起请求的context
+     * @param url URL地址
+     * @param jsonObject 数据
+     * @param responseHandler 回调
+     */
+    public void postJson(Context context,final String url, final JSONObject jsonObject,
+                         final IResponseHandler responseHandler) {
+        RequestBody body = RequestBody.create(JSON,jsonObject.toString());
+        Request request;
+
+        //发起request
+        if(context == null) {
+            request = new Request.Builder()
+                    .url(url)
+                    .post(body)
+                    .build();
+        } else {
+            request = new Request.Builder()
+                    .url(url)
+                    .post(body)
+                    .tag(context)
+                    .build();
+        }
+
+        client.newCall(request).enqueue(new MyCallback(new Handler(),responseHandler));
+    }
+
+
 
     /**
      * get 请求

@@ -25,6 +25,7 @@
     <string name="shoucang">我的收藏</string>
     <string name="xiaoxi">我的消息</string>
     <string name="tuikuan">退款</string>
+    <string name="evaluate">待评价</string>
     <string name="yiwancheng">已完成</string>
     <string name="daishouhuo">待收货</string>
     <string name="dingdan">我的订单</string>
@@ -43,6 +44,7 @@
     <string name="accountSet">账户设置</string>
     <string name="personal_information">个人资料</string>
     <string name="shouhuo_address">收货地址</string>
+    <string name="add_address">新建地址</string>
     <string name="account_safe">账户安全</string>
 
     <string name="head_img">头像</string>
@@ -63,4 +65,11 @@
     <string name="register">注册</string>
     <string name="register_user">注册新用户</string>
     <string name="login_forget_pwd">忘记密码</string>
+
+    <string name="xingming">姓名</string>
+    <string name="sheng_shi_xian">省/市/县</string>
+    <string name="xiangxi_dizhi">详细地址</string>
+    <string name="moren">设为默认</string>
+    <string name="delete_order">删除订单</string>
+    <string name="pinjia">评价</string>
 </resources>

@@ -10,10 +10,10 @@ import com.example.xu.myapplication.moduleMy.fragment.child_frag.PagerChildFragm
  * Created by 逝 on 2017/09/16.
  */
 
-public class FrgmentAdapter extends FragmentPagerAdapter {
+public class FragmentAdapter extends FragmentPagerAdapter {
     private String[] mTitles;
 
-    public FrgmentAdapter(FragmentManager fm, String... titles) {
+    public FragmentAdapter(FragmentManager fm, String... titles) {
         super(fm);
         this.mTitles = titles;
     }
@@ -28,6 +28,8 @@ public class FrgmentAdapter extends FragmentPagerAdapter {
             return PagerChildFragment.newInstance(2);
         } else if (position == 3) {
             return PagerChildFragment.newInstance(3);
+        } else if (position == 4) {
+            return PagerChildFragment.newInstance(4);
         } else {
             return null;
         }

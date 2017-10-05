@@ -10,6 +10,7 @@ import android.content.SharedPreferences.Editor;
 
 public class SPUtil {
     private static final String FILENAME="Fruit";
+    public static final String IS_USER="isUSer";
     private SharedPreferences preferences;
     private Editor editor;
 

@@ -66,6 +66,7 @@
             android:drawableRight="@mipmap/ic_clear"
             android:hint="输入手机号"
             android:inputType="number"
+            android:singleLine="true"
             app:funcType="canClear"/>
 
         <TextView
@@ -110,6 +111,7 @@
             android:drawableRight="@mipmap/ic_clear"
             android:hint="输入验证码"
             android:inputType="number"
+            android:singleLine="true"
             app:funcType="canClear"/>
     </LinearLayout>
 
@@ -143,6 +145,7 @@
             android:background="@null"
             android:drawableRight="@mipmap/ic_clear"
             android:hint="输入密码"
+            android:singleLine="true"
             app:funcType="canClear"/>
     </LinearLayout>
 
@@ -176,6 +179,7 @@
             android:background="@null"
             android:drawableRight="@mipmap/ic_clear"
             android:hint="再次输入密码"
+            android:singleLine="true"
             app:funcType="canClear"/>
     </LinearLayout>
 
