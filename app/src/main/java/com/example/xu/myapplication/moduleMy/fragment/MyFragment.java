@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -32,6 +33,9 @@ public class MyFragment extends BaseMainFragment<MyPresenter> implements IMy {
             instance = new MyFragment();
         return instance;
     }
+
+    @BindView(R.id.refresh_my)
+    SwipeRefreshLayout refreshMy;
 
     @BindView(R.id.iv_MyHead)
     CircleImageView ivMyHead;
@@ -123,7 +127,12 @@ public class MyFragment extends BaseMainFragment<MyPresenter> implements IMy {
 
     @Override
     public void initView(Bundle savedInstanceState) {
-
+        refreshMy.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                presenter.getUser(refreshMy,ivMyHead, tvMyUserName, tvDaishou, tvEvaluate, tvTuikuan);
+            }
+        });
     }
 
     @Override
@@ -134,7 +143,7 @@ public class MyFragment extends BaseMainFragment<MyPresenter> implements IMy {
     @Override
     public void onResume() {
         super.onResume();
-        presenter.getUser(ivMyHead, tvMyUserName, tvDaishou, tvEvaluate, tvTuikuan);
+        presenter.getUser(refreshMy,ivMyHead, tvMyUserName, tvDaishou, tvEvaluate, tvTuikuan);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.example.xu.myapplication.moduleShopping.fragment.presenter;
 
 import android.content.Intent;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -66,12 +67,18 @@ public class ShoppingPresenter extends BasePresenter {
         view.getAct().startActivity(intent);
     }
 
-    public void addList(final ShoppingCarAdapter adapter, final TextView tvShopingCart) {
+    public void addList(final ShoppingCarAdapter adapter, final SwipeRefreshLayout refreshShoppingCar,
+                        final TextView tvShopingCart) {
         lists = new ArrayList<FruitBean>();
         String phone = util.getString(SPUtil.IS_USER, "");
         if (TextUtils.equals(util.getString(SPUtil.IS_USER, ""), "")) {
             return;
         }
+
+        if (!refreshShoppingCar.isRefreshing()){
+            refreshShoppingCar.setRefreshing(true);
+        }
+
         JSONObject jo = new JSONObject();
         try {
             jo.put("phoneNumber", phone);
@@ -89,17 +96,19 @@ public class ShoppingPresenter extends BasePresenter {
                     for (int i = 0; i < array.length(); i++) {
                         object=array.getJSONObject(i);
                         int count=object.getInt("goodsCount");
+                        int id=object.getInt("id");
                         String goods=object.getString("goods");
                         json=new JSONObject(goods);
                         String goodsName=json.getString("goodsName");
                         double goodsPrice=json.getDouble("goodsPrice");
                         String goodsImage=json.getString("goodsImage");
-                        bean=new FruitBean(goodsName,goodsPrice,count,goodsImage);
+                        bean=new FruitBean(id,goodsName,goodsPrice,count,goodsImage,false);
                         lists.add(bean);
                     }
 
                     tvShopingCart.setText("购物车("+array.length()+")");
                     adapter.setData(lists);
+                    refreshShoppingCar.setRefreshing(false);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -209,23 +218,34 @@ public class ShoppingPresenter extends BasePresenter {
     /**
      * 删除商品操作
      *
-     * @param adapter
-     * @param cbSelectAll
      */
-    public void deleteGoods(ShoppingCarAdapter adapter, CheckBox cbSelectAll) {
-        for (int i = 0; i < adapter.strs.size(); i++) {
-            for (int j = 0; j < lists.size(); j++) {
-                if (TextUtils.equals(adapter.strs.get(i), lists.get(j).getFruit())) {
-                    lists.remove(j);
+    public void deleteGoods(final ShoppingCarAdapter adapter, final SwipeRefreshLayout refreshShoppingCar,
+                            final TextView tvShoppingCart, final CheckBox cbSelectAll) {
+        int id;
+        JSONObject jo;
+        for (int i = 0; i <lists.size() ; i++) {
+            if (lists.get(i).isChecked()){
+                id=lists.get(i).getId();
+                Logger.e("id",id+"");
+                jo=new JSONObject();
+                try {
+                    jo.put("id",id);
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
+                MyOkHttp.newInstance().postJson(Common.URL_SHOPPING_CAR_DELETE + String.valueOf(id),
+                        jo, new RawResponseHandler() {
+                            @Override
+                            public void onSuccess(int statusCode, String response) {
+                                addList(adapter,refreshShoppingCar,tvShoppingCart);
+                            }
+
+                            @Override
+                            public void onFailure(int statusCode, String error_msg) {
+                                ToastUtils.showToast(view.getCon(),"删除失败请重试");
+                            }
+                        });
             }
         }
-
-        if (cbSelectAll.isChecked()) {
-            lists.clear();
-            cbSelectAll.setChecked(false);
-        }
-        adapter.setData(lists);
-        Log.e("lists", lists.size() + "");
     }
 }

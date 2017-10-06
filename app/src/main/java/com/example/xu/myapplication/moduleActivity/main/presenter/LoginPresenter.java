@@ -67,6 +67,7 @@ public class LoginPresenter extends BasePresenter {
                     String password=response.getString("password");
                     if (TextUtils.equals(pwd,password)){
                         util.putString(SPUtil.IS_USER,phone);
+                        util.putString(SPUtil.USER_ID,response.getString("id"));
                         view.getAct().finish();
                     } else {
                         ToastUtils.showToast(view.getCon(),"密码输入错误，请重试");

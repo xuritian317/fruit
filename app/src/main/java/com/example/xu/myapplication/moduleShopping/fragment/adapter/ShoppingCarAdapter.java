@@ -27,7 +27,6 @@ import java.util.List;
 public class ShoppingCarAdapter extends BaseAdapter {
 
     private List<FruitBean> objects = new ArrayList<FruitBean>();
-    public List<String> strs = new ArrayList<String>();
     private Context context;
     private LayoutInflater layoutInflater;
     private ShoppingFragment fragment;
@@ -40,14 +39,10 @@ public class ShoppingCarAdapter extends BaseAdapter {
 
     public void setData(List<FruitBean> objects) {
         this.objects = objects;
-        //初始化Map
-        init();
         notifyDataSetChanged();
     }
 
-    private void init() {
-        strs.clear();
-    }
+
 
     @Override
     public int getCount() {
@@ -86,24 +81,13 @@ public class ShoppingCarAdapter extends BaseAdapter {
                 .OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                //是否选择 存入map
+                //是否选择
                 object.setChecked(isChecked);
                 fragment.UpView();
             }
         });
         //设置cbShoppingItemSelect选择状态 避免CheckBox在listview中错乱
         holder.cbShoppingItemSelect.setChecked(object.isChecked());
-
-        if (holder.cbShoppingItemSelect.isChecked()) {
-
-            strs.add(object.getFruit());
-        } else {
-            for (int i = 0; i < strs.size(); i++) {
-                if (TextUtils.equals(strs.get(i), object.getFruit())) {
-                    strs.remove(i);
-                }
-            }
-        }
 
         holder.shoppingItemAddSub.setBuyMax(20)//最大购买数
                 .setBuyMin(1)//最小购买数，默认是1

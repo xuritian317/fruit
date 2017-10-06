@@ -1,6 +1,7 @@
 package com.example.xu.myapplication.moduleMy.fragment.presenter;
 
 import android.content.Intent;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
@@ -88,19 +89,24 @@ public class MyPresenter extends BasePresenter {
 
     /**
      * 根据用户手机号 获取用户所有信息
+     * @param refreshMy
      * @param ivMyHead  头像控件
      * @param tvMyUserName 昵称控件
      * @param tv1 需要显示的右上角角标的控件
      * @param tv2 ...
      * @param tv3 ...
      */
-    public void getUser(final CircleImageView ivMyHead, final TextView tvMyUserName,
+    public void getUser(final SwipeRefreshLayout refreshMy, final CircleImageView ivMyHead, final TextView tvMyUserName,
                         final TextView tv1, final TextView tv2, final TextView tv3) {
         String phone = util.getString(SPUtil.IS_USER, "");
         if (TextUtils.equals(util.getString(SPUtil.IS_USER, ""), "")) {
             return;
         }
-        Logger.e("phone", phone + "");
+        //刷新
+        if (!refreshMy.isRefreshing()){
+            refreshMy.setRefreshing(true);
+        }
+
         JSONObject jo = new JSONObject();
         try {
             jo.put("phoneNumber", phone);
@@ -153,6 +159,7 @@ public class MyPresenter extends BasePresenter {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                refreshMy.setRefreshing(false);
             }
 
             @Override

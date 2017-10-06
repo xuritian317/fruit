@@ -12,6 +12,7 @@ import com.example.xu.myapplication.httpRequest.response.JsonResponseHandler;
 import com.example.xu.myapplication.moduleMy.fragment.bean.ReceiveAddressBean;
 import com.example.xu.myapplication.moduleMy.fragment.viewInterface.IAddAddress;
 import com.example.xu.myapplication.util.Logger;
+import com.example.xu.myapplication.util.SPUtil;
 import com.example.xu.myapplication.util.ToastUtils;
 
 import org.json.JSONException;
@@ -27,9 +28,11 @@ import java.util.regex.Pattern;
 
 public class AddAddressPresenter extends BasePresenter {
     private IAddAddress view;
+    private SPUtil util;
 
     public AddAddressPresenter(IAddAddress view) {
         this.view = view;
+        util = new SPUtil(this.view.getCon());
     }
 
     /**
@@ -61,39 +64,18 @@ public class AddAddressPresenter extends BasePresenter {
             return;
         }
 
+        String userId=util.getString(SPUtil.USER_ID,"");
+
         JSONObject json = new JSONObject();
         try {
             json.put("address", shengshi);
             json.put("receivePhoneNumber", phone);
             json.put("street", xiangxi);
             json.put("receiveUser", name);
-            json.put("userId", "2");
+            json.put("userId", userId);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-//        OkHttpClient okHttpClient = new OkHttpClient();
-//
-//        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-//        RequestBody body = RequestBody.create(JSON,json.toString());
-//
-//        Request request = new Request.Builder()
-//                .url(Common.URL_CREATE_ADDRESS)
-//                .post(body)
-//                .build();
-//
-//        Call call = okHttpClient.newCall(request);
-//        call.enqueue(new Callback() {
-//            @Override
-//            public void onFailure(Call call, IOException e) {
-//
-//            }
-//
-//            @Override
-//            public void onResponse(Call call, Response response) throws IOException {
-//
-//            }
-//        });
 
         MyOkHttp.newInstance().postJson(Common.URL_CREATE_ADDRESS, json, new JsonResponseHandler() {
             @Override

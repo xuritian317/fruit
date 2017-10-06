@@ -17,6 +17,11 @@ public class Common {
     public static String URL_BARGAIN = "http://www.mobilebooks.cn/api/t-bargains";
     //查询购物车
     public static String URL_SHOPPING_CAR = "http://www.mobilebooks.cn/api/t-shopping-cars";
+    //购物车删除操作
+    public static String URL_SHOPPING_CAR_DELETE = "http://www.mobilebooks.cn/api/t-shopping-carsDelete/";
+    //购物车修改操作
+    public static String URL_SHOPPING_CAR_UPDATE = "http://www.mobilebooks.cn/api/t-shopping-carsPut";
+
     //查询广告位
     public static String URL_ADVERTISEMENTS = "http://www.mobilebooks.cn/api/t-advertisements";
     //查询特价鲜果
