@@ -52,7 +52,8 @@
             android:layout_height="60dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="10dp"/>
+            android:layout_marginRight="10dp"
+            android:background="@mipmap/img_head"/>
 
         <TextView
             android:id="@+id/tv_setting_nick"
@@ -62,6 +63,7 @@
             android:layout_marginLeft="10dp"
             android:textColor="@color/color_Black"
             android:textSize="20sp"
+            android:text="@string/login_register"
             android:layout_toRightOf="@+id/iv_setting_head"/>
 
         <ImageView

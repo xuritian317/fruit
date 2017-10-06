@@ -92,7 +92,6 @@ public class ShoppingFragment extends BaseMainFragment<ShoppingPresenter> implem
     public void initData() {
         adapter = new ShoppingCarAdapter(this, getActivity());
         lvShopping.setAdapter(adapter);
-        presenter.addList(adapter,tvShopingCart);
     }
 
     @Override
@@ -160,6 +159,12 @@ public class ShoppingFragment extends BaseMainFragment<ShoppingPresenter> implem
                 }))
 
                 .show(getActivity());
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        presenter.addList(adapter,tvShopingCart);
     }
 
     @Override

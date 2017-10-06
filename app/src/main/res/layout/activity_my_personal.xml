@@ -61,7 +61,8 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="10dp"
-            android:layout_toLeftOf="@+id/image1"/>
+            android:layout_toLeftOf="@+id/image1"
+            android:background="@mipmap/img_head"/>
 
         <ImageView
             android:id="@+id/image1"

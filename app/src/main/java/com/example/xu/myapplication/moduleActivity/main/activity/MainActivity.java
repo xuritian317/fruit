@@ -2,6 +2,8 @@ package com.example.xu.myapplication.moduleActivity.main.activity;
 
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.view.KeyEvent;
+import android.widget.Toast;
 
 import com.example.xu.myapplication.R;
 import com.example.xu.myapplication.base.BaseActivity;
@@ -18,6 +20,7 @@ import com.example.xu.myapplication.moduleShopping.fragment.ShoppingContentFragm
 import com.example.xu.myapplication.moduleShopping.fragment.ShoppingFragment;
 import com.example.xu.myapplication.moduleType.fragment.TypeContentFragment;
 import com.example.xu.myapplication.moduleType.fragment.TypeFragment;
+import com.example.xu.myapplication.util.Logger;
 import com.example.xu.myapplication.util.SPUtil;
 
 import butterknife.BindView;
@@ -29,6 +32,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMain, 
 
     @BindView(R.id.bottomBar)
      BottomBar mBottomBar;
+    //记录用户首次点击返回键的时间
+    private long firstTime=0;
 
 
     @Override
@@ -147,5 +152,27 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMain, 
         showHideFragment(mFragments[position], mFragments[prePosition]);
     }
 
+    /**
+     * 双击回退
+     * @param keyCode
+     * @param event
+     * @return
+     */
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        switch (keyCode){
+            case KeyEvent.KEYCODE_BACK:
+                long secondTime=System.currentTimeMillis();
+                if(secondTime-firstTime>2000){
+                    Toast.makeText(MainActivity.this,"再按一次退出程序", Toast.LENGTH_SHORT).show();
+                    firstTime=secondTime;
+                    return true;
+                }else{
+                    System.exit(0);
+                }
+                break;
+        }
+        return super.onKeyUp(keyCode, event);
+    }
 
 }
