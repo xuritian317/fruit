@@ -10,6 +10,7 @@ import com.example.xu.myapplication.base.BaseActivity;
 import com.example.xu.myapplication.base.BaseMainFragment;
 import com.example.xu.myapplication.moduleActivity.main.customer.BottomBar;
 import com.example.xu.myapplication.moduleActivity.main.customer.BottomBarTab;
+import com.example.xu.myapplication.moduleActivity.main.eventbus.TabSelectedEvent;
 import com.example.xu.myapplication.moduleActivity.main.viewInterface.IMain;
 import com.example.xu.myapplication.moduleActivity.main.presenter.MainPresenter;
 import com.example.xu.myapplication.moduleHome.fragment.HomeContentFragment;
@@ -23,6 +24,8 @@ import com.example.xu.myapplication.moduleType.fragment.TypeFragment;
 import com.example.xu.myapplication.util.Logger;
 import com.example.xu.myapplication.util.SPUtil;
 
+import org.greenrobot.eventbus.EventBus;
+
 import butterknife.BindView;
 import me.yokeyword.fragmentation.SupportFragment;
 
@@ -32,8 +35,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMain, 
 
     @BindView(R.id.bottomBar)
      BottomBar mBottomBar;
-    //记录用户首次点击返回键的时间
-    private long firstTime=0;
+    // 再点一次退出程序时间设置
+    private static final long WAIT_TIME = 2000L;
+    private long TOUCH_TIME = 0;
 
 
     @Override
@@ -100,7 +104,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMain, 
                 }
             }
         });
-
     }
 
     @Override
@@ -113,7 +116,12 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMain, 
         if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
             pop();
         } else {
-            ActivityCompat.finishAfterTransition(this);
+            if (System.currentTimeMillis() - TOUCH_TIME < WAIT_TIME) {
+                System.exit(0);
+            } else {
+                TOUCH_TIME = System.currentTimeMillis();
+                Toast.makeText(this, "再次点击退出程序！", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -152,27 +160,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMain, 
         showHideFragment(mFragments[position], mFragments[prePosition]);
     }
 
-    /**
-     * 双击回退
-     * @param keyCode
-     * @param event
-     * @return
-     */
-    @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event) {
-        switch (keyCode){
-            case KeyEvent.KEYCODE_BACK:
-                long secondTime=System.currentTimeMillis();
-                if(secondTime-firstTime>2000){
-                    Toast.makeText(MainActivity.this,"再按一次退出程序", Toast.LENGTH_SHORT).show();
-                    firstTime=secondTime;
-                    return true;
-                }else{
-                    System.exit(0);
-                }
-                break;
-        }
-        return super.onKeyUp(keyCode, event);
-    }
+
 
 }

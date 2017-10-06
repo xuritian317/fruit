@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import com.example.xu.myapplication.Common;
 import com.example.xu.myapplication.R;
 import com.example.xu.myapplication.base.BaseFragment;
+import com.example.xu.myapplication.modelGoodsInfo.fragment.GoodsInfoFragment;
 import com.example.xu.myapplication.moduleType.adapter.ContentAdapter;
 import com.example.xu.myapplication.moduleType.entity.Fruit;
 import com.example.xu.myapplication.moduleType.listener.OnItemClickListener;
@@ -45,6 +46,7 @@ public class MenuContentFragment extends BaseFragment {
     private ArrayList<Fruit> goodsList = new ArrayList<>();
     private ContentAdapter adapter;
     private List<String> typeList;
+    private int index = 0;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -65,10 +67,11 @@ public class MenuContentFragment extends BaseFragment {
 
     @OnClick(R.id.btn_type1)
     public void clickBtn1() {
-        if (spinnerType.getSelectedIndex()==0)
+        if (spinnerType.getSelectedIndex() == 0)
             return;
         spinnerType.setSelectedIndex(0);
         adapter.updateData(goodsList.get(0).getGoods());
+        index = 0;
     }
 
     @BindView(R.id.btn_type2)
@@ -76,10 +79,11 @@ public class MenuContentFragment extends BaseFragment {
 
     @OnClick(R.id.btn_type2)
     public void clickBtn2() {
-        if (spinnerType.getSelectedIndex()==1)
+        if (spinnerType.getSelectedIndex() == 1)
             return;
         spinnerType.setSelectedIndex(1);
         adapter.updateData(goodsList.get(1).getGoods());
+        index = 1;
     }
 
     @BindView(R.id.spinner_type)
@@ -115,6 +119,7 @@ public class MenuContentFragment extends BaseFragment {
             @Override
             public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
                 adapter.updateData(goodsList.get(position).getGoods());
+                index = position;
             }
         });
     }
@@ -131,7 +136,7 @@ public class MenuContentFragment extends BaseFragment {
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position, View view, RecyclerView.ViewHolder vh) {
-                ToastUtils.showToast(_mActivity, "click " + position);
+                ((TypeContentFragment) getParentFragment()).start(GoodsInfoFragment.newInstance(goodsList.get(index).getGoods().get(position)));
             }
         });
     }

@@ -135,4 +135,9 @@ public class HomeFragment extends BaseMainFragment<HomePresenter> implements IHo
     public Activity getAct() {
         return getActivity();
     }
+
+    @Override
+    public boolean onBackPressedSupport() {
+        return false;
+    }
 }

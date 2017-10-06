@@ -12,6 +12,8 @@ public class Common {
     public static String URL_PACK_TYPE ="http://www.mobilebooks.cn/api/t-classType-2";
     public static String URL_PACK_SIZE ="http://www.mobilebooks.cn/api/t-classType-3";
     public static String URL_GOODS_ALL ="http://www.mobilebooks.cn/api/t-goods";
+    public static String URL_POST_SHOPPING ="http://www.mobilebooks.cn/api/t-shopping-cars";
+    public static String URL_POST_COLLECTION ="http://www.mobilebooks.cn/api/t-collections";
 
     //查询特价商品
     public static String URL_BARGAIN = "http://www.mobilebooks.cn/api/t-bargains";
