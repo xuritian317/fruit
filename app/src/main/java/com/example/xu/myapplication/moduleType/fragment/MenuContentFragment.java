@@ -65,6 +65,8 @@ public class MenuContentFragment extends BaseFragment {
 
     @OnClick(R.id.btn_type1)
     public void clickBtn1() {
+        if (spinnerType.getSelectedIndex()==0)
+            return;
         spinnerType.setSelectedIndex(0);
         adapter.updateData(goodsList.get(0).getGoods());
     }
@@ -74,6 +76,8 @@ public class MenuContentFragment extends BaseFragment {
 
     @OnClick(R.id.btn_type2)
     public void clickBtn2() {
+        if (spinnerType.getSelectedIndex()==1)
+            return;
         spinnerType.setSelectedIndex(1);
         adapter.updateData(goodsList.get(1).getGoods());
     }

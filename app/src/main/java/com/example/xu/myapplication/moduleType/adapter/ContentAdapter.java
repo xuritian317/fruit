@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.xu.myapplication.GlideApp;
 import com.example.xu.myapplication.R;
@@ -33,7 +32,6 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ViewHold
     public void setData(ArrayList<Fruit.FruitDetail> data){
         goodsData.clear();
         goodsData.addAll(data);
-        notifyDataSetChanged();
     }
     public void updateData(ArrayList<Fruit.FruitDetail> data){
         goodsData.clear();
@@ -59,8 +57,7 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ViewHold
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Fruit.FruitDetail bean = goodsData.get(position);
-        GlideApp.with(mContext).load(bean.getGoodsImage()).diskCacheStrategy(DiskCacheStrategy.ALL).centerCrop().into(holder.imgFruit);
-        holder.imgFruit.setImageResource(R.mipmap.ic_launcher);
+        GlideApp.with(mContext).asBitmap().load(bean.getGoodsImage()).diskCacheStrategy(DiskCacheStrategy.ALL).circleCrop().into(holder.imgFruit);
         holder.tvName.setText(bean.getGoodsName());
     }
 
