@@ -102,9 +102,9 @@ public class RecommendsBean_0 {
         private int temperature;
         private String nutritionInfo;
         private String effect;
-        private Object hot;
-        private Object createTime;
-        private Object updateTime;
+        private int hot;
+        private String createTime;
+        private String updateTime;
 
         public int getId() {
             return id;
@@ -178,27 +178,27 @@ public class RecommendsBean_0 {
             this.effect = effect;
         }
 
-        public Object getHot() {
+        public int getHot() {
             return hot;
         }
 
-        public void setHot(Object hot) {
+        public void setHot(int hot) {
             this.hot = hot;
         }
 
-        public Object getCreateTime() {
+        public String getCreateTime() {
             return createTime;
         }
 
-        public void setCreateTime(Object createTime) {
+        public void setCreateTime(String createTime) {
             this.createTime = createTime;
         }
 
-        public Object getUpdateTime() {
+        public String getUpdateTime() {
             return updateTime;
         }
 
-        public void setUpdateTime(Object updateTime) {
+        public void setUpdateTime(String updateTime) {
             this.updateTime = updateTime;
         }
     }

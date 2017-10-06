@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.xu.myapplication.R;
 import com.example.xu.myapplication.moduleHome.fragment.bean.RecommendsBean_0;
+import com.example.xu.myapplication.moduleType.entity.Fruit;
 
 public class RecommendsAdapter_0 extends BaseAdapter {
 
@@ -34,6 +35,10 @@ public class RecommendsAdapter_0 extends BaseAdapter {
     public void setData(ArrayList<RecommendsBean_0> objects){
         this.objects=objects;
         notifyDataSetChanged();
+    }
+    public Fruit.FruitDetail getFruit(int position) {
+        RecommendsBean_0 bean = objects.get(position);
+        return new Fruit.FruitDetail(bean.getGoods());
     }
     @Override
     public int getCount() {

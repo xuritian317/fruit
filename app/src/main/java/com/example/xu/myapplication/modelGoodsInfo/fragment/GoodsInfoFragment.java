@@ -3,6 +3,8 @@ package com.example.xu.myapplication.modelGoodsInfo.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -29,7 +31,8 @@ public class GoodsInfoFragment extends BaseFragment<GoodsInfoPresenter> implemen
         instance.setArguments(args);
         return instance;
     }
-
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
     //物品图片
     @BindView(R.id.img_goods_img)
     ImageView img_goods;
@@ -52,6 +55,7 @@ public class GoodsInfoFragment extends BaseFragment<GoodsInfoPresenter> implemen
     @OnClick(R.id.img_goods_add)
     public void addGoods() {
         count++;
+        tv_currentGoods.setText(fruitDetail.getGoodsName() + "," + count + "件");
         Logger.e("addGoods", "count\t" + count);
     }
 
@@ -116,6 +120,15 @@ public class GoodsInfoFragment extends BaseFragment<GoodsInfoPresenter> implemen
 
     @Override
     public void initView(Bundle savedInstanceState) {
+        toolbar.setNavigationIcon(R.mipmap.toolbar_back);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                _mActivity.onBackPressed();
+            }
+        });
+        toolbar.setTitle("商品详情");
+
         GlideApp.with(_mActivity).asBitmap().load(fruitDetail.getGoodsImage()).diskCacheStrategy(DiskCacheStrategy.ALL).circleCrop().into(img_goods);
         tv_goodsTitle.setText(fruitDetail.getGoodsName());
         tv_newPrice.setText(fruitDetail.getGoodsPrice() + "");

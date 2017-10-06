@@ -26,14 +26,14 @@ public class BargainBean {
      */
 
     private int id;
-    private Object bargainName;
+    private String bargainName;
     private String bargainPrice;
-    private Object bargainImage;
+    private String bargainImage;
     private int bargainCount;
     private String bargainPlace;
     private String endTime;
-    private Object createTime;
-    private Object updateTime;
+    private String createTime;
+    private String updateTime;
     private int goodsId;
     private GoodsBean goods;
 
@@ -45,11 +45,11 @@ public class BargainBean {
         this.id = id;
     }
 
-    public Object getBargainName() {
+    public String getBargainName() {
         return bargainName;
     }
 
-    public void setBargainName(Object bargainName) {
+    public void setBargainName(String bargainName) {
         this.bargainName = bargainName;
     }
 
@@ -61,11 +61,11 @@ public class BargainBean {
         this.bargainPrice = bargainPrice;
     }
 
-    public Object getBargainImage() {
+    public String getBargainImage() {
         return bargainImage;
     }
 
-    public void setBargainImage(Object bargainImage) {
+    public void setBargainImage(String bargainImage) {
         this.bargainImage = bargainImage;
     }
 
@@ -93,19 +93,19 @@ public class BargainBean {
         this.endTime = endTime;
     }
 
-    public Object getCreateTime() {
+    public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Object createTime) {
+    public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
 
-    public Object getUpdateTime() {
+    public String getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(Object updateTime) {
+    public void setUpdateTime(String updateTime) {
         this.updateTime = updateTime;
     }
 
@@ -152,8 +152,8 @@ public class BargainBean {
         private String nutritionInfo;
         private String effect;
         private int hot;
-        private Object createTime;
-        private Object updateTime;
+        private String createTime;
+        private String updateTime;
 
         public int getId() {
             return id;
@@ -235,19 +235,19 @@ public class BargainBean {
             this.hot = hot;
         }
 
-        public Object getCreateTime() {
+        public String getCreateTime() {
             return createTime;
         }
 
-        public void setCreateTime(Object createTime) {
+        public void setCreateTime(String createTime) {
             this.createTime = createTime;
         }
 
-        public Object getUpdateTime() {
+        public String getUpdateTime() {
             return updateTime;
         }
 
-        public void setUpdateTime(Object updateTime) {
+        public void setUpdateTime(String updateTime) {
             this.updateTime = updateTime;
         }
     }

@@ -160,6 +160,4 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMain, 
         showHideFragment(mFragments[position], mFragments[prePosition]);
     }
 
-
-
 }

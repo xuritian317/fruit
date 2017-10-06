@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide;
 import com.example.xu.myapplication.R;
 import com.example.xu.myapplication.moduleHome.fragment.bean.BargainBean;
 import com.example.xu.myapplication.moduleHome.fragment.listener.OnItemClickListener;
+import com.example.xu.myapplication.moduleType.entity.Fruit;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,7 @@ import java.util.List;
  * Created by 逝 on 2017/09/30.
  */
 
-public class BargainAdapter extends RecyclerView.Adapter<BargainAdapter.ViewHolder>{
+public class BargainAdapter extends RecyclerView.Adapter<BargainAdapter.ViewHolder> {
 
     private Context context;
     private ArrayList<BargainBean> lists;
@@ -30,9 +31,14 @@ public class BargainAdapter extends RecyclerView.Adapter<BargainAdapter.ViewHold
         this.context = context;
     }
 
-    public void setData(ArrayList<BargainBean> lists){
-        this.lists=lists;
+    public void setData(ArrayList<BargainBean> lists) {
+        this.lists = lists;
         notifyDataSetChanged();
+    }
+
+    public Fruit.FruitDetail getFruit(int position) {
+        BargainBean bargain = lists.get(position);
+        return new Fruit.FruitDetail(bargain.getGoods());
     }
 
     public void setOnItemClickListener(OnItemClickListener itemClickListener) {
@@ -42,13 +48,13 @@ public class BargainAdapter extends RecyclerView.Adapter<BargainAdapter.ViewHold
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_bargain,parent,false);
-        final ViewHolder holder=new ViewHolder(view);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_bargain, parent, false);
+        final ViewHolder holder = new ViewHolder(view);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int position = holder.getAdapterPosition();
-                if (mClickListener!=null){
+                if (mClickListener != null) {
                     mClickListener.onItemClick(position, v, holder);
                 }
             }
@@ -58,9 +64,9 @@ public class BargainAdapter extends RecyclerView.Adapter<BargainAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        BargainBean bean=lists.get(position);
+        BargainBean bean = lists.get(position);
         holder.tvBargainName.setText(bean.getGoods().getGoodsName());
-        holder.tvBargainPrice.setText("￥"+bean.getGoods().getGoodsPrice()+"/"+bean.getBargainCount()+"个");
+        holder.tvBargainPrice.setText("￥" + bean.getGoods().getGoodsPrice() + "/" + bean.getBargainCount() + "个");
         Glide.with(context).load(bean.getGoods().getGoodsImage()).into(holder.ivBargainImg);
     }
 
@@ -70,7 +76,7 @@ public class BargainAdapter extends RecyclerView.Adapter<BargainAdapter.ViewHold
     }
 
 
-    protected class ViewHolder extends RecyclerView.ViewHolder{
+    protected class ViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView ivBargainImg;
         private TextView tvBargainName;

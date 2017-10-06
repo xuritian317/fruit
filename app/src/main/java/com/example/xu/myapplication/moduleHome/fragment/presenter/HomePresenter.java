@@ -35,7 +35,6 @@ import java.util.List;
 public class HomePresenter extends BasePresenter {
     private IHome view;
 
-
     public HomePresenter(IHome view) {
         this.view = view;
     }

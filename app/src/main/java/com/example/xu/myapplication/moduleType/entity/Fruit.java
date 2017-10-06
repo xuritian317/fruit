@@ -3,6 +3,10 @@ package com.example.xu.myapplication.moduleType.entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.example.xu.myapplication.moduleHome.fragment.bean.BargainBean;
+import com.example.xu.myapplication.moduleHome.fragment.bean.RecommendsBean_0;
+import com.example.xu.myapplication.moduleHome.fragment.bean.RecommendsBean_1;
+
 import java.util.ArrayList;
 
 /**
@@ -184,7 +188,48 @@ public class Fruit implements Parcelable {
             this.createTime = fruitDetail.getCreateTime();
             this.updateTime = fruitDetail.getUpdateTime();
         }
-
+        public FruitDetail(BargainBean.GoodsBean goodsBean){
+            this.id = goodsBean.getId();
+            this.goodsName = goodsBean.getGoodsName();
+            this.goodsPrice = goodsBean.getGoodsPrice();
+            this.goodsImage = goodsBean.getGoodsImage();
+            this.goodsClassify = goodsBean.getGoodsClassify();
+            this.goodsIntroduction = goodsBean.getGoodsIntroduction();
+            this.temperature = goodsBean.getTemperature();
+            this.nutritionInfo = goodsBean.getNutritionInfo();
+            this.effect = goodsBean.getEffect();
+            this.hot = goodsBean.getHot();
+            this.createTime = goodsBean.getCreateTime();
+            this.updateTime = goodsBean.getUpdateTime();
+        }
+        public FruitDetail(RecommendsBean_0.GoodsBean goodsBean){
+            this.id = goodsBean.getId();
+            this.goodsName = goodsBean.getGoodsName();
+            this.goodsPrice = goodsBean.getGoodsPrice();
+            this.goodsImage = goodsBean.getGoodsImage();
+            this.goodsClassify = goodsBean.getGoodsClassify();
+            this.goodsIntroduction = goodsBean.getGoodsIntroduction();
+            this.temperature = goodsBean.getTemperature();
+            this.nutritionInfo = goodsBean.getNutritionInfo();
+            this.effect = goodsBean.getEffect();
+            this.hot = goodsBean.getHot();
+            this.createTime = goodsBean.getCreateTime();
+            this.updateTime = goodsBean.getUpdateTime();
+        }
+        public FruitDetail(RecommendsBean_1.GoodsBean goodsBean){
+            this.id = goodsBean.getId();
+            this.goodsName = goodsBean.getGoodsName();
+            this.goodsPrice = goodsBean.getGoodsPrice();
+            this.goodsImage = goodsBean.getGoodsImage();
+            this.goodsClassify = goodsBean.getGoodsClassify();
+            this.goodsIntroduction = goodsBean.getGoodsIntroduction();
+            this.temperature = goodsBean.getTemperature();
+            this.nutritionInfo = goodsBean.getNutritionInfo();
+            this.effect = goodsBean.getEffect();
+            this.hot = goodsBean.getHot();
+            this.createTime = goodsBean.getCreateTime();
+            this.updateTime = goodsBean.getUpdateTime();
+        }
         public static final Creator<FruitDetail> CREATOR = new Creator<FruitDetail>() {
             @Override
             public FruitDetail createFromParcel(Parcel in) {
