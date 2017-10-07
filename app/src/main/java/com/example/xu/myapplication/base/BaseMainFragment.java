@@ -1,8 +1,11 @@
 package com.example.xu.myapplication.base;
 
 import android.content.Context;
+import android.widget.Toast;
 
+import com.example.xu.myapplication.R;
 import com.example.xu.myapplication.moduleHome.fragment.HomeFragment;
+import com.example.xu.myapplication.util.ToastUtils;
 
 /**
  * 懒加载
@@ -12,6 +15,9 @@ public abstract class BaseMainFragment<T extends BasePresenter> extends BaseFrag
     public T presenter;
 
     protected OnBackToFirstListener _mBackToFirstListener;
+    // 再点一次退出程序时间设置
+    private static final long WAIT_TIME = 2000L;
+    private long TOUCH_TIME = 0;
 
     @Override
     public void onAttach(Context context) {
@@ -41,7 +47,13 @@ public abstract class BaseMainFragment<T extends BasePresenter> extends BaseFrag
             popChild();
         } else {
             if (this instanceof HomeFragment) {   // 如果是 第一个Fragment 则退出app
-                _mActivity.finish();
+                if (System.currentTimeMillis() - TOUCH_TIME < WAIT_TIME) {
+                    System.exit(0);
+                } else {
+                    TOUCH_TIME = System.currentTimeMillis();
+                    ToastUtils.showToast(_mActivity, "再次点击退出程序");
+                }
+
             } else {                                    // 如果不是,则回到第一个Fragment
                 _mBackToFirstListener.onBackToFirstFragment();
             }

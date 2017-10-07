@@ -61,7 +61,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MyViewHolder> 
         if (position == 0 || position == 3 || position == 6 || position == 8) {
             holder.viewLine.setVisibility(View.INVISIBLE);
             holder.itemView.setBackgroundResource(R.color.bg_app);
-            holder.tvName.setTextColor(mContext.getResources().getColor(R.color.blue));
+            holder.tvName.setTextColor(mContext.getResources().getColor(R.color.typeColor));
             return;
         }
         if (mLastCheckedPosition == 1)
@@ -69,7 +69,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MyViewHolder> 
         if (!mBooleanArray.get(position)) {
             holder.viewLine.setVisibility(View.INVISIBLE);
             holder.itemView.setBackgroundResource(R.color.bg_app);
-            holder.tvName.setTextColor(Color.BLACK);
+            holder.tvName.setTextColor(mContext.getResources().getColor(R.color.typeTextColor));
         } else {
             holder.viewLine.setVisibility(View.VISIBLE);
             holder.itemView.setBackgroundColor(Color.WHITE);

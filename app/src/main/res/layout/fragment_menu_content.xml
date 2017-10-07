@@ -1,39 +1,47 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginTop="3dp"
     android:orientation="vertical"
     tools:context="com.example.xu.myapplication.moduleType.fragment.MenuContentFragment">
 
     <LinearLayout
         android:id="@+id/linear_btn_type"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="30dp"
         android:layout_marginBottom="3dp"
-        android:orientation="horizontal">
+        android:layout_marginTop="3dp"
+        android:orientation="horizontal"
+        android:layout_marginEnd="5dp"
+        android:layout_marginStart="5dp">
 
         <Button
-            style="@style/btn_type"
+            android:background="@drawable/type_btn_select"
             android:id="@+id/btn_type1"
+            style="@style/btn_type"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:layout_marginEnd="5dp" />
 
         <Button
-            style="@style/btn_type"
+            android:background="@drawable/type_btn_select"
             android:id="@+id/btn_type2"
+            style="@style/btn_type"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:layout_marginEnd="5dp" />
 
         <com.jaredrummler.materialspinner.MaterialSpinner
-            android:textSize="11sp"
-            app:ms_text_color="@color/blue"
             android:id="@+id/spinner_type"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:textSize="11sp"
+            app:ms_text_color="@color/blue" />
 
     </LinearLayout>
 

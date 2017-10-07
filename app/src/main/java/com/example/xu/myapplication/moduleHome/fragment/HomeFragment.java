@@ -46,4 +46,5 @@ public class HomeFragment extends BaseMainFragment {
             loadRootFragment(R.id.fl_first_container, HomeContentFragment.newInstance());
         }
     }
+
 }

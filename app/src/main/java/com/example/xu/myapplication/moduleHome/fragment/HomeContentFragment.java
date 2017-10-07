@@ -164,7 +164,7 @@ public class HomeContentFragment extends BaseMainFragment<HomePresenter> impleme
 
     @Override
     public boolean onBackPressedSupport() {
-        return super.onBackPressedSupport();
+        return false;
     }
 
 }

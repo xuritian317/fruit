@@ -31,6 +31,8 @@
         <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
     </style>
     <style name="btn_type">
+        <item name="android:gravity">center</item>
         <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 </resources>
