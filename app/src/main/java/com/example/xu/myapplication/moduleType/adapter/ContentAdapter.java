@@ -7,11 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.xu.myapplication.GlideApp;
 import com.example.xu.myapplication.R;
 import com.example.xu.myapplication.moduleType.entity.Fruit;
 import com.example.xu.myapplication.moduleType.listener.OnItemClickListener;
+import com.example.xu.myapplication.util.Logger;
 
 import java.util.ArrayList;
 
@@ -19,7 +21,7 @@ import java.util.ArrayList;
  * Created by xu on 2017/9/30.
  */
 
-public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ViewHolder>{
+public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ViewHolder> {
     private OnItemClickListener mClickListener;
     private LayoutInflater mInflater;
     private Context mContext;
@@ -29,15 +31,20 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ViewHold
         this.mContext = mContext;
         mInflater = LayoutInflater.from(mContext);
     }
-    public void setData(ArrayList<Fruit.FruitDetail> data){
+
+    public void setData(ArrayList<Fruit.FruitDetail> data) {
         goodsData.clear();
         goodsData.addAll(data);
+        notifyDataSetChanged();
+        Logger.e("setData onSuccess", "data"+data.size()+data.toString());
     }
-    public void updateData(ArrayList<Fruit.FruitDetail> data){
+
+    public void updateData(ArrayList<Fruit.FruitDetail> data) {
         goodsData.clear();
         goodsData.addAll(data);
         notifyDataSetChanged();
     }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.item_menu_content, parent, false);
@@ -66,11 +73,15 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ViewHold
         return goodsData.size();
     }
 
+    public Fruit.FruitDetail getFruit(int position) {
+        return goodsData.get(position);
+    }
+
     class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imgFruit;
         TextView tvName;
 
-         ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
             imgFruit = (ImageView) itemView.findViewById(R.id.img_fruit);
             tvName = (TextView) itemView.findViewById(R.id.tv_fruit_name);

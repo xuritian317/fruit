@@ -344,33 +344,6 @@
                         android:textSize="13dp" />
                 </LinearLayout>
 
-                <!-- 小二推荐 -->
-                <LinearLayout
-                    android:id="@+id/ll_recommend"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:background="#ffffff"
-                    android:orientation="vertical"
-                    android:paddingLeft="12dp"
-                    android:paddingRight="12dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="14dp"
-                        android:layout_marginTop="14dp"
-                        android:text="推荐"
-                        android:textColor="#222222"
-                        android:textSize="13dp" />
-
-                    <ImageView
-                        android:id="@+id/vp_recommend"
-                        android:layout_width="match_parent"
-                        android:layout_height="264dp"
-                        android:background="#ffffff" />
-                </LinearLayout>
-
             </LinearLayout>
         </ScrollView>
 

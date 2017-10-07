@@ -2,13 +2,19 @@ package com.example.xu.myapplication.modelGoodsInfo.presenter;
 
 import android.content.Context;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.widget.GridLayoutManager;
 
 import com.example.xu.myapplication.base.BasePresenter;
 import com.example.xu.myapplication.modelGoodsInfo.dao.CollectionDao;
+import com.example.xu.myapplication.modelGoodsInfo.dao.RecommendDao;
 import com.example.xu.myapplication.modelGoodsInfo.dao.ShoppingCarDao;
 import com.example.xu.myapplication.modelGoodsInfo.viewInterface.IGoodsInfo;
+import com.example.xu.myapplication.moduleType.adapter.ContentAdapter;
+import com.example.xu.myapplication.moduleType.entity.Fruit;
 import com.example.xu.myapplication.util.Logger;
 import com.example.xu.myapplication.util.SPUtil;
+
+import java.util.ArrayList;
 
 /**
  * Created by xu on 2017/10/6.
@@ -63,5 +69,21 @@ public class GoodsInfoPresenter extends BasePresenter {
                 view.onSuccessToast("收藏失败");
             }
         }).postToCollection(userId, id);
+    }
+
+
+    public void getRecycleData(int id) {
+        RecommendDao.newInstance(new RecommendDao.CallBackRecommend() {
+            @Override
+            public void onSuccess(ArrayList<Fruit.FruitDetail> fruitDetails) {
+                view.setRecyclerData(fruitDetails);
+                Logger.e("getRecycleData onSuccess", "fruitDetails"+fruitDetails.size()+fruitDetails.toString());
+            }
+
+            @Override
+            public void onFailure(String message) {
+                Logger.e("getRecycleData onFailure", message);
+            }
+        }).getRecommend(id);
     }
 }
