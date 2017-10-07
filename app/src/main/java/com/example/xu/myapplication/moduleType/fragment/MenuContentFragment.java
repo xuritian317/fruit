@@ -3,7 +3,9 @@ package com.example.xu.myapplication.moduleType.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -18,6 +20,8 @@ import com.example.xu.myapplication.modelGoodsInfo.fragment.GoodsInfoFragment;
 import com.example.xu.myapplication.moduleType.adapter.ContentAdapter;
 import com.example.xu.myapplication.moduleType.entity.Fruit;
 import com.example.xu.myapplication.moduleType.listener.OnItemClickListener;
+import com.example.xu.myapplication.moduleType.presenter.MenuContentPresenter;
+import com.example.xu.myapplication.moduleType.viewInterface.IMenuContent;
 import com.example.xu.myapplication.util.Logger;
 import com.example.xu.myapplication.util.ToastUtils;
 import com.jaredrummler.materialspinner.MaterialSpinner;
@@ -31,22 +35,25 @@ import butterknife.OnClick;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MenuContentFragment extends BaseFragment {
+public class MenuContentFragment extends BaseFragment<MenuContentPresenter> implements IMenuContent {
 
-    public static MenuContentFragment newInstance(ArrayList<Fruit> goodsList) {
+    public static MenuContentFragment newInstance(ArrayList<Fruit> goodsList, boolean flag) {
         Bundle args = new Bundle();
         args.putParcelableArrayList(ARG_MENU, goodsList);
+        args.putBoolean(ARG_FLAG, flag);
         MenuContentFragment instance = new MenuContentFragment();
         instance.setArguments(args);
         return instance;
     }
 
     private static final String ARG_MENU = "arg_menu";
+    private static final String ARG_FLAG = "arg_flag";
 
     private ArrayList<Fruit> goodsList = new ArrayList<>();
     private ContentAdapter adapter;
-    private List<String> typeList;
     private int index = 0;
+    private ArrayList<Fruit.FruitDetail> addList = new ArrayList<>();
+    private boolean flag = false;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,6 +62,7 @@ public class MenuContentFragment extends BaseFragment {
         Bundle args = getArguments();
         if (args != null) {
             goodsList = args.getParcelableArrayList(ARG_MENU);
+            flag = args.getBoolean(ARG_FLAG);
         }
     }
 
@@ -88,6 +96,13 @@ public class MenuContentFragment extends BaseFragment {
 
     @BindView(R.id.spinner_type)
     MaterialSpinner spinnerType;
+    @BindView(R.id.fBtn_pack)
+    FloatingActionButton fBtn_pack;
+
+    @OnClick(R.id.fBtn_pack)
+    public void addPack() {
+        presenter.showDialog(_mActivity, addList);
+    }
 
     @Override
     public int getLayout() {
@@ -96,7 +111,7 @@ public class MenuContentFragment extends BaseFragment {
 
     @Override
     public void setPresenter() {
-
+        presenter = new MenuContentPresenter(this);
     }
 
     @Override
@@ -106,7 +121,7 @@ public class MenuContentFragment extends BaseFragment {
             return;
         }
         linear_btnType.setVisibility(View.VISIBLE);
-        typeList = new ArrayList<>();
+        List<String> typeList = new ArrayList<>();
         for (int i = 0; i < goodsList.size(); i++) {
             typeList.add(goodsList.get(i).getClassifyName());
         }
@@ -122,6 +137,7 @@ public class MenuContentFragment extends BaseFragment {
                 index = position;
             }
         });
+
     }
 
     @Override
@@ -131,12 +147,18 @@ public class MenuContentFragment extends BaseFragment {
         recyclerView.setLayoutManager(manager);
         adapter = new ContentAdapter(_mActivity);
         recyclerView.setAdapter(adapter);
-        adapter.setData(goodsList.get(0).getGoods());
+        adapter.setData(goodsList.get(0).getGoods(), flag);
 
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position, View view, RecyclerView.ViewHolder vh) {
                 ((TypeContentFragment) getParentFragment()).start(GoodsInfoFragment.newInstance(goodsList.get(index).getGoods().get(position)));
+            }
+        });
+        adapter.setOnAddClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(int position, View view, RecyclerView.ViewHolder vh) {
+                addList.add(goodsList.get(index).getGoods().get(position));
             }
         });
     }
@@ -154,5 +176,10 @@ public class MenuContentFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+    }
+
+    @Override
+    public void showToast(String msg) {
+        ToastUtils.showToast(_mActivity, msg);
     }
 }

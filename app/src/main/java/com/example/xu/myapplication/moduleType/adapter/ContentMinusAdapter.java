@@ -20,7 +20,7 @@ import java.util.ArrayList;
  * Created by xu on 2017/9/30.
  */
 
-public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ViewHolder> {
+public class ContentMinusAdapter extends RecyclerView.Adapter<ContentMinusAdapter.ViewHolder> {
     private OnItemClickListener mClickListener;
     private OnItemClickListener mAddClickListener;
     private LayoutInflater mInflater;
@@ -28,7 +28,7 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ViewHold
     private ArrayList<Fruit.FruitDetail> goodsData = new ArrayList<>();
     private boolean flag = false;
 
-    public ContentAdapter(Context mContext) {
+    public ContentMinusAdapter(Context mContext) {
         this.mContext = mContext;
         mInflater = LayoutInflater.from(mContext);
     }
@@ -48,7 +48,7 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ViewHold
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.item_menu_content, parent, false);
+        View view = mInflater.inflate(R.layout.item_menu_content_minus, parent, false);
         final ViewHolder holder = new ViewHolder(view);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

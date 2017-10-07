@@ -52,7 +52,7 @@ public class MenuListPresenter extends BasePresenter {
                     @Override
                     public void onSuccess(ArrayList<Fruit> response) {
 
-                        MenuContentFragment fragment = MenuContentFragment.newInstance(response);
+                        MenuContentFragment fragment = MenuContentFragment.newInstance(response, false);
                         view.switchFragment(fragment);
                     }
 
@@ -66,7 +66,7 @@ public class MenuListPresenter extends BasePresenter {
                 FruitAreaDao.newInstance(new FruitAreaDao.CallBackFruitArea() {
                     @Override
                     public void onSuccess(ArrayList<Fruit> response) {
-                        MenuContentFragment fragment = MenuContentFragment.newInstance(response);
+                        MenuContentFragment fragment = MenuContentFragment.newInstance(response, false);
                         view.switchFragment(fragment);
                     }
 
@@ -80,7 +80,7 @@ public class MenuListPresenter extends BasePresenter {
                 PackTypeDao.newInstance(new PackTypeDao.CallBackPackType() {
                     @Override
                     public void onSuccess(ArrayList<Fruit> response) {
-                        MenuContentFragment fragment = MenuContentFragment.newInstance(response);
+                        MenuContentFragment fragment = MenuContentFragment.newInstance(response, false);
                         view.switchFragment(fragment);
                     }
 
@@ -94,7 +94,7 @@ public class MenuListPresenter extends BasePresenter {
                 PackSizeDao.newInstance(new PackSizeDao.CallBackPackSize() {
                     @Override
                     public void onSuccess(ArrayList<Fruit> response) {
-                        MenuContentFragment fragment = MenuContentFragment.newInstance(response);
+                        MenuContentFragment fragment = MenuContentFragment.newInstance(response, false);
                         view.switchFragment(fragment);
                     }
 
@@ -113,8 +113,8 @@ public class MenuListPresenter extends BasePresenter {
                             detailList.add(new Fruit.FruitDetail(bargain.getGoods()));
                         }
                         ArrayList<Fruit> fruitList = new ArrayList<Fruit>();
-                        fruitList.add(new Fruit(Common.NAME_FRUIT_TYPE,detailList));
-                        MenuContentFragment fragment = MenuContentFragment.newInstance(fruitList);
+                        fruitList.add(new Fruit(Common.NAME_FRUIT_TYPE, detailList));
+                        MenuContentFragment fragment = MenuContentFragment.newInstance(fruitList, false);
                         view.switchFragment(fragment);
                     }
 
@@ -129,8 +129,8 @@ public class MenuListPresenter extends BasePresenter {
                     @Override
                     public void onSuccess(ArrayList<Fruit.FruitDetail> response) {
                         ArrayList<Fruit> fruitList = new ArrayList<Fruit>();
-                        fruitList.add(new Fruit(Common.NAME_FRUIT_TYPE,response));
-                        MenuContentFragment fragment = MenuContentFragment.newInstance(fruitList);
+                        fruitList.add(new Fruit(Common.NAME_FRUIT_TYPE, response));
+                        MenuContentFragment fragment = MenuContentFragment.newInstance(fruitList, true);
                         view.switchFragment(fragment);
                     }
 

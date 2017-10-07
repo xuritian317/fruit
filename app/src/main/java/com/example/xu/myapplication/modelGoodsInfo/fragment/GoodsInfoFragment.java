@@ -3,7 +3,6 @@ package com.example.xu.myapplication.modelGoodsInfo.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -17,20 +16,15 @@ import com.example.xu.myapplication.R;
 import com.example.xu.myapplication.base.BaseFragment;
 import com.example.xu.myapplication.modelGoodsInfo.presenter.GoodsInfoPresenter;
 import com.example.xu.myapplication.modelGoodsInfo.viewInterface.IGoodsInfo;
-import com.example.xu.myapplication.moduleActivity.main.customer.BottomBar;
-import com.example.xu.myapplication.moduleType.adapter.ContentAdapter;
 import com.example.xu.myapplication.moduleType.entity.Fruit;
-import com.example.xu.myapplication.moduleType.listener.OnItemClickListener;
 import com.example.xu.myapplication.util.Logger;
 import com.example.xu.myapplication.util.ToastUtils;
 
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
 public class GoodsInfoFragment extends BaseFragment<GoodsInfoPresenter> implements IGoodsInfo {
-
     public static GoodsInfoFragment newInstance(Fruit.FruitDetail fruitDetail) {
         Bundle args = new Bundle();
         args.putParcelable(ARG_MENUS, fruitDetail);
@@ -38,7 +32,6 @@ public class GoodsInfoFragment extends BaseFragment<GoodsInfoPresenter> implemen
         instance.setArguments(args);
         return instance;
     }
-
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     //物品图片
@@ -100,11 +93,6 @@ public class GoodsInfoFragment extends BaseFragment<GoodsInfoPresenter> implemen
         presenter.postToShopping(_mActivity, fruitDetail.getId(), count);
     }
 
-    @BindView(R.id.recycler_recommend)
-    RecyclerView recycler_recommend;
-
-    private ContentAdapter adapter;
-
     private static final String ARG_MENUS = "arg_goods";
     private Fruit.FruitDetail fruitDetail;
     private int count = 1;
@@ -163,8 +151,4 @@ public class GoodsInfoFragment extends BaseFragment<GoodsInfoPresenter> implemen
         ToastUtils.showToast(_mActivity, msg);
     }
 
-    @Override
-    public void setRecyclerData(ArrayList<Fruit.FruitDetail> fruitDetails) {
-        adapter.setData(fruitDetails);
-    }
 }

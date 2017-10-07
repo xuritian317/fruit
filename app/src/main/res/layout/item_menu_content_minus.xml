@@ -27,5 +27,5 @@
         android:layout_marginBottom="5dp"
         android:layout_marginEnd="5dp"
         android:background="@drawable/type_zero"
-        android:src="@mipmap/add_mini" />
+        android:src="@mipmap/minus" />
 </RelativeLayout>

@@ -76,7 +76,6 @@ public class GoodsInfoPresenter extends BasePresenter {
         RecommendDao.newInstance(new RecommendDao.CallBackRecommend() {
             @Override
             public void onSuccess(ArrayList<Fruit.FruitDetail> fruitDetails) {
-                view.setRecyclerData(fruitDetails);
                 Logger.e("getRecycleData onSuccess", "fruitDetails"+fruitDetails.size()+fruitDetails.toString());
             }
 

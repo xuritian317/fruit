@@ -30,7 +30,7 @@ public class TypeContentPresenter extends BasePresenter {
             ArrayList<Fruit.FruitDetail> details = new ArrayList<Fruit.FruitDetail>();
             details.add(new Fruit.FruitDetail("","",""));
             goodsList.add(new Fruit("",details));
-            view.loadRootFrag(R.id.container_content_type, MenuContentFragment.newInstance(goodsList), false, false);
+            view.loadRootFrag(R.id.container_content_type, MenuContentFragment.newInstance(goodsList,false), false, false);
         }
     }
 
