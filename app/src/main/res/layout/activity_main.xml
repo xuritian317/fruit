@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/transparent"
@@ -8,19 +8,19 @@
     <FrameLayout
         android:id="@+id/container_activity_main"
         android:layout_width="match_parent"
-        android:layout_marginBottom="@dimen/bottomBar_height"
-        android:layout_height="match_parent"/>
+        android:layout_height="0dp"
+        android:layout_weight="7" />
+
+    <ImageView
+        android:id="@+id/img_space"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_gravity="bottom"
+        android:background="@drawable/actionbar_shadow_up" />
 
     <com.example.xu.myapplication.moduleActivity.main.customer.BottomBar
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/bottomBar_height"
-        android:layout_gravity="bottom"/>
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:background="@drawable/actionbar_shadow_up"
-        android:layout_gravity="bottom"
-        android:layout_marginBottom="@dimen/bottomBar_height"
-        android:layout_height="wrap_content"/>
-</FrameLayout>
+        android:layout_gravity="bottom" />
+</LinearLayout>

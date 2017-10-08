@@ -86,7 +86,7 @@ public class HomeSearchFragment extends BaseFragment {
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position, View view, RecyclerView.ViewHolder vh) {
-                start(GoodsInfoFragment.newInstance(fruitList.get(position)));
+                start(GoodsInfoFragment.newInstance(fruitList.get(position),0,1));
             }
         });
 

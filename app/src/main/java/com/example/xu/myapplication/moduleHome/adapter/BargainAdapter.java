@@ -37,7 +37,16 @@ public class BargainAdapter extends RecyclerView.Adapter<BargainAdapter.ViewHold
 
     public Fruit.FruitDetail getFruit(int position) {
         BargainBean bargain = lists.get(position);
-        return new Fruit.FruitDetail(bargain.getGoods());
+        Fruit.FruitDetail fruitDetail = new Fruit.FruitDetail(bargain.getGoods());
+        fruitDetail.setGoodsPrice(bargain.getBargainPrice());
+        return fruitDetail;
+    }
+
+    public String getOldPrice(int position) {
+        return lists.get(position).getGoods().getGoodsPrice();
+    }
+    public int getCount(int position) {
+        return lists.get(position).getBargainCount();
     }
 
     public void setOnItemClickListener(OnItemClickListener itemClickListener) {
@@ -65,7 +74,7 @@ public class BargainAdapter extends RecyclerView.Adapter<BargainAdapter.ViewHold
     public void onBindViewHolder(ViewHolder holder, int position) {
         BargainBean bean = lists.get(position);
         holder.tvBargainName.setText(bean.getGoods().getGoodsName());
-        holder.tvBargainPrice.setText("￥" + bean.getGoods().getGoodsPrice() + "/" + bean.getBargainCount() + "个");
+        holder.tvBargainPrice.setText("￥" + bean.getBargainPrice() + "/" + bean.getBargainCount() + "个");
         Glide.with(context).load(bean.getGoods().getGoodsImage()).into(holder.ivBargainImg);
     }
 

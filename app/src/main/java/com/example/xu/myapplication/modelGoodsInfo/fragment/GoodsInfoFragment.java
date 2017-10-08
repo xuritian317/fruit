@@ -3,7 +3,6 @@ package com.example.xu.myapplication.modelGoodsInfo.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +15,7 @@ import com.example.xu.myapplication.R;
 import com.example.xu.myapplication.base.BaseFragment;
 import com.example.xu.myapplication.modelGoodsInfo.presenter.GoodsInfoPresenter;
 import com.example.xu.myapplication.modelGoodsInfo.viewInterface.IGoodsInfo;
+import com.example.xu.myapplication.moduleActivity.main.customer.BottomBar;
 import com.example.xu.myapplication.moduleType.entity.Fruit;
 import com.example.xu.myapplication.util.Logger;
 import com.example.xu.myapplication.util.ToastUtils;
@@ -25,13 +25,17 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class GoodsInfoFragment extends BaseFragment<GoodsInfoPresenter> implements IGoodsInfo {
-    public static GoodsInfoFragment newInstance(Fruit.FruitDetail fruitDetail) {
+
+    public static GoodsInfoFragment newInstance(Fruit.FruitDetail fruitDetail, double oldPrice, int count) {
         Bundle args = new Bundle();
         args.putParcelable(ARG_MENUS, fruitDetail);
+        args.putDouble(ARG_PRICE, oldPrice);
+        args.putInt(ARG_COUNT, count);
         GoodsInfoFragment instance = new GoodsInfoFragment();
         instance.setArguments(args);
         return instance;
     }
+
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     //物品图片
@@ -93,8 +97,13 @@ public class GoodsInfoFragment extends BaseFragment<GoodsInfoPresenter> implemen
         presenter.postToShopping(_mActivity, fruitDetail.getId(), count);
     }
 
+    BottomBar bottomBar;
+
     private static final String ARG_MENUS = "arg_goods";
+    private static final String ARG_PRICE = "arg_price";
+    private static final String ARG_COUNT = "arg_count";
     private Fruit.FruitDetail fruitDetail;
+    private double oldPrice = 0;
     private int count = 1;
 
     @Override
@@ -103,6 +112,8 @@ public class GoodsInfoFragment extends BaseFragment<GoodsInfoPresenter> implemen
         Bundle args = getArguments();
         if (args != null) {
             fruitDetail = args.getParcelable(ARG_MENUS);
+            oldPrice = args.getDouble(ARG_PRICE);
+            count = args.getInt(ARG_COUNT);
         }
     }
 
@@ -122,6 +133,10 @@ public class GoodsInfoFragment extends BaseFragment<GoodsInfoPresenter> implemen
 
     @Override
     public void initView(Bundle savedInstanceState) {
+        bottomBar = (BottomBar) _mActivity.findViewById(R.id.bottomBar);
+
+        bottomBar.setVisibility(View.GONE);
+
         toolbar.setNavigationIcon(R.mipmap.toolbar_back);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,22 +148,33 @@ public class GoodsInfoFragment extends BaseFragment<GoodsInfoPresenter> implemen
 
         GlideApp.with(_mActivity).asBitmap().load(fruitDetail.getGoodsImage()).diskCacheStrategy(DiskCacheStrategy.ALL).circleCrop().into(img_goods);
         tv_goodsTitle.setText(fruitDetail.getGoodsName());
-        tv_newPrice.setText(fruitDetail.getGoodsPrice() + "");
-        tv_oldPrice.setText((Double.parseDouble(fruitDetail.getGoodsPrice()) + 10.00) + "");
         tv_currentGoods.setText(fruitDetail.getGoodsName() + "," + count + "件");
 
         tv_goodsIntroduction.setText(fruitDetail.getGoodsIntroduction());
         tv_goodsNutrition.setText(fruitDetail.getNutritionInfo());
         tv_goodsEffect.setText(fruitDetail.getEffect());
+        tv_newPrice.setText(fruitDetail.getGoodsPrice() + "");
+        if (oldPrice == 0) {
+            tv_oldPrice.setText((Double.parseDouble(fruitDetail.getGoodsPrice()) + 10.00) + "");
+        } else {
+            tv_oldPrice.setText(oldPrice + "");
+
+        }
     }
 
     @Override
     public void setToolbar() {
 
     }
+
     @Override
     public void onSuccessToast(String msg) {
         ToastUtils.showToast(_mActivity, msg);
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        bottomBar.setVisibility(View.VISIBLE);
+    }
 }

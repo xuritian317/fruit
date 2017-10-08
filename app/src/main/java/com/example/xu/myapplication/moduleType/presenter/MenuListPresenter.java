@@ -110,7 +110,9 @@ public class MenuListPresenter extends BasePresenter {
                     public void onSuccess(ArrayList<Bargain> response) {
                         ArrayList<Fruit.FruitDetail> detailList = new ArrayList<Fruit.FruitDetail>();
                         for (Bargain bargain : response) {
-                            detailList.add(new Fruit.FruitDetail(bargain.getGoods()));
+                            Fruit.FruitDetail fruitDetail = new Fruit.FruitDetail(bargain.getGoods());
+                            fruitDetail.setGoodsPrice(bargain.getBargainPrice());
+                            detailList.add(fruitDetail);
                         }
                         ArrayList<Fruit> fruitList = new ArrayList<Fruit>();
                         fruitList.add(new Fruit(Common.NAME_FRUIT_TYPE, detailList));

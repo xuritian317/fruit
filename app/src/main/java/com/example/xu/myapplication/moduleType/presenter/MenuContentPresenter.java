@@ -180,7 +180,7 @@ public class MenuContentPresenter extends BasePresenter {
                     price += Double.parseDouble(fruit.getGoodsPrice());
                 }
 
-                DecimalFormat df = new DecimalFormat("0.00");
+                DecimalFormat df = new DecimalFormat("00.00");
                 df.format(price);
 
                 GoodsPutDao.newInstance(new GoodsPutDao.CallBackGoodsPut() {

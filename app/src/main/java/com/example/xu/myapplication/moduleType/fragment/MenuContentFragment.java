@@ -153,7 +153,7 @@ public class MenuContentFragment extends BaseFragment<MenuContentPresenter> impl
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position, View view, RecyclerView.ViewHolder vh) {
-                ((TypeContentFragment) getParentFragment()).start(GoodsInfoFragment.newInstance(goodsList.get(index).getGoods().get(position)));
+                ((TypeContentFragment) getParentFragment()).start(GoodsInfoFragment.newInstance(goodsList.get(index).getGoods().get(position), 0, 1));
             }
         });
         adapter.setOnAddClickListener(new OnItemClickListener() {

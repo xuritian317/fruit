@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.INotificationSideChannel;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -113,19 +114,19 @@ public class HomeContentFragment extends BaseMainFragment<HomePresenter> impleme
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position, View view, RecyclerView.ViewHolder vh) {
-                start(GoodsInfoFragment.newInstance(adapter.getFruit(position)));
+                start(GoodsInfoFragment.newInstance(adapter.getFruit(position), Double.parseDouble(adapter.getOldPrice(position)),adapter.getCount(position)));
             }
         });
         gridView0.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                start(GoodsInfoFragment.newInstance(adapter0.getFruit(position)));
+                start(GoodsInfoFragment.newInstance(adapter0.getFruit(position), 0,1));
             }
         });
         listView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                start(GoodsInfoFragment.newInstance(adapter1.getFruit(position)));
+                start(GoodsInfoFragment.newInstance(adapter1.getFruit(position), 0,1));
             }
         });
 
