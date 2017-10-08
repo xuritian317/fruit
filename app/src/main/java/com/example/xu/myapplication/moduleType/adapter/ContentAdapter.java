@@ -74,7 +74,7 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ViewHold
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Fruit.FruitDetail bean = goodsData.get(position);
-        GlideApp.with(mContext).asBitmap().load(bean.getGoodsImage()).diskCacheStrategy(DiskCacheStrategy.ALL).circleCrop().into(holder.imgFruit);
+        GlideApp.with(mContext).asBitmap().load(bean.getGoodsImage()).diskCacheStrategy(DiskCacheStrategy.ALL).circleCrop().error(R.mipmap.ic_launcher_round).into(holder.imgFruit);
         holder.tvName.setText(bean.getGoodsName());
         if (flag) {
             holder.img_add.setVisibility(View.VISIBLE);

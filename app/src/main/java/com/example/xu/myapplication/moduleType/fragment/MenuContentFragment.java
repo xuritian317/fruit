@@ -64,6 +64,7 @@ public class MenuContentFragment extends BaseFragment<MenuContentPresenter> impl
             goodsList = args.getParcelableArrayList(ARG_MENU);
             flag = args.getBoolean(ARG_FLAG);
         }
+
     }
 
     @BindView(R.id.recycler_menu_content)
@@ -158,9 +159,16 @@ public class MenuContentFragment extends BaseFragment<MenuContentPresenter> impl
         adapter.setOnAddClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position, View view, RecyclerView.ViewHolder vh) {
-                addList.add(goodsList.get(index).getGoods().get(position));
+                Fruit.FruitDetail fruit = goodsList.get(index).getGoods().get(position);
+                ToastUtils.showToast(_mActivity, fruit.getGoodsName() + "已加入");
+                addList.add(fruit);
             }
         });
+        if (flag) {
+            fBtn_pack.setVisibility(View.VISIBLE);
+        } else {
+            fBtn_pack.setVisibility(View.GONE);
+        }
     }
 
     @Override
