@@ -13,6 +13,7 @@ import com.example.xu.myapplication.GlideApp;
 import com.example.xu.myapplication.R;
 import com.example.xu.myapplication.moduleType.entity.Fruit;
 import com.example.xu.myapplication.moduleType.listener.OnItemClickListener;
+import com.example.xu.myapplication.util.Logger;
 
 import java.util.ArrayList;
 
@@ -42,6 +43,7 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ViewHold
     public void updateData(ArrayList<Fruit.FruitDetail> data) {
         goodsData.clear();
         goodsData.addAll(data);
+
         notifyDataSetChanged();
     }
 

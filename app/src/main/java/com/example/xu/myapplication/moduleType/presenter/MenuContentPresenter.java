@@ -12,9 +12,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.xu.myapplication.Common;
 import com.example.xu.myapplication.R;
 import com.example.xu.myapplication.base.BasePresenter;
+import com.example.xu.myapplication.httpRequest.MyOkHttp;
+import com.example.xu.myapplication.httpRequest.response.GsonResponseHandler;
 import com.example.xu.myapplication.modelGoodsInfo.dao.ShoppingCarDao;
+import com.example.xu.myapplication.modelGoodsInfo.entity.RecommendBean;
 import com.example.xu.myapplication.moduleType.adapter.ContentAdapter;
 import com.example.xu.myapplication.moduleType.adapter.ContentMinusAdapter;
 import com.example.xu.myapplication.moduleType.dao.GoodsPutDao;
@@ -96,18 +100,36 @@ public class MenuContentPresenter extends BasePresenter {
         adapterTop.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position, View view, RecyclerView.ViewHolder vh) {
-                RecommendDao.newInstance(new RecommendDao.CallBackRecommend() {
+//                RecommendDao.newInstance(new RecommendDao.CallBackRecommend() {
+//                    @Override
+//                    public void onSuccess(ArrayList<Fruit.FruitDetail> fruitDetails) {
+//                    }
+//
+//                    @Override
+//                    public void onFailure(String message) {
+//
+//                    }
+//                }).getRecommend(addList.get(position).getId());
+
+                MyOkHttp.newInstance().get(Common.URL_GET_RECOMMEND + addList.get(position).getId(), null, new GsonResponseHandler<ArrayList<RecommendBean>>() {
                     @Override
-                    public void onSuccess(ArrayList<Fruit.FruitDetail> fruitDetails) {
-                        Logger.e("RecommendDao", "fruitDetails\t" + fruitDetails.size());
-                        if (fruitDetails.isEmpty()) {
+                    public void onSuccess(int statusCode, ArrayList<RecommendBean> response) {
+                        ArrayList<Fruit.FruitDetail> fruitList = new ArrayList<Fruit.FruitDetail>();
+                        for (RecommendBean bean : response) {
+                            fruitList.add(new Fruit.FruitDetail(bean.getGoods()));
+                        }
+
+                        Logger.e("RecommendDao", "fruitDetails\t" + fruitList.size());
+                        if (fruitList.isEmpty()) {
                             tv_recommend.setVisibility(View.VISIBLE);
                         } else {
                             tv_recommend.setVisibility(View.GONE);
                         }
-                        adapterBottom.setData(fruitDetails, true);
+                        adapterBottom.setData(fruitList, true);
+
+                        recycler_recommend.invalidate();
                         Bundle bundle = new Bundle();
-                        bundle.putParcelableArrayList(KEY_ARG, fruitDetails);
+                        bundle.putParcelableArrayList(KEY_ARG, fruitList);
                         Message msg = new Message();
                         msg.setData(bundle);
                         msg.what = TAG1;
@@ -115,10 +137,9 @@ public class MenuContentPresenter extends BasePresenter {
                     }
 
                     @Override
-                    public void onFailure(String message) {
-
+                    public void onFailure(int statusCode, String error_msg) {
                     }
-                }).getRecommend(addList.get(position).getId());
+                });
             }
         });
 

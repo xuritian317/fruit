@@ -38,9 +38,14 @@ public class RecyclerSearchAdapter extends RecyclerView.Adapter<RecyclerSearchAd
     public void setData(ArrayList<Fruit.FruitDetail> fruit) {
         fruitList.clear();
         fruitList.addAll(fruit);
+    }
+    public void updateData(ArrayList<Fruit.FruitDetail> fruit){
+        fruitList.clear();
+        fruitList.addAll(fruit);
         Logger.e("fruitList", fruitList.size() + "");
         notifyDataSetChanged();
     }
+
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
