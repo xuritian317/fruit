@@ -17,6 +17,7 @@ import com.example.xu.myapplication.R;
 import com.example.xu.myapplication.base.BasePresenter;
 import com.example.xu.myapplication.httpRequest.MyOkHttp;
 import com.example.xu.myapplication.httpRequest.response.GsonResponseHandler;
+import com.example.xu.myapplication.httpRequest.response.RawResponseHandler;
 import com.example.xu.myapplication.modelGoodsInfo.dao.ShoppingCarDao;
 import com.example.xu.myapplication.modelGoodsInfo.entity.RecommendBean;
 import com.example.xu.myapplication.moduleType.adapter.ContentAdapter;
@@ -28,6 +29,9 @@ import com.example.xu.myapplication.moduleType.listener.OnItemClickListener;
 import com.example.xu.myapplication.moduleType.viewInterface.IMenuContent;
 import com.example.xu.myapplication.util.Logger;
 import com.example.xu.myapplication.util.SPUtil;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -52,6 +56,24 @@ public class MenuContentPresenter extends BasePresenter {
                     Bundle bundle = msg.getData();
                     fruitList.clear();
                     fruitList = bundle.getParcelableArrayList(KEY_ARG);
+                    break;
+                case TAG2:
+                    try {
+                        Bundle msgBundle = msg.getData();
+                        MyOkHttp.newInstance().postJson(Common.URL_POST_SHOPPING, new JSONObject().put("goodsId", msgBundle.getInt("id")).put("goodsCount", 1).put("userId", msgBundle.getInt("userId")), new RawResponseHandler() {
+                            @Override
+                            public void onSuccess(int statusCode, String response) {
+                                view.showToast("已加入购物车");
+                            }
+
+                            @Override
+                            public void onFailure(int statusCode, String error_msg) {
+                                view.showToast("加入购物车失败");
+                            }
+                        });
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                     break;
             }
 
@@ -100,16 +122,6 @@ public class MenuContentPresenter extends BasePresenter {
         adapterTop.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position, View view, RecyclerView.ViewHolder vh) {
-//                RecommendDao.newInstance(new RecommendDao.CallBackRecommend() {
-//                    @Override
-//                    public void onSuccess(ArrayList<Fruit.FruitDetail> fruitDetails) {
-//                    }
-//
-//                    @Override
-//                    public void onFailure(String message) {
-//
-//                    }
-//                }).getRecommend(addList.get(position).getId());
 
                 MyOkHttp.newInstance().get(Common.URL_GET_RECOMMEND + addList.get(position).getId(), null, new GsonResponseHandler<ArrayList<RecommendBean>>() {
                     @Override
@@ -180,8 +192,7 @@ public class MenuContentPresenter extends BasePresenter {
                     price += Double.parseDouble(fruit.getGoodsPrice());
                 }
 
-                DecimalFormat df = new DecimalFormat("00.00");
-                df.format(price);
+                DecimalFormat df = new DecimalFormat("#.##");
 
                 GoodsPutDao.newInstance(new GoodsPutDao.CallBackGoodsPut() {
                     @Override
@@ -192,24 +203,21 @@ public class MenuContentPresenter extends BasePresenter {
                             view.showToast("请先登陆");
                             return;
                         }
-                        ShoppingCarDao.newInstance(new ShoppingCarDao.CallBackShopping() {
-                            @Override
-                            public void onSuccess(String message) {
-                                view.showToast("已加入购物车");
-                            }
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("userId", userId);
+                        bundle.putInt("id", msg.getId());
+                        Message message = new Message();
+                        message.what = TAG2;
+                        message.setData(bundle);
+                        handler.sendMessage(message);
 
-                            @Override
-                            public void onFailure(String message) {
-                                view.showToast("加入购物车失败");
-                            }
-                        }).postToShoppingCar(userId, 1, msg.getId());
                     }
 
                     @Override
                     public void onFailure(String message) {
 
                     }
-                }).goodsPut(nameBuilder.toString(), price + "", 2);
+                }).goodsPut(nameBuilder.toString(), df.format(price), 2);
             }
         });
         builder.show();

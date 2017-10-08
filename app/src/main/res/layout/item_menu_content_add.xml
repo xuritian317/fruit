@@ -23,6 +23,7 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="10dp"
         android:layout_weight="1"
         android:gravity="center"
         android:text="推荐的商品" />
@@ -40,9 +41,9 @@
         android:id="@+id/tv_content_recommend"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="5dp"
         android:layout_weight="1"
         android:gravity="center"
         android:text="暂未有推荐水果"
-        android:textSize="11sp"
-         />
+        android:textSize="11sp" />
 </LinearLayout>
