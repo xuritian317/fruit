@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -17,6 +18,8 @@ import com.example.xu.myapplication.base.BaseActivity;
 import com.example.xu.myapplication.moduleMy.fragment.presenter.PersonalPresenter;
 import com.example.xu.myapplication.moduleMy.fragment.view.CircleImageView;
 import com.example.xu.myapplication.moduleMy.fragment.viewInterface.IMyPersonal;
+import com.vondear.rxtools.view.dialog.RxDialogEditSureCancel;
+import com.vondear.rxtools.view.dialog.RxDialogSureCancel;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,7 +54,8 @@ public class MyPersonalActivity extends BaseActivity<PersonalPresenter> implemen
 
     @OnClick(R.id.rela_person_petName)
     public void setPetName() {
-        presenter.startIntent(NickNameActivity.class,105);
+//        presenter.startIntent(NickNameActivity.class,105);
+        presenter.rxDialog_NickName(tvPersonPetName);
     }
 
     @BindView(R.id.tv_person_sex)
@@ -84,7 +88,8 @@ public class MyPersonalActivity extends BaseActivity<PersonalPresenter> implemen
 
     @OnClick(R.id.rela_person_email)
     public void setEmail() {
-        presenter.startIntent(EmailActivity.class,106);
+//        presenter.startIntent(EmailActivity.class,106);
+        presenter.rxDialog_Email(tvPersonEmail);
     }
 
     @BindView(R.id.btn_personal_save)

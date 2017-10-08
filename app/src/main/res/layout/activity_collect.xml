@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.xu.myapplication.moduleMy.fragment.activity.orders.MyOrdersActivity">
+    tools:context="com.example.xu.myapplication.moduleMy.fragment.activity.collect.CollectActivity">
 
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
@@ -17,7 +17,7 @@
         app:contentInsetStart="0dp">
 
         <ImageView
-            android:id="@+id/iv_orders_back"
+            android:id="@+id/iv_collect_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -27,36 +27,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-            android:text="我的订单"
+            android:text="我的收藏"
             android:textColor="@color/color_White"
             android:textSize="20sp"/>
     </android.support.v7.widget.Toolbar>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="2dp"
+        android:layout_height="3dp"
         android:background="@color/tab_unSelect"/>
 
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tab_orders"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:tabIndicatorColor="@color/green"
-        app:tabSelectedTextColor="@color/green"
-        app:tabTextColor="@color/tab_unSelect">
-
-    </android.support.design.widget.TabLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@color/tab_unSelect"/>
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/vp_orders"
+    <ListView
+        android:id="@+id/lv_collect"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </android.support.v4.view.ViewPager>
-
+    </ListView>
 </LinearLayout>

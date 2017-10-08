@@ -6,6 +6,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -13,11 +14,13 @@ import android.widget.TextView;
 import com.example.xu.myapplication.R;
 import com.example.xu.myapplication.base.BaseMainFragment;
 import com.example.xu.myapplication.moduleActivity.main.activity.LoginActivity;
+import com.example.xu.myapplication.moduleMy.fragment.activity.collect.CollectActivity;
 import com.example.xu.myapplication.moduleMy.fragment.activity.setting.AccountSettingActivity;
 import com.example.xu.myapplication.moduleMy.fragment.activity.setting.MyPersonalActivity;
 import com.example.xu.myapplication.moduleMy.fragment.presenter.MyPresenter;
 import com.example.xu.myapplication.moduleMy.fragment.view.CircleImageView;
 import com.example.xu.myapplication.moduleMy.fragment.viewInterface.IMy;
+import com.example.xu.myapplication.util.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -36,79 +39,72 @@ public class MyFragment extends BaseMainFragment<MyPresenter> implements IMy {
 
     @BindView(R.id.refresh_my)
     SwipeRefreshLayout refreshMy;
-
     @BindView(R.id.iv_MyHead)
     CircleImageView ivMyHead;
-
-    @OnClick(R.id.iv_MyHead)
-    public void toPersonActivity() {
-        presenter.toActivity(LoginActivity.class, MyPersonalActivity.class);
-    }
-
     @BindView(R.id.tv_MyUserName)
     TextView tvMyUserName;
     @BindView(R.id.iv_MySetting)
     ImageView ivMySetting;
-
-    @OnClick(R.id.iv_MySetting)
-    public void toSettingActivity() {
-        presenter.toActivity(AccountSettingActivity.class, null);
-    }
-
     @BindView(R.id.tv_dingdan)
     TextView tvDingdan;
-
-    @OnClick(R.id.tv_dingdan)
-    public void dingdan() {
-        presenter.toMyOrdersActivity(0);
-    }
-
     @BindView(R.id.linear_daishou)
     LinearLayout linearDaishou;
-
-    @OnClick(R.id.linear_daishou)
-    public void daishu() {
-        presenter.toMyOrdersActivity(1);
-    }
-
     @BindView(R.id.tv_daishou)
     TextView tvDaishou;
-
     @BindView(R.id.tv_wancheng)
     TextView tvWancheng;
-
-    @OnClick(R.id.tv_wancheng)
-    public void wancheng() {
-        presenter.toMyOrdersActivity(2);
-    }
-
     @BindView(R.id.tv_evaluate)
     TextView tvEvaluate;
     @BindView(R.id.linear_evaluate)
     LinearLayout linearEvaluate;
-
-    @OnClick(R.id.linear_evaluate)
-    public void evaluate() {
-        presenter.toMyOrdersActivity(3);
-    }
-
     @BindView(R.id.linear_tuikuan)
     LinearLayout linearTuikuan;
-
-    @OnClick(R.id.linear_tuikuan)
-    public void tuikuan() {
-        presenter.toMyOrdersActivity(4);
-    }
-
     @BindView(R.id.tv_tuikuan)
     TextView tvTuikuan;
-
     @BindView(R.id.linear_xiaoxi)
     LinearLayout linearXiaoxi;
     @BindView(R.id.linear_shoucang)
     LinearLayout linearShoucang;
     @BindView(R.id.linear_jifen)
     LinearLayout linearJifen;
+
+    @OnClick({R.id.iv_MyHead, R.id.iv_MySetting, R.id.tv_dingdan, R.id.linear_daishou,
+            R.id.tv_wancheng, R.id.linear_evaluate, R.id.linear_tuikuan, R.id.linear_xiaoxi,
+            R.id.linear_shoucang, R.id.linear_jifen})
+    public void onViewOnClick(View view){
+        switch (view.getId()){
+            case R.id.iv_MyHead:
+                presenter.toActivity(LoginActivity.class, MyPersonalActivity.class);
+                break;
+            case  R.id.iv_MySetting:
+                presenter.toActivity(AccountSettingActivity.class, null);
+                break;
+            case R.id.tv_dingdan:
+                presenter.toMyOrdersActivity(0);
+                break;
+            case  R.id.linear_daishou:
+                presenter.toMyOrdersActivity(1);
+                break;
+            case R.id.tv_wancheng:
+                presenter.toMyOrdersActivity(2);
+                break;
+            case  R.id.linear_evaluate:
+                presenter.toMyOrdersActivity(3);
+                break;
+            case R.id.linear_tuikuan:
+                presenter.toMyOrdersActivity(4);
+                break;
+            case  R.id.linear_xiaoxi:
+                ToastUtils.showToast(getActivity(),"功能暂未开启");
+                break;
+            case R.id.linear_shoucang:
+                presenter.toActivity(CollectActivity.class,null);
+                break;
+            case R.id.linear_jifen:
+                ToastUtils.showToast(getActivity(),"功能暂未开启");
+                break;
+        }
+    }
 
     @Override
     public int getLayout() {
@@ -130,7 +126,8 @@ public class MyFragment extends BaseMainFragment<MyPresenter> implements IMy {
         refreshMy.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                presenter.getUser(refreshMy,ivMyHead, tvMyUserName, tvDaishou, tvEvaluate, tvTuikuan);
+                presenter.getUser(refreshMy, ivMyHead, tvMyUserName, tvDaishou, tvEvaluate,
+                        tvTuikuan);
             }
         });
     }
@@ -143,7 +140,7 @@ public class MyFragment extends BaseMainFragment<MyPresenter> implements IMy {
     @Override
     public void onResume() {
         super.onResume();
-        presenter.getUser(refreshMy,ivMyHead, tvMyUserName, tvDaishou, tvEvaluate, tvTuikuan);
+        presenter.getUser(refreshMy, ivMyHead, tvMyUserName, tvDaishou, tvEvaluate, tvTuikuan);
     }
 
     @Override

@@ -145,5 +145,31 @@
         android:layout_height="1dp"
         android:background="@color/tab_unSelect">
     </View>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/tab_unSelect">
+    </View>
+    <TextView
+        android:id="@+id/tv_logout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/color_White"
+        android:layout_gravity="center"
+        android:text="退出登录"
+        android:textColor="@color/color_Black"
+        android:gravity="center"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/tab_unSelect">
+    </View>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/tab_unSelect">
+    </View>
 
 </LinearLayout>

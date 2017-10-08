@@ -37,12 +37,15 @@ import com.example.xu.myapplication.base.BasePresenter;
 import com.example.xu.myapplication.httpRequest.MyOkHttp;
 import com.example.xu.myapplication.httpRequest.response.JsonResponseHandler;
 import com.example.xu.myapplication.moduleMy.fragment.activity.img.ClipImageActivity;
+import com.example.xu.myapplication.moduleMy.fragment.activity.setting.MyPersonalActivity;
 import com.example.xu.myapplication.moduleMy.fragment.view.CircleImageView;
 import com.example.xu.myapplication.moduleMy.fragment.viewInterface.IMyPersonal;
+import com.example.xu.myapplication.util.BitmapUtil;
 import com.example.xu.myapplication.util.FileUtil;
 import com.example.xu.myapplication.util.Logger;
 import com.example.xu.myapplication.util.SPUtil;
 import com.example.xu.myapplication.util.ToastUtils;
+import com.vondear.rxtools.view.dialog.RxDialogEditSureCancel;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -55,6 +58,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -337,7 +342,8 @@ public class PersonalPresenter extends BasePresenter {
                     /**
                      * 此处后面可以将bitmap转为二进制上传后台网络
                      */
-                    head_img = bitmapToBase64(bitmap);
+                    head_img = bitmapToBase64(BitmapUtil.compressImage(bitmap,100));
+                    Logger.e("head_img",head_img);
                 }
                 break;
             case REQUEST_PET_NAME:
@@ -348,6 +354,7 @@ public class PersonalPresenter extends BasePresenter {
             case REQUEST_EMAIL:
                 if (requestCode == RESULT_OK) {
                     emailAddress = data.getExtras().getString("email");
+                    Logger.e("emailAddress",emailAddress);
                 }
                 break;
         }
@@ -362,11 +369,10 @@ public class PersonalPresenter extends BasePresenter {
         try {
             if (bitmap != null) {
                 baos = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 50, baos);
                 baos.flush();
                 baos.close();
                 byte[] bitmapBytes = baos.toByteArray();
-                Log.e("bitmapBytes", bitmapBytes.toString());
                 result = Base64.encodeToString(bitmapBytes, Base64.DEFAULT);
             }
         } catch (IOException e) {
@@ -464,11 +470,13 @@ public class PersonalPresenter extends BasePresenter {
                     util.putString(SPUtil.USER_PWD, pwd);
 
                     //头像
-                    if (TextUtils.equals(headImage, "null")) {
-                        ivMyHead.setImageDrawable(iView.getCon().getResources().getDrawable(
-                                R.mipmap.img_head));
-                    } else {
-                        ivMyHead.setImageBitmap(convertStringToIcon(headImage));
+                    if (TextUtils.equals("null",head_img)){
+                        if (TextUtils.equals(headImage, "null")) {
+                            ivMyHead.setImageDrawable(iView.getCon().getResources().getDrawable(
+                                    R.mipmap.img_head));
+                        } else {
+                            ivMyHead.setImageBitmap(convertStringToIcon(headImage));
+                        }
                     }
                     //昵称
                     if (TextUtils.equals("", nick)) {
@@ -525,6 +533,77 @@ public class PersonalPresenter extends BasePresenter {
     }
 
     /**
+     * 邮箱对话框
+     */
+    public void rxDialog_NickName(final TextView tv){
+        final RxDialogEditSureCancel rxDialogEditSureCancel = new RxDialogEditSureCancel(iView.getCon());//提示弹窗
+        rxDialogEditSureCancel.getTitleView().setBackgroundResource(R.drawable.logo);
+        rxDialogEditSureCancel.getEditText().setHint("昵称");
+        rxDialogEditSureCancel.getSureView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String key = "[A-Za-z0-9_\\u4e00-\\u9fa5]{3,16}";
+                String nickName = rxDialogEditSureCancel.getEditText().getText().toString().trim();
+                if (TextUtils.isEmpty(nickName)) {
+                    ToastUtils.showToast(iView.getCon(), "昵称不能为空");
+                    return;
+                }
+                Pattern pattern = Pattern.compile(key);
+                Matcher matcher = pattern.matcher(nickName);
+                if (matcher.matches()) {
+                    tv.setText(nickName);
+                    Logger.e("nick",nickName);
+                    rxDialogEditSureCancel.cancel();
+                } else {
+                    ToastUtils.showToast(iView.getCon(), "昵称格式不正确");
+                }
+            }
+        });
+        rxDialogEditSureCancel.getCancelView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rxDialogEditSureCancel.cancel();
+            }
+        });
+        rxDialogEditSureCancel.setCancelable(false);
+        rxDialogEditSureCancel.show();
+    }
+    /**
+     * 昵称对话框
+     */
+    public void rxDialog_Email(final TextView tv){
+        final RxDialogEditSureCancel rxDialogEditSureCancel = new RxDialogEditSureCancel(iView.getCon());//提示弹窗
+        rxDialogEditSureCancel.getTitleView().setBackgroundResource(R.drawable.logo);
+        rxDialogEditSureCancel.getEditText().setHint("邮箱");
+        rxDialogEditSureCancel.getSureView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String key = "\\w[-\\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\\.)+[A-Za-z]{2,14}";
+                String email = rxDialogEditSureCancel.getEditText().getText().toString().trim();
+                if (TextUtils.isEmpty(email)) {
+                    ToastUtils.showToast(iView.getCon(), "邮箱不能为空");
+                    return;
+                }
+                Pattern pattern = Pattern.compile(key);
+                Matcher matcher = pattern.matcher(email);
+                if (matcher.matches()) {
+                    tv.setText(email);
+                    rxDialogEditSureCancel.cancel();
+                } else {
+                    ToastUtils.showToast(iView.getCon(), "邮箱格式不正确");
+                }
+            }
+        });
+        rxDialogEditSureCancel.getCancelView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rxDialogEditSureCancel.cancel();
+            }
+        });
+        rxDialogEditSureCancel.setCancelable(false);
+        rxDialogEditSureCancel.show();
+    }
+    /**
      * 提交用户信息
      *
      * @param ivMyHead
@@ -550,7 +629,7 @@ public class PersonalPresenter extends BasePresenter {
             jo.put("phoneNumber", util.getString(SPUtil.IS_USER, ""));
             jo.put("password", util.getString(SPUtil.USER_PWD, ""));
             jo.put("nickName", tvPersonPetName.getText().toString());
-            jo.put("birthday", tvPersonBirth.getText().toString());
+            jo.put("birthday", tvPersonBirth.getText().toString()+"T10:00:00.000Z");
             jo.put("email", tvPersonEmail.getText().toString());
             jo.put("sex", sex_id);
             jo.put("headImage", head_img);

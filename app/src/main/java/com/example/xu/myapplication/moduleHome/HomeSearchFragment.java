@@ -12,14 +12,20 @@ import android.view.View;
 
 import com.arlib.floatingsearchview.FloatingSearchView;
 import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion;
+import com.example.xu.myapplication.Common;
 import com.example.xu.myapplication.R;
 import com.example.xu.myapplication.base.BaseFragment;
+import com.example.xu.myapplication.httpRequest.MyOkHttp;
+import com.example.xu.myapplication.httpRequest.response.GsonResponseHandler;
 import com.example.xu.myapplication.modelGoodsInfo.fragment.GoodsInfoFragment;
 import com.example.xu.myapplication.moduleHome.adapter.RecyclerSearchAdapter;
 import com.example.xu.myapplication.moduleHome.dao.GoodsLikeDao;
 import com.example.xu.myapplication.moduleType.entity.Fruit;
 import com.example.xu.myapplication.moduleType.listener.OnItemClickListener;
 import com.example.xu.myapplication.util.Logger;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -109,14 +115,36 @@ public class HomeSearchFragment extends BaseFragment {
             @Override
             public void onSearchAction(String currentQuery) {
                 Logger.e("searchView", currentQuery);
-                GoodsLikeDao.newInstance(new GoodsLikeDao.CallBackGoodsLike() {
+//                GoodsLikeDao.newInstance(new GoodsLikeDao.CallBackGoodsLike() {
+//                    @Override
+//                    public void onSuccess(ArrayList<Fruit.FruitDetail> response) {
+//                        Logger.e("onSearchAction", response.size() + "\t" + response.toString());
+//                        adapter.setData(response);
+//                        adapter.notifyDataSetChanged();
+////                        recyclerView.invalidate();
+//
+//                        Bundle bundle = new Bundle();
+//                        bundle.putParcelableArrayList(ARG_DATA, response);
+//                        Message msg = new Message();
+//                        msg.setData(bundle);
+//                        handler.sendMessage(msg);
+//                    }
+//
+//                    @Override
+//                    public void onFailure(String message) {
+//
+//                    }
+//                }).getGoodsLike(currentQuery);
+                JSONObject jo=new JSONObject();
+                try {
+                    jo.put("goodsName",currentQuery);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                MyOkHttp.newInstance().postJson(Common.URL_GOODS_LIKE, jo, new GsonResponseHandler<ArrayList<Fruit.FruitDetail>>() {
                     @Override
-                    public void onSuccess(ArrayList<Fruit.FruitDetail> response) {
-                        Logger.e("onSearchAction", response.size() + "\t" + response.toString());
+                    public void onSuccess(int statusCode, ArrayList<Fruit.FruitDetail> response) {
                         adapter.setData(response);
-                        adapter.notifyDataSetChanged();
-                        recyclerView.invalidate();
-
                         Bundle bundle = new Bundle();
                         bundle.putParcelableArrayList(ARG_DATA, response);
                         Message msg = new Message();
@@ -125,10 +153,9 @@ public class HomeSearchFragment extends BaseFragment {
                     }
 
                     @Override
-                    public void onFailure(String message) {
-
+                    public void onFailure(int statusCode, String error_msg) {
                     }
-                }).getGoodsLike(currentQuery);
+                });
 
             }
         });

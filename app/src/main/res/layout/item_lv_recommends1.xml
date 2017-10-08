@@ -39,7 +39,9 @@
                 android:id="@+id/tv_reco_goodsIntroduction"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"/>
+                android:layout_marginTop="5dp"
+                android:ellipsize="end"
+                android:singleLine="true"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

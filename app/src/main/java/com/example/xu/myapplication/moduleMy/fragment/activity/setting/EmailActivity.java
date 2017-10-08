@@ -12,6 +12,7 @@ import com.example.xu.myapplication.R;
 import com.example.xu.myapplication.base.BaseActivity;
 import com.example.xu.myapplication.httpRequest.MyOkHttp;
 import com.example.xu.myapplication.httpRequest.response.JsonResponseHandler;
+import com.example.xu.myapplication.util.Logger;
 import com.example.xu.myapplication.util.SPUtil;
 import com.example.xu.myapplication.util.ToastUtils;
 
@@ -111,6 +112,7 @@ public class EmailActivity extends BaseActivity {
             Intent intent = new Intent();
             intent.putExtra("email", email);
             setResult(RESULT_OK, intent);
+            Logger.e("email",email);
             finish();
         } else {
             ToastUtils.showToast(this, "邮箱格式不正确");

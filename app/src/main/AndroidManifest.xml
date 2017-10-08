@@ -45,6 +45,8 @@
         </activity>
         <activity android:name=".moduleShopping.fragment.activity.ReceiveAddressActivity">
         </activity>
+        <activity android:name=".moduleMy.fragment.activity.collect.CollectActivity">
+        </activity>
     </application>
 
 </manifest>

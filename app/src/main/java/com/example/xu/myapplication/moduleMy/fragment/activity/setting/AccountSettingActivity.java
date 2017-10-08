@@ -2,6 +2,7 @@ package com.example.xu.myapplication.moduleMy.fragment.activity.setting;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -16,6 +17,8 @@ import com.example.xu.myapplication.moduleActivity.main.activity.LoginActivity;
 import com.example.xu.myapplication.moduleMy.fragment.presenter.AccountSettingPresenter;
 import com.example.xu.myapplication.moduleMy.fragment.view.CircleImageView;
 import com.example.xu.myapplication.moduleMy.fragment.viewInterface.IAccountSetting;
+import com.example.xu.myapplication.util.SPUtil;
+import com.vondear.rxtools.view.dialog.RxDialogSureCancel;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -35,9 +38,11 @@ public class AccountSettingActivity extends BaseActivity<AccountSettingPresenter
     RelativeLayout relaAccountSafe;
     @BindView(R.id.rela_setting_head)
     RelativeLayout relaSettingHead;
+    @BindView(R.id.tv_logout)
+    TextView tvLogout;
 
     @OnClick({R.id.iv_setting_back, R.id.rela_setting_head, R.id.rela_address,
-            R.id.rela_account_safe})
+            R.id.rela_account_safe,R.id.tv_logout})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_setting_back:
@@ -51,7 +56,33 @@ public class AccountSettingActivity extends BaseActivity<AccountSettingPresenter
                 break;
             case R.id.rela_account_safe:
                 break;
+            case R.id.tv_logout:
+                rxLogout();
+                break;
         }
+    }
+
+    private SPUtil util;
+
+    private void rxLogout() {
+        final RxDialogSureCancel rxDialogSureCancel = new RxDialogSureCancel(AccountSettingActivity.this);//提示弹窗
+        rxDialogSureCancel.getTitleView().setBackgroundResource(R.drawable.logo);
+        rxDialogSureCancel.getSureView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                util.putString(SPUtil.IS_USER,"");
+                startActivity(new Intent(AccountSettingActivity.this,LoginActivity.class));
+                rxDialogSureCancel.cancel();
+                finish();
+            }
+        });
+        rxDialogSureCancel.getCancelView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rxDialogSureCancel.cancel();
+            }
+        });
+        rxDialogSureCancel.show();
     }
 
     @Override
@@ -66,6 +97,8 @@ public class AccountSettingActivity extends BaseActivity<AccountSettingPresenter
 
     @Override
     public void initData() {
+        util=new SPUtil(AccountSettingActivity.this);
+
         Window window = getWindow();
         //取消设置透明状态栏,使 ContentView 内容不再覆盖状态栏
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -88,7 +121,7 @@ public class AccountSettingActivity extends BaseActivity<AccountSettingPresenter
     @Override
     protected void onResume() {
         super.onResume();
-        presenter.getUser(ivSettingHead,tvSettingNick);
+        presenter.getUser(ivSettingHead, tvSettingNick);
     }
 
     @Override

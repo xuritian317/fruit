@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.widget.ImageView;
 
 import com.example.xu.myapplication.R;
 import com.example.xu.myapplication.base.BaseActivity;
@@ -14,6 +15,7 @@ import com.example.xu.myapplication.moduleMy.fragment.viewInterface.IOrders;
 import com.example.xu.myapplication.util.Logger;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class MyOrdersActivity extends BaseActivity<OrdersPresenter> implements IOrders {
 
@@ -22,6 +24,12 @@ public class MyOrdersActivity extends BaseActivity<OrdersPresenter> implements I
     @BindView(R.id.vp_orders)
     ViewPager vpOrders;
 
+    @BindView(R.id.iv_orders_back)
+    ImageView ivOrdersBack;
+    @OnClick(R.id.iv_orders_back)
+    public void back(){
+        finish();
+    }
     private int index;
 
     @Override

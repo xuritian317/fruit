@@ -49,15 +49,15 @@
                 android:id="@+id/tv_shopping_itemFruit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/apple"
-                android:textSize="20sp"/>
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:textSize="17sp"/>
 
             <TextView
                 android:id="@+id/tv_shopping_itemPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="@string/money"
                 android:textColor="@color/color_Red"/>
 
             <com.jmf.addsubutils.AddSubUtils
