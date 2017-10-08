@@ -4,22 +4,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.xu.myapplication.R;
 import com.example.xu.myapplication.base.BaseFragment;
-import com.example.xu.myapplication.moduleHome.fragment.view.MyListView;
+import com.example.xu.myapplication.moduleHome.view.MyListView;
 import com.example.xu.myapplication.moduleMy.fragment.adapter.PagerAdapter;
 import com.example.xu.myapplication.moduleMy.fragment.presenter.PagerChildPresenter;
 import com.example.xu.myapplication.moduleMy.fragment.viewInterface.IPagerChild;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * Created by 逝 on 2017/09/16.

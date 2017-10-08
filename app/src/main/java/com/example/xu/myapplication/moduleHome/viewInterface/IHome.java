@@ -1,4 +1,4 @@
-package com.example.xu.myapplication.moduleHome.fragment.viewInterface;
+package com.example.xu.myapplication.moduleHome.viewInterface;
 
 import android.app.Activity;
 import android.content.Context;

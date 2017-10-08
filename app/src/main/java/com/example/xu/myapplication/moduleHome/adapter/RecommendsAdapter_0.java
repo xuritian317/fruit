@@ -1,4 +1,4 @@
-package com.example.xu.myapplication.moduleHome.fragment.adapter;
+package com.example.xu.myapplication.moduleHome.adapter;
 
 /**
  * Created by 逝 on 2017/10/01.
@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.xu.myapplication.R;
-import com.example.xu.myapplication.moduleHome.fragment.bean.RecommendsBean_0;
+import com.example.xu.myapplication.moduleHome.bean.RecommendsBean_0;
 import com.example.xu.myapplication.moduleType.entity.Fruit;
 
 public class RecommendsAdapter_0 extends BaseAdapter {

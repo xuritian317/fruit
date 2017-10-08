@@ -1,4 +1,4 @@
-package com.example.xu.myapplication.moduleHome.fragment.view;
+package com.example.xu.myapplication.moduleHome.view;
 
 import android.content.Context;
 import android.util.AttributeSet;

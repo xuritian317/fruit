@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.example.xu.myapplication.R;
 import com.example.xu.myapplication.base.BaseActivity;
-import com.example.xu.myapplication.moduleHome.fragment.view.MyListView;
+import com.example.xu.myapplication.moduleHome.view.MyListView;
 import com.example.xu.myapplication.moduleShopping.fragment.adapter.PayAdapter;
 import com.example.xu.myapplication.moduleShopping.fragment.bean.FruitBean;
 import com.example.xu.myapplication.moduleShopping.fragment.presenter.ShoppingPayPresenter;
@@ -21,7 +21,6 @@ import com.example.xu.myapplication.moduleShopping.fragment.viewInterface.IShopp
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class ShoppingPayActivity extends BaseActivity<ShoppingPayPresenter> implements

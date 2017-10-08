@@ -1,4 +1,4 @@
-package com.example.xu.myapplication.moduleHome.fragment.loader;
+package com.example.xu.myapplication.moduleHome.loader;
 
 import android.content.Context;
 import android.widget.ImageView;

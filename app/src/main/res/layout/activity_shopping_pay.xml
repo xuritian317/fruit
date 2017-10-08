@@ -89,13 +89,13 @@
                 android:layout_marginTop="5dp"
                 android:background="@color/tab_unSelect"/>
 
-            <com.example.xu.myapplication.moduleHome.fragment.view.MyListView
+            <com.example.xu.myapplication.moduleHome.view.MyListView
                 android:id="@+id/lv_pay_orders"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:divider="@null">
 
-            </com.example.xu.myapplication.moduleHome.fragment.view.MyListView>
+            </com.example.xu.myapplication.moduleHome.view.MyListView>
 
             <View
                 android:layout_width="match_parent"

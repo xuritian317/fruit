@@ -3,7 +3,7 @@ package com.example.xu.myapplication.moduleActivity.main.presenter;
 import com.example.xu.myapplication.R;
 import com.example.xu.myapplication.base.BasePresenter;
 import com.example.xu.myapplication.moduleActivity.main.viewInterface.IMain;
-import com.example.xu.myapplication.moduleHome.fragment.HomeFragment;
+import com.example.xu.myapplication.moduleHome.HomeFragment;
 import com.example.xu.myapplication.moduleMy.fragment.MyFragment;
 import com.example.xu.myapplication.moduleShopping.fragment.ShoppingFragment;
 import com.example.xu.myapplication.moduleType.fragment.TypeFragment;

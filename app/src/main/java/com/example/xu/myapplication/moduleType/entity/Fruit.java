@@ -4,9 +4,9 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.example.xu.myapplication.modelGoodsInfo.entity.RecommendBean;
-import com.example.xu.myapplication.moduleHome.fragment.bean.BargainBean;
-import com.example.xu.myapplication.moduleHome.fragment.bean.RecommendsBean_0;
-import com.example.xu.myapplication.moduleHome.fragment.bean.RecommendsBean_1;
+import com.example.xu.myapplication.moduleHome.bean.BargainBean;
+import com.example.xu.myapplication.moduleHome.bean.RecommendsBean_0;
+import com.example.xu.myapplication.moduleHome.bean.RecommendsBean_1;
 
 import java.util.ArrayList;
 

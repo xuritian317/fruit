@@ -1,8 +1,6 @@
 package com.example.xu.myapplication.moduleActivity.main.activity;
 
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.view.KeyEvent;
 import android.widget.Toast;
 
 import com.example.xu.myapplication.R;
@@ -10,21 +8,16 @@ import com.example.xu.myapplication.base.BaseActivity;
 import com.example.xu.myapplication.base.BaseMainFragment;
 import com.example.xu.myapplication.moduleActivity.main.customer.BottomBar;
 import com.example.xu.myapplication.moduleActivity.main.customer.BottomBarTab;
-import com.example.xu.myapplication.moduleActivity.main.eventbus.TabSelectedEvent;
 import com.example.xu.myapplication.moduleActivity.main.viewInterface.IMain;
 import com.example.xu.myapplication.moduleActivity.main.presenter.MainPresenter;
-import com.example.xu.myapplication.moduleHome.fragment.HomeContentFragment;
-import com.example.xu.myapplication.moduleHome.fragment.HomeFragment;
+import com.example.xu.myapplication.moduleHome.HomeContentFragment;
+import com.example.xu.myapplication.moduleHome.HomeFragment;
 import com.example.xu.myapplication.moduleMy.fragment.MyFragment;
 import com.example.xu.myapplication.moduleMy.fragment.MyContentFragment;
 import com.example.xu.myapplication.moduleShopping.fragment.ShoppingContentFragment;
 import com.example.xu.myapplication.moduleShopping.fragment.ShoppingFragment;
 import com.example.xu.myapplication.moduleType.fragment.TypeContentFragment;
 import com.example.xu.myapplication.moduleType.fragment.TypeFragment;
-import com.example.xu.myapplication.util.Logger;
-import com.example.xu.myapplication.util.SPUtil;
-
-import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import me.yokeyword.fragmentation.SupportFragment;

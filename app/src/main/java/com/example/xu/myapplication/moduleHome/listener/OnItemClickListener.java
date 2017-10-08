@@ -1,4 +1,4 @@
-package com.example.xu.myapplication.moduleHome.fragment.listener;
+package com.example.xu.myapplication.moduleHome.listener;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

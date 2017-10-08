@@ -1,4 +1,4 @@
-package com.example.xu.myapplication.moduleHome.fragment.adapter;
+package com.example.xu.myapplication.moduleHome.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -10,12 +10,11 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.xu.myapplication.R;
-import com.example.xu.myapplication.moduleHome.fragment.bean.BargainBean;
-import com.example.xu.myapplication.moduleHome.fragment.listener.OnItemClickListener;
+import com.example.xu.myapplication.moduleHome.bean.BargainBean;
+import com.example.xu.myapplication.moduleHome.listener.OnItemClickListener;
 import com.example.xu.myapplication.moduleType.entity.Fruit;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by 逝 on 2017/09/30.

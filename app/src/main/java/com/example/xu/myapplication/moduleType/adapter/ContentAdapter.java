@@ -37,7 +37,6 @@ public class ContentAdapter extends RecyclerView.Adapter<ContentAdapter.ViewHold
         goodsData.clear();
         goodsData.addAll(data);
         this.flag = flag;
-        notifyDataSetChanged();
     }
 
     public void updateData(ArrayList<Fruit.FruitDetail> data) {

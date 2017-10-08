@@ -1,4 +1,4 @@
-package com.example.xu.myapplication.moduleHome.fragment;
+package com.example.xu.myapplication.moduleHome;
 
 
 import android.app.Fragment;

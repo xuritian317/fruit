@@ -1,4 +1,4 @@
-package com.example.xu.myapplication.moduleHome.fragment;
+package com.example.xu.myapplication.moduleHome;
 
 
 import android.app.Activity;
@@ -8,31 +8,29 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.RelativeLayout;
 
 import com.example.xu.myapplication.R;
-import com.example.xu.myapplication.base.BaseFragment;
 import com.example.xu.myapplication.base.BaseMainFragment;
 import com.example.xu.myapplication.modelGoodsInfo.fragment.GoodsInfoFragment;
-import com.example.xu.myapplication.moduleHome.fragment.adapter.BargainAdapter;
-import com.example.xu.myapplication.moduleHome.fragment.adapter.RecommendsAdapter_0;
-import com.example.xu.myapplication.moduleHome.fragment.adapter.RecommendsAdapter_1;
-import com.example.xu.myapplication.moduleHome.fragment.listener.OnItemClickListener;
-import com.example.xu.myapplication.moduleHome.fragment.presenter.HomePresenter;
-import com.example.xu.myapplication.moduleHome.fragment.view.MyGridView;
-import com.example.xu.myapplication.moduleHome.fragment.view.MyListView;
-import com.example.xu.myapplication.moduleHome.fragment.view.SpaceItemDecoration;
-import com.example.xu.myapplication.moduleHome.fragment.viewInterface.IHome;
+import com.example.xu.myapplication.moduleHome.adapter.BargainAdapter;
+import com.example.xu.myapplication.moduleHome.adapter.RecommendsAdapter_0;
+import com.example.xu.myapplication.moduleHome.adapter.RecommendsAdapter_1;
+import com.example.xu.myapplication.moduleHome.listener.OnItemClickListener;
+import com.example.xu.myapplication.moduleHome.presenter.HomePresenter;
+import com.example.xu.myapplication.moduleHome.view.MyGridView;
+import com.example.xu.myapplication.moduleHome.view.MyListView;
+import com.example.xu.myapplication.moduleHome.view.SpaceItemDecoration;
+import com.example.xu.myapplication.moduleHome.viewInterface.IHome;
 import com.example.xu.myapplication.util.Logger;
 import com.example.xu.myapplication.util.ToastUtils;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -53,6 +51,12 @@ public class HomeContentFragment extends BaseMainFragment<HomePresenter> impleme
 
     @BindView(R.id.relative_search)
     RelativeLayout relativeLayout;
+
+    @OnClick(R.id.relative_search)
+    public void clickSearch() {
+        start(HomeSearchFragment.newInstance());
+    }
+
     @BindView(R.id.banner)
     Banner banner;
     @BindView(R.id.rv_home_bargain)

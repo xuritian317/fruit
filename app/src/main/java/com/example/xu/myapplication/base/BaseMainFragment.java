@@ -1,10 +1,8 @@
 package com.example.xu.myapplication.base;
 
 import android.content.Context;
-import android.widget.Toast;
 
-import com.example.xu.myapplication.R;
-import com.example.xu.myapplication.moduleHome.fragment.HomeFragment;
+import com.example.xu.myapplication.moduleHome.HomeFragment;
 import com.example.xu.myapplication.util.ToastUtils;
 
 /**

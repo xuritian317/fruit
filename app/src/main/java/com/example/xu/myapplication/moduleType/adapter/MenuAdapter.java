@@ -25,9 +25,9 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MyViewHolder> 
     private LayoutInflater mInflater;
     private Context mContext;
 
+    private OnItemClickListener mClickListener;
     private List<String> dataList = new ArrayList<>();
     private SparseBooleanArray mBooleanArray;
-    private OnItemClickListener mClickListener;
     private int mLastCheckedPosition = -1;
 
     public MenuAdapter(Context context, List<String> items) {

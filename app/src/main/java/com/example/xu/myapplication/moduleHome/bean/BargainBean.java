@@ -1,29 +1,40 @@
-package com.example.xu.myapplication.moduleHome.fragment.bean;
+package com.example.xu.myapplication.moduleHome.bean;
 
 /**
- * Created by 逝 on 2017/10/01.
+ * Created by 逝 on 2017/09/30.
  */
 
-public class RecommendsBean_1 {
+public class BargainBean {
 
     /**
-     * id : 12
-     * place : null
-     * goodsType : 1
+     * id : 1
+     * bargainName : null
+     * bargainPrice : 10
+     * bargainImage : null
+     * bargainCount : 1
+     * bargainPlace : 南京工业职业技术学院
+     * endTime : 2017-10-03T22:02:00+08:00
      * createTime : null
      * updateTime : null
-     * goods : {"id":26,"goodsName":"薄荷轻食专享套餐 ","goodsPrice":"118.00",
-     * "goodsImage":"https://imgjd2.fruitday
-     * .com/images/product_pic/420/1/1-270x270-420-WKDS9C15.jpg","goodsClassify":1,
-     * "goodsIntroduction":"商品组成（有哪些商品组成）","temperature":0,"nutritionInfo":"营养价值（后期填写）",
-     * "effect":"功效（后期填写）","hot":null,"createTime":null,"updateTime":null}
+     * goodsId : 1
+     * goods : {"id":1,"goodsName":"台湾凤梨","goodsPrice":"19.90","goodsImage":"http://img.guocool
+     * .com/product/2017/06/23/c76c6087d3154f9aa86c23ad6be604d6.jpg","goodsClassify":0,
+     * "goodsIntroduction":"产自台湾，香甜可口","temperature":20,
+     * "nutritionInfo":"含有大量的果糖，葡萄糖，维生素A、B、C，磷，柠檬酸和蛋白酶等物",
+     * "effect":"清热解暑、生津止渴、利小便的功效，可用于伤暑、身热烦渴、腹中痞闷、消化不良、小便不利、头昏眼花等症","hot":10,"createTime":null,
+     * "updateTime":null}
      */
 
     private int id;
-    private Object place;
-    private int goodsType;
-    private Object createTime;
-    private Object updateTime;
+    private String bargainName;
+    private String bargainPrice;
+    private String bargainImage;
+    private int bargainCount;
+    private String bargainPlace;
+    private String endTime;
+    private String createTime;
+    private String updateTime;
+    private int goodsId;
     private GoodsBean goods;
 
     public int getId() {
@@ -34,36 +45,76 @@ public class RecommendsBean_1 {
         this.id = id;
     }
 
-    public Object getPlace() {
-        return place;
+    public String getBargainName() {
+        return bargainName;
     }
 
-    public void setPlace(Object place) {
-        this.place = place;
+    public void setBargainName(String bargainName) {
+        this.bargainName = bargainName;
     }
 
-    public int getGoodsType() {
-        return goodsType;
+    public String getBargainPrice() {
+        return bargainPrice;
     }
 
-    public void setGoodsType(int goodsType) {
-        this.goodsType = goodsType;
+    public void setBargainPrice(String bargainPrice) {
+        this.bargainPrice = bargainPrice;
     }
 
-    public Object getCreateTime() {
+    public String getBargainImage() {
+        return bargainImage;
+    }
+
+    public void setBargainImage(String bargainImage) {
+        this.bargainImage = bargainImage;
+    }
+
+    public int getBargainCount() {
+        return bargainCount;
+    }
+
+    public void setBargainCount(int bargainCount) {
+        this.bargainCount = bargainCount;
+    }
+
+    public String getBargainPlace() {
+        return bargainPlace;
+    }
+
+    public void setBargainPlace(String bargainPlace) {
+        this.bargainPlace = bargainPlace;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
+
+    public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Object createTime) {
+    public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
 
-    public Object getUpdateTime() {
+    public String getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(Object updateTime) {
+    public void setUpdateTime(String updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public int getGoodsId() {
+        return goodsId;
+    }
+
+    public void setGoodsId(int goodsId) {
+        this.goodsId = goodsId;
     }
 
     public GoodsBean getGoods() {
@@ -76,17 +127,17 @@ public class RecommendsBean_1 {
 
     public static class GoodsBean {
         /**
-         * id : 26
-         * goodsName : 薄荷轻食专享套餐
-         * goodsPrice : 118.00
-         * goodsImage : https://imgjd2.fruitday
-         * .com/images/product_pic/420/1/1-270x270-420-WKDS9C15.jpg
-         * goodsClassify : 1
-         * goodsIntroduction : 商品组成（有哪些商品组成）
-         * temperature : 0
-         * nutritionInfo : 营养价值（后期填写）
-         * effect : 功效（后期填写）
-         * hot : null
+         * id : 1
+         * goodsName : 台湾凤梨
+         * goodsPrice : 19.90
+         * goodsImage : http://img.guocool
+         * .com/product/2017/06/23/c76c6087d3154f9aa86c23ad6be604d6.jpg
+         * goodsClassify : 0
+         * goodsIntroduction : 产自台湾，香甜可口
+         * temperature : 20
+         * nutritionInfo : 含有大量的果糖，葡萄糖，维生素A、B、C，磷，柠檬酸和蛋白酶等物
+         * effect : 清热解暑、生津止渴、利小便的功效，可用于伤暑、身热烦渴、腹中痞闷、消化不良、小便不利、头昏眼花等症
+         * hot : 10
          * createTime : null
          * updateTime : null
          */

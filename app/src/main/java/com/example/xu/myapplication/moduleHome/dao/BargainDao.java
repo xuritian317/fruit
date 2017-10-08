@@ -1,9 +1,9 @@
-package com.example.xu.myapplication.moduleHome.fragment.dao;
+package com.example.xu.myapplication.moduleHome.dao;
 
 import com.example.xu.myapplication.Common;
 import com.example.xu.myapplication.httpRequest.MyOkHttp;
 import com.example.xu.myapplication.httpRequest.response.GsonResponseHandler;
-import com.example.xu.myapplication.moduleHome.fragment.bean.BargainBean;
+import com.example.xu.myapplication.moduleHome.bean.BargainBean;
 
 import java.util.ArrayList;
 

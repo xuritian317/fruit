@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/color_White"
     android:orientation="vertical"
-    tools:context="com.example.xu.myapplication.moduleHome.fragment.HomeFragment">
+    tools:context="com.example.xu.myapplication.moduleHome.HomeFragment">
 
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
@@ -124,12 +124,12 @@
                     android:background="@color/color_Black">
                 </View>
 
-                <com.example.xu.myapplication.moduleHome.fragment.view.MyGridView
+                <com.example.xu.myapplication.moduleHome.view.MyGridView
                     android:id="@+id/gridView_0"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:numColumns="3">
-                </com.example.xu.myapplication.moduleHome.fragment.view.MyGridView>
+                </com.example.xu.myapplication.moduleHome.view.MyGridView>
 
                 <View
                     android:layout_width="match_parent"
@@ -152,14 +152,14 @@
                     android:background="@color/color_Black">
                 </View>
 
-                <com.example.xu.myapplication.moduleHome.fragment.view.MyListView
+                <com.example.xu.myapplication.moduleHome.view.MyListView
                     android:id="@+id/listView_1"
                     android:divider="@null"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:footerDividersEnabled="false">
 
-                </com.example.xu.myapplication.moduleHome.fragment.view.MyListView>
+                </com.example.xu.myapplication.moduleHome.view.MyListView>
 
                 <View
                     android:layout_width="match_parent"

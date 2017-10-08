@@ -1,4 +1,4 @@
-package com.example.xu.myapplication.moduleHome.fragment.view;
+package com.example.xu.myapplication.moduleHome.view;
 
 import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;

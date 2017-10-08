@@ -1,23 +1,20 @@
-package com.example.xu.myapplication.moduleHome.fragment.presenter;
+package com.example.xu.myapplication.moduleHome.presenter;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
 import com.example.xu.myapplication.base.BasePresenter;
-import com.example.xu.myapplication.httpRequest.MyOkHttp;
-import com.example.xu.myapplication.httpRequest.response.RawResponseHandler;
-import com.example.xu.myapplication.moduleHome.fragment.adapter.BargainAdapter;
-import com.example.xu.myapplication.moduleHome.fragment.adapter.RecommendsAdapter_0;
-import com.example.xu.myapplication.moduleHome.fragment.adapter.RecommendsAdapter_1;
-import com.example.xu.myapplication.moduleHome.fragment.bean.BargainBean;
-import com.example.xu.myapplication.moduleHome.fragment.bean.RecommendsBean_0;
-import com.example.xu.myapplication.moduleHome.fragment.bean.RecommendsBean_1;
-import com.example.xu.myapplication.moduleHome.fragment.dao.BargainDao;
-import com.example.xu.myapplication.moduleHome.fragment.dao.HomeDao;
-import com.example.xu.myapplication.moduleHome.fragment.dao.RecommendsDao_0;
-import com.example.xu.myapplication.moduleHome.fragment.dao.RecommendsDao_1;
-import com.example.xu.myapplication.moduleHome.fragment.loader.GlideImageLoader;
-import com.example.xu.myapplication.moduleHome.fragment.viewInterface.IHome;
+import com.example.xu.myapplication.moduleHome.adapter.BargainAdapter;
+import com.example.xu.myapplication.moduleHome.adapter.RecommendsAdapter_0;
+import com.example.xu.myapplication.moduleHome.adapter.RecommendsAdapter_1;
+import com.example.xu.myapplication.moduleHome.bean.BargainBean;
+import com.example.xu.myapplication.moduleHome.bean.RecommendsBean_0;
+import com.example.xu.myapplication.moduleHome.bean.RecommendsBean_1;
+import com.example.xu.myapplication.moduleHome.dao.BargainDao;
+import com.example.xu.myapplication.moduleHome.dao.HomeDao;
+import com.example.xu.myapplication.moduleHome.dao.RecommendsDao_0;
+import com.example.xu.myapplication.moduleHome.dao.RecommendsDao_1;
+import com.example.xu.myapplication.moduleHome.loader.GlideImageLoader;
+import com.example.xu.myapplication.moduleHome.viewInterface.IHome;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 

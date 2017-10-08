@@ -1,40 +1,30 @@
-package com.example.xu.myapplication.moduleHome.fragment.bean;
+package com.example.xu.myapplication.moduleHome.bean;
 
 /**
- * Created by 逝 on 2017/09/30.
+ * Created by 逝 on 2017/10/01.
  */
 
-public class BargainBean {
-
+public class RecommendsBean_0 {
     /**
      * id : 1
-     * bargainName : null
-     * bargainPrice : 10
-     * bargainImage : null
-     * bargainCount : 1
-     * bargainPlace : 南京工业职业技术学院
-     * endTime : 2017-10-03T22:02:00+08:00
-     * createTime : null
-     * updateTime : null
-     * goodsId : 1
-     * goods : {"id":1,"goodsName":"台湾凤梨","goodsPrice":"19.90","goodsImage":"http://img.guocool
-     * .com/product/2017/06/23/c76c6087d3154f9aa86c23ad6be604d6.jpg","goodsClassify":0,
-     * "goodsIntroduction":"产自台湾，香甜可口","temperature":20,
-     * "nutritionInfo":"含有大量的果糖，葡萄糖，维生素A、B、C，磷，柠檬酸和蛋白酶等物",
-     * "effect":"清热解暑、生津止渴、利小便的功效，可用于伤暑、身热烦渴、腹中痞闷、消化不良、小便不利、头昏眼花等症","hot":10,"createTime":null,
-     * "updateTime":null}
+     * place : null
+     * goodsType : 0
+     * createTime : 2017-07-07T04:56:00+08:00
+     * updateTime : 2017-07-18T04:55:00+08:00
+     * goods : {"id":17,"goodsName":"拇指青桔","goodsPrice":"9.90",
+     * "goodsImage":"https://imgjd2.fruitday
+     * .com/images/product_pic/11851/1/1-270x270-11851-8DA2FRK7.jpg","goodsClassify":0,
+     * "goodsIntroduction":"青金桔 （又名青桔、山桔、年桔、绿桔)英文：lime,
+     * 海南人俗称公孙桔、桔仔或酸桔，台湾人称金桔，新加坡人则称为酸柑，用来做酸柑水卖；为芸香科柑橘族金柑属，个头较小，一颗平均在15克左右。","temperature":0,
+     * "nutritionInfo":"每100克果肉内含维生素C40～50毫克及维生素A、P和芳香油、类胡罗萝卜素等多种物质。",
+     * "effect":"有治疗眼疾、咳嗽、哮喘、高血压、防止动脉硬化等特殊功效。","hot":null,"createTime":null,"updateTime":null}
      */
 
     private int id;
-    private String bargainName;
-    private String bargainPrice;
-    private String bargainImage;
-    private int bargainCount;
-    private String bargainPlace;
-    private String endTime;
+    private Object place;
+    private int goodsType;
     private String createTime;
     private String updateTime;
-    private int goodsId;
     private GoodsBean goods;
 
     public int getId() {
@@ -45,52 +35,20 @@ public class BargainBean {
         this.id = id;
     }
 
-    public String getBargainName() {
-        return bargainName;
+    public Object getPlace() {
+        return place;
     }
 
-    public void setBargainName(String bargainName) {
-        this.bargainName = bargainName;
+    public void setPlace(Object place) {
+        this.place = place;
     }
 
-    public String getBargainPrice() {
-        return bargainPrice;
+    public int getGoodsType() {
+        return goodsType;
     }
 
-    public void setBargainPrice(String bargainPrice) {
-        this.bargainPrice = bargainPrice;
-    }
-
-    public String getBargainImage() {
-        return bargainImage;
-    }
-
-    public void setBargainImage(String bargainImage) {
-        this.bargainImage = bargainImage;
-    }
-
-    public int getBargainCount() {
-        return bargainCount;
-    }
-
-    public void setBargainCount(int bargainCount) {
-        this.bargainCount = bargainCount;
-    }
-
-    public String getBargainPlace() {
-        return bargainPlace;
-    }
-
-    public void setBargainPlace(String bargainPlace) {
-        this.bargainPlace = bargainPlace;
-    }
-
-    public String getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(String endTime) {
-        this.endTime = endTime;
+    public void setGoodsType(int goodsType) {
+        this.goodsType = goodsType;
     }
 
     public String getCreateTime() {
@@ -109,14 +67,6 @@ public class BargainBean {
         this.updateTime = updateTime;
     }
 
-    public int getGoodsId() {
-        return goodsId;
-    }
-
-    public void setGoodsId(int goodsId) {
-        this.goodsId = goodsId;
-    }
-
     public GoodsBean getGoods() {
         return goods;
     }
@@ -127,17 +77,18 @@ public class BargainBean {
 
     public static class GoodsBean {
         /**
-         * id : 1
-         * goodsName : 台湾凤梨
-         * goodsPrice : 19.90
-         * goodsImage : http://img.guocool
-         * .com/product/2017/06/23/c76c6087d3154f9aa86c23ad6be604d6.jpg
+         * id : 17
+         * goodsName : 拇指青桔
+         * goodsPrice : 9.90
+         * goodsImage : https://imgjd2.fruitday
+         * .com/images/product_pic/11851/1/1-270x270-11851-8DA2FRK7.jpg
          * goodsClassify : 0
-         * goodsIntroduction : 产自台湾，香甜可口
-         * temperature : 20
-         * nutritionInfo : 含有大量的果糖，葡萄糖，维生素A、B、C，磷，柠檬酸和蛋白酶等物
-         * effect : 清热解暑、生津止渴、利小便的功效，可用于伤暑、身热烦渴、腹中痞闷、消化不良、小便不利、头昏眼花等症
-         * hot : 10
+         * goodsIntroduction : 青金桔 （又名青桔、山桔、年桔、绿桔)英文：lime,
+         * 海南人俗称公孙桔、桔仔或酸桔，台湾人称金桔，新加坡人则称为酸柑，用来做酸柑水卖；为芸香科柑橘族金柑属，个头较小，一颗平均在15克左右。
+         * temperature : 0
+         * nutritionInfo : 每100克果肉内含维生素C40～50毫克及维生素A、P和芳香油、类胡罗萝卜素等多种物质。
+         * effect : 有治疗眼疾、咳嗽、哮喘、高血压、防止动脉硬化等特殊功效。
+         * hot : null
          * createTime : null
          * updateTime : null
          */
