@@ -1,9 +1,9 @@
 package com.example.xu.myapplication.moduleShopping.fragment.presenter;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
@@ -15,12 +15,9 @@ import com.example.xu.myapplication.base.BasePresenter;
 import com.example.xu.myapplication.httpRequest.MyOkHttp;
 import com.example.xu.myapplication.httpRequest.response.JsonResponseHandler;
 import com.example.xu.myapplication.httpRequest.response.RawResponseHandler;
-import com.example.xu.myapplication.moduleMy.fragment.view.CircleImageView;
-import com.example.xu.myapplication.moduleShopping.fragment.bean.FruitBean;
 import com.example.xu.myapplication.moduleShopping.fragment.adapter.ShoppingCarAdapter;
-import com.example.xu.myapplication.moduleShopping.fragment.dao.ShoppingCarDao;
+import com.example.xu.myapplication.moduleShopping.fragment.bean.FruitBean;
 import com.example.xu.myapplication.moduleShopping.fragment.viewInterface.IShopping;
-import com.example.xu.myapplication.util.Logger;
 import com.example.xu.myapplication.util.SPUtil;
 import com.example.xu.myapplication.util.ToastUtils;
 
@@ -28,6 +25,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,16 +44,18 @@ public class ShoppingPresenter extends BasePresenter {
 
     public ShoppingPresenter(IShopping view) {
         this.view = view;
-        util=new SPUtil(this.view.getCon());
+        util = new SPUtil(this.view.getCon());
     }
 
     /**
      * 跳转Activity
      */
-    public void toActivity(Class<?> cls) {
+    public void toActivity(Class<?> cls, TextView tv) {
+        List<FruitBean> list = new ArrayList<FruitBean>();
         int size = 0;
         for (int i = 0; i < lists.size(); i++) {
             if (lists.get(i).isChecked()) {
+                list.add(lists.get(i));
                 size++;
             }
         }
@@ -64,20 +64,29 @@ public class ShoppingPresenter extends BasePresenter {
             return;
         }
         Intent intent = new Intent(view.getCon(), cls);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("par_orders", (Serializable) list);
+        bundle.putString("money", tv.getText().toString().trim());
+        intent.putExtras(bundle);
         view.getAct().startActivity(intent);
     }
 
-    public void addList(final ShoppingCarAdapter adapter, final SwipeRefreshLayout refreshShoppingCar,
-                        final TextView tvShopingCart) {
+    /*
+    获取购物车列表
+     */
+    public void addList(final ShoppingCarAdapter adapter, final SwipeRefreshLayout
+            refreshShoppingCar, final TextView tvShopingCart, final CheckBox cbSelectAll
+            , final TextView tvShopingMoney) {
         lists = new ArrayList<FruitBean>();
+
         String phone = util.getString(SPUtil.IS_USER, "");
         if (TextUtils.equals(util.getString(SPUtil.IS_USER, ""), "")) {
             return;
         }
 
-        if (!refreshShoppingCar.isRefreshing()){
-            refreshShoppingCar.setRefreshing(true);
-        }
+//        if (!refreshShoppingCar.isRefreshing()){
+//            refreshShoppingCar.setRefreshing(true);
+//        }
 
         JSONObject jo = new JSONObject();
         try {
@@ -89,26 +98,34 @@ public class ShoppingPresenter extends BasePresenter {
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
                 try {
-                    JSONArray array=new JSONArray(response.getString("shoppingCars"));
-                    FruitBean bean=null;
+                    JSONArray array = new JSONArray(response.getString("shoppingCars"));
+                    if (array.length() == 0) {
+                        cbSelectAll.setChecked(false);
+                        tvShopingMoney.setText("￥0.00");
+                    }
+                    FruitBean bean = null;
                     JSONObject object;
                     JSONObject json;
                     for (int i = 0; i < array.length(); i++) {
-                        object=array.getJSONObject(i);
-                        int count=object.getInt("goodsCount");
-                        int id=object.getInt("id");
-                        String goods=object.getString("goods");
-                        json=new JSONObject(goods);
-                        String goodsName=json.getString("goodsName");
-                        double goodsPrice=json.getDouble("goodsPrice");
-                        String goodsImage=json.getString("goodsImage");
-                        bean=new FruitBean(id,goodsName,goodsPrice,count,goodsImage,false);
+                        object = array.getJSONObject(i);
+                        int count = object.getInt("goodsCount");
+                        int id = object.getInt("id");
+                        String goods = object.getString("goods");
+                        json = new JSONObject(goods);
+                        int goodsId = json.getInt("id");
+                        String goodsName = json.getString("goodsName");
+                        double goodsPrice = json.getDouble("goodsPrice");
+                        String goodsImage = json.getString("goodsImage");
+                        bean = new FruitBean(id, goodsName, goodsId, goodsPrice, count,
+                                goodsImage, false);
                         lists.add(bean);
                     }
 
-                    tvShopingCart.setText("购物车("+array.length()+")");
                     adapter.setData(lists);
-                    refreshShoppingCar.setRefreshing(false);
+                    tvShopingCart.setText("购物车(" + array.length() + ")");
+                    if (refreshShoppingCar.isRefreshing()) {
+                        refreshShoppingCar.setRefreshing(false);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -217,35 +234,35 @@ public class ShoppingPresenter extends BasePresenter {
 
     /**
      * 删除商品操作
-     *
      */
-    public void deleteGoods(final ShoppingCarAdapter adapter, final SwipeRefreshLayout refreshShoppingCar,
-                            final TextView tvShoppingCart, final CheckBox cbSelectAll) {
-        int id;
-        JSONObject jo;
-        for (int i = 0; i <lists.size() ; i++) {
-            if (lists.get(i).isChecked()){
-                id=lists.get(i).getId();
-                Logger.e("id",id+"");
-                jo=new JSONObject();
-                try {
-                    jo.put("id",id);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                MyOkHttp.newInstance().postJson(Common.URL_SHOPPING_CAR_DELETE + String.valueOf(id),
-                        jo, new RawResponseHandler() {
-                            @Override
-                            public void onSuccess(int statusCode, String response) {
-                                addList(adapter,refreshShoppingCar,tvShoppingCart);
-                            }
-
-                            @Override
-                            public void onFailure(int statusCode, String error_msg) {
-                                ToastUtils.showToast(view.getCon(),"删除失败请重试");
-                            }
-                        });
+    public void deleteGoods(final ShoppingCarAdapter adapter, final SwipeRefreshLayout
+            refreshShoppingCar, final TextView tvShoppingCart, final CheckBox cbSelectAll,
+                            final TextView tvShopingMoney) {
+        JSONObject jo = new JSONObject();
+        JSONArray array = new JSONArray();
+        for (int i = 0; i < lists.size(); i++) {
+            if (lists.get(i).isChecked()) {
+                array.put(lists.get(i).getId());
             }
         }
+        try {
+            jo.put("number", array);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        MyOkHttp.newInstance().postJson(Common.URL_SHOPPING_CAR_DELETE, jo, new
+                RawResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, String response) {
+                        addList(adapter, refreshShoppingCar, tvShoppingCart, cbSelectAll,
+                                tvShopingMoney);
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, String error_msg) {
+                        ToastUtils.showToast(view.getCon(), "删除失败,请重试");
+                    }
+                });
+
     }
 }

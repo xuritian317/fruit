@@ -23,7 +23,7 @@ public class Common {
     //查询购物车
     public static String URL_SHOPPING_CAR = "http://www.mobilebooks.cn/api/t-shopping-cars";
     //购物车删除操作
-    public static String URL_SHOPPING_CAR_DELETE = "http://www.mobilebooks.cn/api/t-shopping-carsDelete/";
+    public static String URL_SHOPPING_CAR_DELETE = "http://www.mobilebooks.cn/api/t-goodsBatchDelete";
     //购物车修改操作
     public static String URL_SHOPPING_CAR_UPDATE = "http://www.mobilebooks.cn/api/t-shopping-carsPut";
 
@@ -35,10 +35,26 @@ public class Common {
     public static String URL_RECOMMENDS_1 = "http://www.mobilebooks.cn/api/t-home-recommends-1";
     //查询收货地址
     public static String URL_GET_ADDRESS = "http://www.mobilebooks.cn/api/t-receive-addresses";
-    //查询收货地址
+    //查询所有收货地址
     public static String URL_CREATE_ADDRESS = "http://www.mobilebooks.cn/api/t-receive-addresses";
+    //修改收货地址
+    public static String URL_UPDATE_ADDRESS = "http://www.mobilebooks.cn/api/t-receive-addressesPut";
+    //根据ID收货地址
+    public static String URL_CREATE_ADDRESS_BY_ID = "http://www.mobilebooks.cn/api/t-receive-addresses/";
     //查询订单
     public static String URL_GET_ORDERS = "http://www.mobilebooks.cn/api/t-orders";
+    //创建订单
+    public static String URL_CREATE_ORDERS = "http://www.mobilebooks.cn/api/t-orderCreateBatch";
+    //修改订单
+    public static String URL_UPDATE_ORDERS = "http://www.mobilebooks.cn/api/t-ordersPut";
+    //删除订单
+    public static String URL_DELETE_ORDERS = "http://www.mobilebooks.cn/api/t-ordersDelete/";
     //查询用户，返回用户所有信息
     public static String URL_GET_USER = "http://www.mobilebooks.cn/api/t-usersByPhoneNumber";
+    //获取手机验证码
+    public static String URL_GET_PHONE_CODE = "http://www.mobilebooks.cn/api/t-getAuthCode";
+    //添加用户
+    public static String URL_CREATE_USER = "http://www.mobilebooks.cn/api/t-users";
+    //修改用户
+    public static String URL_UPDATE_USER = "http://www.mobilebooks.cn/api/t-usersPut";
 }

@@ -40,7 +40,7 @@
     <string name="money">￥0.0</string>
     <string name="apple">苹果</string>
     <string name="user">冬季穿短裤</string>
-    <string name="shoppingCart">购物车(5)</string>
+    <string name="shoppingCart">购物车(0)</string>
     <string name="accountSet">账户设置</string>
     <string name="personal_information">个人资料</string>
     <string name="shouhuo_address">收货地址</string>
@@ -72,4 +72,5 @@
     <string name="moren">设为默认</string>
     <string name="delete_order">删除订单</string>
     <string name="pinjia">评价</string>
+    <string name="payOrders">提交订单</string>
 </resources>

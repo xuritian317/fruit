@@ -3,6 +3,7 @@ package com.example.xu.myapplication.moduleMy.fragment.child_frag;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.xu.myapplication.R;
 import com.example.xu.myapplication.base.BaseFragment;
+import com.example.xu.myapplication.moduleHome.fragment.view.MyListView;
 import com.example.xu.myapplication.moduleMy.fragment.adapter.PagerAdapter;
 import com.example.xu.myapplication.moduleMy.fragment.presenter.PagerChildPresenter;
 import com.example.xu.myapplication.moduleMy.fragment.viewInterface.IPagerChild;
@@ -25,10 +27,13 @@ import butterknife.Unbinder;
 
 public class PagerChildFragment extends BaseFragment<PagerChildPresenter> implements IPagerChild {
     private static final String ARG_FROM = "arg_from";
-    @BindView(R.id.lv_item_orders)
-    ListView lvItemOrders;
+
     @BindView(R.id.tv_child_tishi)
     TextView tvChildTishi;
+    @BindView(R.id.refresh_orders)
+    SwipeRefreshLayout refreshOrders;
+    @BindView(R.id.lv_item_orders)
+    ListView lvItemOrders;
     private int mFrom;
 
     private PagerAdapter mAdapter;
@@ -57,14 +62,18 @@ public class PagerChildFragment extends BaseFragment<PagerChildPresenter> implem
         if (args != null) {
             mFrom = args.getInt(ARG_FROM);
         }
-        mAdapter = new PagerAdapter(getActivity(), mFrom);
+        mAdapter = new PagerAdapter(PagerChildFragment.this,getActivity(), mFrom);
         lvItemOrders.setAdapter(mAdapter);
-        presenter.getOrders(mAdapter, mFrom,lvItemOrders,tvChildTishi);
     }
 
     @Override
     public void initView(Bundle savedInstanceState) {
-
+        refreshOrders.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getOrders();
+            }
+        });
     }
 
     @Override
@@ -72,6 +81,15 @@ public class PagerChildFragment extends BaseFragment<PagerChildPresenter> implem
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        getOrders();
+    }
+
+    public void getOrders(){
+        presenter.getOrders(mAdapter, mFrom, lvItemOrders, tvChildTishi, refreshOrders);
+    }
     @Override
     public Context getCon() {
         return getActivity();

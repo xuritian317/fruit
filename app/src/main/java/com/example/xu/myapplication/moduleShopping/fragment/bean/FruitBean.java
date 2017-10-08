@@ -1,12 +1,15 @@
 package com.example.xu.myapplication.moduleShopping.fragment.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by 逝 on 2017/09/14.
  */
 
-public class FruitBean {
+public class FruitBean implements Serializable {
     private int id;//id 号
     private String fruit;//水果名
+    private int goodId;
     private double price;//单价
     private int number;//购买数量
     private String fruit_img;//水果图片网址
@@ -15,10 +18,11 @@ public class FruitBean {
     public FruitBean() {
     }
 
-    public FruitBean(int id, String fruit, double price, int number, String fruit_img, boolean
-            isChecked) {
+    public FruitBean(int id, String fruit, int goodId, double price, int number, String
+            fruit_img, boolean isChecked) {
         this.id = id;
         this.fruit = fruit;
+        this.goodId = goodId;
         this.price = price;
         this.number = number;
         this.fruit_img = fruit_img;
@@ -39,6 +43,14 @@ public class FruitBean {
 
     public void setFruit(String fruit) {
         this.fruit = fruit;
+    }
+
+    public int getGoodId() {
+        return goodId;
+    }
+
+    public void setGoodId(int goodId) {
+        this.goodId = goodId;
     }
 
     public double getPrice() {
@@ -78,6 +90,7 @@ public class FruitBean {
         return "FruitBean{" +
                 "id=" + id +
                 ", fruit='" + fruit + '\'' +
+                ", goodId='" + goodId + '\'' +
                 ", price=" + price +
                 ", number=" + number +
                 ", fruit_img='" + fruit_img + '\'' +

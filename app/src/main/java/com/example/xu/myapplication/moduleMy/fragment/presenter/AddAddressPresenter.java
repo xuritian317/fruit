@@ -43,8 +43,8 @@ public class AddAddressPresenter extends BasePresenter {
      * @param tvAddShengshi
      * @param etAddXiangxi
      */
-    public void saveAddress(EditText etAddName, EditText etAddPhone, TextView tvAddShengshi,
-                            EditText etAddXiangxi) {
+    public void saveAddress(final int id, EditText etAddName, EditText etAddPhone, TextView
+            tvAddShengshi, EditText etAddXiangxi) {
         String regex = "0?(13|14|15|18|17)[0-9]{9}";
         String name = etAddName.getText().toString().trim();
         String phone = etAddPhone.getText().toString().trim();
@@ -64,37 +64,62 @@ public class AddAddressPresenter extends BasePresenter {
             return;
         }
 
-        String userId=util.getString(SPUtil.USER_ID,"");
-
-        JSONObject json = new JSONObject();
-        try {
-            json.put("address", shengshi);
-            json.put("receivePhoneNumber", phone);
-            json.put("street", xiangxi);
-            json.put("receiveUser", name);
-            json.put("userId", userId);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        MyOkHttp.newInstance().postJson(Common.URL_CREATE_ADDRESS, json, new JsonResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, JSONObject response) {
-                Logger.e("statusCode", statusCode + "");
-                Logger.e("response", response.toString() + "");
-                if (statusCode == 201) {
-                    ToastUtils.showToast(view.getCon(), "添加成功");
-                    view.getAct().finish();
+        String userId = util.getString(SPUtil.USER_ID, "");
+        if (id == 0) {
+            JSONObject json = new JSONObject();
+            try {
+                json.put("address", shengshi);
+                json.put("receivePhoneNumber", phone);
+                json.put("street", xiangxi);
+                json.put("receiveUser", name);
+                json.put("userId", userId);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            MyOkHttp.newInstance().postJson(Common.URL_CREATE_ADDRESS, json, new
+                    JsonResponseHandler() {
+                @Override
+                public void onSuccess(int statusCode, JSONObject response) {
+                    if (statusCode == 201) {
+                        ToastUtils.showToast(view.getCon(), "添加成功");
+                        view.getAct().finish();
+                    }
                 }
+
+                @Override
+                public void onFailure(int statusCode, String error_msg) {
+                    ToastUtils.showToast(view.getCon(), error_msg);
+                }
+            });
+        } else {
+            JSONObject json = new JSONObject();
+            try {
+                json.put("address", shengshi);
+                json.put("receivePhoneNumber", phone);
+                json.put("street", xiangxi);
+                json.put("receiveUser", name);
+                json.put("userId", userId);
+                json.put("id",id);
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
 
-            @Override
-            public void onFailure(int statusCode, String error_msg) {
-                Logger.e("statusCode1", statusCode + "");
-                Logger.e("error_msg", error_msg + "");
-                ToastUtils.showToast(view.getCon(), error_msg);
-            }
-        });
+            MyOkHttp.newInstance().postJson(Common.URL_UPDATE_ADDRESS, json, new
+                    JsonResponseHandler() {
+                        @Override
+                        public void onSuccess(int statusCode, JSONObject response) {
+                            if (statusCode == 200) {
+                                ToastUtils.showToast(view.getCon(), "修改成功");
+//                                view.getAct().finish();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(int statusCode, String error_msg) {
+                            ToastUtils.showToast(view.getCon(), error_msg);
+                        }
+                    });
+        }
     }
 
     public void getAddress(final int id, final EditText etAddName, final EditText etAddPhone,

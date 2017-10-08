@@ -1,14 +1,22 @@
 package com.example.xu.myapplication.moduleMy.fragment.activity.setting;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 
 import com.chaychan.viewlib.PowerfulEditText;
+import com.example.xu.myapplication.Common;
 import com.example.xu.myapplication.R;
 import com.example.xu.myapplication.base.BaseActivity;
+import com.example.xu.myapplication.httpRequest.MyOkHttp;
+import com.example.xu.myapplication.httpRequest.response.JsonResponseHandler;
+import com.example.xu.myapplication.util.SPUtil;
 import com.example.xu.myapplication.util.ToastUtils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -35,6 +43,7 @@ public class EmailActivity extends BaseActivity {
         getEmail();
     }
 
+    private SPUtil util;
     @Override
     public void setPresenter() {
 
@@ -47,12 +56,40 @@ public class EmailActivity extends BaseActivity {
 
     @Override
     public void initData() {
-
+        util = new SPUtil(EmailActivity.this);
     }
 
     @Override
     public void initView(Bundle savedInstanceState) {
+        JSONObject jo = new JSONObject();
+        try {
+            jo.put("phoneNumber", util.getString(SPUtil.IS_USER, ""));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
+        MyOkHttp.newInstance().postJson(Common.URL_GET_USER, jo, new JsonResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, JSONObject response) {
+                if (statusCode == 200) {
+                    try {
+                        String nickName = response.getString("email");
+                        if (TextUtils.equals(nickName, "null")) {
+                            petEamil.setText("");
+                            return;
+                        }
+                        petEamil.setText(nickName);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+                petEamil.setText("");
+            }
+        });
     }
 
     @Override
@@ -70,8 +107,10 @@ public class EmailActivity extends BaseActivity {
         Pattern pattern = Pattern.compile(key);
         Matcher matcher = pattern.matcher(email);
         if (matcher.matches()) {
-            ToastUtils.showToast(this, "修改成功");
-            //修改昵称数据提交至服务器
+            //修改昵称数据返回
+            Intent intent = new Intent();
+            intent.putExtra("email", email);
+            setResult(RESULT_OK, intent);
             finish();
         } else {
             ToastUtils.showToast(this, "邮箱格式不正确");

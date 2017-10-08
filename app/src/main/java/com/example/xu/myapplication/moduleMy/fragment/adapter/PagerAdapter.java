@@ -11,9 +11,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.xu.myapplication.Common;
 import com.example.xu.myapplication.R;
+import com.example.xu.myapplication.httpRequest.MyOkHttp;
+import com.example.xu.myapplication.httpRequest.response.JsonResponseHandler;
+import com.example.xu.myapplication.httpRequest.response.RawResponseHandler;
 import com.example.xu.myapplication.moduleMy.fragment.bean.OrdersBean;
-import com.example.xu.myapplication.util.Logger;
+import com.example.xu.myapplication.moduleMy.fragment.child_frag.PagerChildFragment;
+import com.example.xu.myapplication.util.ToastUtils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,10 +34,12 @@ public class PagerAdapter extends BaseAdapter {
 
     private List<OrdersBean> objects = new ArrayList<OrdersBean>();
     private Context context;
+    private PagerChildFragment fragment;
     private LayoutInflater layoutInflater;
     private int mForm;
 
-    public PagerAdapter(Context context, int mForm) {
+    public PagerAdapter(PagerChildFragment fragment,Context context, int mForm) {
+        this.fragment=fragment;
         this.context = context;
         this.layoutInflater = LayoutInflater.from(context);
         this.mForm = mForm;
@@ -65,7 +75,7 @@ public class PagerAdapter extends BaseAdapter {
         return convertView;
     }
 
-    private void initializeViews(OrdersBean object, ViewHolder holder) {
+    private void initializeViews(final OrdersBean object, ViewHolder holder) {
         //TODO implement
         switch (mForm) {
             case 0:
@@ -82,6 +92,12 @@ public class PagerAdapter extends BaseAdapter {
                         holder.btnOrders1.setVisibility(View.VISIBLE);
                         holder.btnOrders1.setText("删除订单");
                         holder.btnOrders0.setText("评价");
+                        holder.btnOrders1.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                deleteOrders(object.getId());
+                            }
+                        });
                     } else {
                         holder.btnOrders0.setVisibility(View.VISIBLE);
                         holder.btnOrders0.setBackground(context.getDrawable(R.drawable
@@ -89,14 +105,38 @@ public class PagerAdapter extends BaseAdapter {
                         holder.btnOrders0.setTextColor(context.getResources().getColor(R.color
                                 .gray));
                         holder.btnOrders0.setText("删除订单");
+                        holder.btnOrders0.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                deleteOrders(object.getId());
+                            }
+                        });
                     }
                     holder.tvOrdersState.setText("已收货");
                 } else if (object.getOrderState() == 1) {
                     holder.btnOrders0.setVisibility(View.VISIBLE);
                     holder.btnOrders1.setVisibility(View.VISIBLE);
-                    holder.btnOrders1.setText("查看物流");
+                    holder.btnOrders1.setText("退款");
                     holder.btnOrders0.setText("确认收货");
                     holder.tvOrdersState.setText("已发货");
+
+                    holder.btnOrders1.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            updateOrders(object.getId(),object.getOrderNumber(),object.getOrderPay()
+                            ,object.getGoodsCount(),2,0,object.getReceiveTime(),object.getReceiveAddress().getId()
+                            ,object.getUser().getId(),object.getGoods().getId());
+                        }
+                    });
+
+                    holder.btnOrders0.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            updateOrders(object.getId(),object.getOrderNumber(),object.getOrderPay()
+                                    ,object.getGoodsCount(),0,1,object.getReceiveTime(),object.getReceiveAddress().getId()
+                                    ,object.getUser().getId(),object.getGoods().getId());
+                        }
+                    });
                 } else if (object.getOrderState() == 2) {
                     holder.btnOrders0.setVisibility(View.VISIBLE);
                     holder.btnOrders0.setBackground(context.getDrawable(R.drawable
@@ -105,6 +145,12 @@ public class PagerAdapter extends BaseAdapter {
                             .gray));
                     holder.btnOrders0.setText("删除订单");
                     holder.tvOrdersState.setText("已取消");
+                    holder.btnOrders0.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            deleteOrders(object.getId());
+                        }
+                    });
                 }
                 break;
             case 1:
@@ -119,8 +165,26 @@ public class PagerAdapter extends BaseAdapter {
                 if (object.getOrderState() == 1) {
                     holder.btnOrders0.setVisibility(View.VISIBLE);
                     holder.btnOrders1.setVisibility(View.VISIBLE);
-                    holder.btnOrders1.setText("查看物流");
+                    holder.btnOrders1.setText("退款");
                     holder.btnOrders0.setText("确认收货");
+
+                    holder.btnOrders1.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            updateOrders(object.getId(),object.getOrderNumber(),object.getOrderPay()
+                                    ,object.getGoodsCount(),2,0,object.getReceiveTime(),object.getReceiveAddress().getId()
+                                    ,object.getUser().getId(),object.getGoods().getId());
+                        }
+                    });
+
+                    holder.btnOrders0.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            updateOrders(object.getId(),object.getOrderNumber(),object.getOrderPay()
+                                    ,object.getGoodsCount(),0,1,object.getReceiveTime(),object.getReceiveAddress().getId()
+                                    ,object.getUser().getId(),object.getGoods().getId());
+                        }
+                    });
                 }
                 break;
             case 2:
@@ -138,6 +202,12 @@ public class PagerAdapter extends BaseAdapter {
                         holder.btnOrders1.setVisibility(View.VISIBLE);
                         holder.btnOrders1.setText("删除订单");
                         holder.btnOrders0.setText("评价");
+                        holder.btnOrders1.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                deleteOrders(object.getId());
+                            }
+                        });
                     } else {
                         holder.btnOrders0.setVisibility(View.VISIBLE);
                         holder.btnOrders0.setBackground(context.getDrawable(R.drawable
@@ -145,6 +215,12 @@ public class PagerAdapter extends BaseAdapter {
                         holder.btnOrders0.setTextColor(context.getResources().getColor(R.color
                                 .gray));
                         holder.btnOrders0.setText("删除订单");
+                        holder.btnOrders0.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                deleteOrders(object.getId());
+                            }
+                        });
                     }
 
                 }
@@ -164,6 +240,13 @@ public class PagerAdapter extends BaseAdapter {
                         holder.btnOrders1.setVisibility(View.VISIBLE);
                         holder.btnOrders1.setText("删除订单");
                         holder.btnOrders0.setText("评价");
+
+                        holder.btnOrders1.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                deleteOrders(object.getId());
+                            }
+                        });
                     }
                 }
                 break;
@@ -183,10 +266,82 @@ public class PagerAdapter extends BaseAdapter {
                     holder.btnOrders0.setTextColor(context.getResources().getColor(R.color
                             .gray));
                     holder.btnOrders0.setText("删除订单");
+                    holder.btnOrders0.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            deleteOrders(object.getId());
+                        }
+                    });
                 }
                 break;
         }
 
+    }
+
+    /*
+    修改订单
+     */
+    private void updateOrders(int id, String orderNumber, String orderPay, int goodsCount,
+                              int orderState, int reviewState, String receiveTime,
+                              int receiveAddressId, int userId, int goodsId) {
+        JSONObject jo = new JSONObject();
+        try {
+            jo.put("id", id);
+            jo.put("orderNumber", orderNumber);
+            jo.put("orderPay", orderPay);
+            jo.put("goodsCount", goodsCount);
+            jo.put("orderState", orderState);
+            jo.put("reviewState", reviewState);
+            jo.put("receiveTime", receiveTime);
+            jo.put("receiveAddressId", receiveAddressId);
+            jo.put("userId", userId);
+            jo.put("goodsId", goodsId);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        MyOkHttp.newInstance().postJson(context, Common.URL_UPDATE_ORDERS, jo, new
+                JsonResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, JSONObject response) {
+                if (statusCode == 200) {
+                    fragment.getOrders();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, String error_msg) {
+
+            }
+        });
+    }
+
+    /*
+    删除订单
+     */
+    private void deleteOrders(int id){
+        JSONObject jo = new JSONObject();
+        try {
+            jo.put("id", id);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        MyOkHttp.newInstance().postJson(context, Common.URL_DELETE_ORDERS + String.valueOf(id),
+                jo, new RawResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, String response) {
+                        if (statusCode==200){
+                            fragment.getOrders();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, String error_msg) {
+                        if (statusCode!=200){
+                            ToastUtils.showToast(context,"删除失败");
+                        }
+                    }
+                });
     }
 
     protected class ViewHolder {

@@ -13,6 +13,7 @@ public class SPUtil {
 
     public static final String IS_USER="isUSer";
     public static final String USER_ID="user_id";
+    public static final String USER_PWD="user_pwd";
     private SharedPreferences preferences;
     private Editor editor;
 

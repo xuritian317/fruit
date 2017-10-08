@@ -82,7 +82,7 @@ public class MyPresenter extends BasePresenter {
         badge.bindTarget(tv);
         badge.setBadgeGravity(Gravity.END | Gravity.TOP);
         badge.setBadgeTextColor(view.getCon().getResources().getColor(R.color.color_White));
-        badge.setBadgeBackgroundColor(view.getCon().getResources().getColor(R.color.blue));
+        badge.setBadgeBackgroundColor(view.getCon().getResources().getColor(R.color.colorPrimary));
         badge.setBadgeNumber(badgeNumber);
         badge.setBadgePadding(1, false);
     }
@@ -100,12 +100,15 @@ public class MyPresenter extends BasePresenter {
                         final TextView tv1, final TextView tv2, final TextView tv3) {
         String phone = util.getString(SPUtil.IS_USER, "");
         if (TextUtils.equals(util.getString(SPUtil.IS_USER, ""), "")) {
+            ivMyHead.setImageDrawable(view.getCon().getResources().getDrawable(R
+                    .mipmap.iv_head));
+            tvMyUserName.setText(view.getCon().getResources().getString(R.string.login_register));
             return;
         }
         //刷新
-        if (!refreshMy.isRefreshing()){
-            refreshMy.setRefreshing(true);
-        }
+//        if (!refreshMy.isRefreshing()){
+//            refreshMy.setRefreshing(true);
+//        }
 
         JSONObject jo = new JSONObject();
         try {
@@ -132,7 +135,7 @@ public class MyPresenter extends BasePresenter {
                     //头像
                     if (TextUtils.equals(headImage, "null")) {
                         ivMyHead.setImageDrawable(view.getCon().getResources().getDrawable(R
-                                .mipmap.img_head));
+                                .mipmap.iv_head));
                     } else {
 
                     }
@@ -148,10 +151,9 @@ public class MyPresenter extends BasePresenter {
                             daishou++;
                         } else if (jo.getInt("orderState") == 2) {
                             tuikuan++;
-                        } else if (jo.getInt("orderState") == 0 && jo.getInt("orderState") == 1) {
+                        } else if (jo.getInt("orderState") == 0 && jo.getInt("reviewState") == 1) {
                             pingjia++;
                         }
-
                         showBadgeView(tv1, daishou);
                         showBadgeView(tv2, pingjia);
                         showBadgeView(tv3, tuikuan);
@@ -159,7 +161,9 @@ public class MyPresenter extends BasePresenter {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                refreshMy.setRefreshing(false);
+                if (refreshMy.isRefreshing()){
+                    refreshMy.setRefreshing(false);
+                }
             }
 
             @Override

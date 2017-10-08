@@ -12,10 +12,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.xu.myapplication.Common;
 import com.example.xu.myapplication.R;
+import com.example.xu.myapplication.httpRequest.MyOkHttp;
+import com.example.xu.myapplication.httpRequest.response.JsonResponseHandler;
 import com.example.xu.myapplication.moduleShopping.fragment.bean.FruitBean;
 import com.example.xu.myapplication.moduleShopping.fragment.ShoppingFragment;
+import com.example.xu.myapplication.util.Logger;
+import com.example.xu.myapplication.util.ToastUtils;
 import com.jmf.addsubutils.AddSubUtils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,10 +38,12 @@ public class ShoppingCarAdapter extends BaseAdapter {
     private Context context;
     private LayoutInflater layoutInflater;
     private ShoppingFragment fragment;
+    private String userId;
 
-    public ShoppingCarAdapter(ShoppingFragment fragment, Context context) {
+    public ShoppingCarAdapter(ShoppingFragment fragment, Context context,String userId) {
         this.fragment = fragment;
         this.context = context;
+        this.userId=userId;
         this.layoutInflater = LayoutInflater.from(context);
     }
 
@@ -101,6 +111,29 @@ public class ShoppingCarAdapter extends BaseAdapter {
                     public void onChangeValue(int value, int position) {
                         // 使用传回来的position设置数据  避免数据错乱
                         objects.get(position).setNumber(value);
+                            JSONObject jo=new JSONObject();
+                            try {
+                                jo.put("goodsCount",value);
+                                jo.put("goodsId",object.getGoodId());
+                                jo.put("id",object.getId());
+                                jo.put("userId",userId);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            MyOkHttp.newInstance().postJson(context, Common.URL_SHOPPING_CAR_UPDATE, jo,
+                                    new JsonResponseHandler() {
+                                        @Override
+                                        public void onSuccess(int statusCode, JSONObject response) {
+                                            if (statusCode==200){
+
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onFailure(int statusCode, String error_msg) {
+                                            Logger.e("update_fail",statusCode+"");
+                                        }
+                                    });
                         fragment.UpView();
                     }
                 });

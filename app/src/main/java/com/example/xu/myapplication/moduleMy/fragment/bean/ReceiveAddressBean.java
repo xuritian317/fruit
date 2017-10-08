@@ -1,10 +1,12 @@
 package com.example.xu.myapplication.moduleMy.fragment.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by 逝 on 2017/10/03.
  */
 
-public class ReceiveAddressBean {
+public class ReceiveAddressBean implements Serializable{
 
 
     /**

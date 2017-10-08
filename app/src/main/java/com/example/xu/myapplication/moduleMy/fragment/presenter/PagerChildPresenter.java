@@ -1,6 +1,7 @@
 package com.example.xu.myapplication.moduleMy.fragment.presenter;
 
 import android.content.Intent;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ListView;
@@ -14,6 +15,7 @@ import com.example.xu.myapplication.moduleMy.fragment.activity.orders.MyOrdersAc
 import com.example.xu.myapplication.moduleMy.fragment.adapter.PagerAdapter;
 import com.example.xu.myapplication.moduleMy.fragment.bean.OrdersBean;
 import com.example.xu.myapplication.moduleMy.fragment.viewInterface.IPagerChild;
+import com.example.xu.myapplication.util.Logger;
 import com.example.xu.myapplication.util.SPUtil;
 import com.google.gson.Gson;
 
@@ -61,19 +63,25 @@ public class PagerChildPresenter extends BasePresenter {
 
     /**
      * 获取订单数据
-     *
-     * @param adapter      填充数据 adapter
+     *  @param adapter      填充数据 adapter
      * @param mFrom        根据没mFrom的值 分类订单
      * @param lvItemOrders
      * @param tvChildTishi
+     * @param refreshOrders
      */
     public void getOrders(final PagerAdapter adapter, final int mFrom, final ListView lvItemOrders,
-                          final TextView tvChildTishi) {
+                          final TextView tvChildTishi, final SwipeRefreshLayout refreshOrders) {
+        objects.clear();
         lists.clear();
         String phone = util.getString(SPUtil.IS_USER, "");
         if (TextUtils.equals(util.getString(SPUtil.IS_USER, ""), "")) {
             return;
         }
+
+        if (!refreshOrders.isRefreshing()){
+            refreshOrders.setRefreshing(true);
+        }
+
         JSONObject jo = new JSONObject();
         try {
             jo.put("phoneNumber", phone);
@@ -135,8 +143,7 @@ public class PagerChildPresenter extends BasePresenter {
                     case 3:
                         for (int i = 0; i < objects.size(); i++) {
                             if (objects.get(i).getOrderState() == 0 && objects.get(i)
-                                    .getReviewState() ==
-                                    1) {
+                                    .getReviewState() == 1) {
                                 lists.add(objects.get(i));
                             }
                         }
@@ -160,6 +167,9 @@ public class PagerChildPresenter extends BasePresenter {
                         }
                         adapter.setDatas(lists);
                         break;
+                }
+                if (refreshOrders.isRefreshing()){
+                    refreshOrders.setRefreshing(false);
                 }
             }
 

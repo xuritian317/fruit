@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -41,6 +42,8 @@
         <activity android:name=".moduleMy.fragment.activity.setting.QueryAddressActivity">
         </activity>
         <activity android:name=".moduleMy.fragment.activity.setting.AddAddressActivity">
+        </activity>
+        <activity android:name=".moduleShopping.fragment.activity.ReceiveAddressActivity">
         </activity>
     </application>
 

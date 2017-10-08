@@ -63,7 +63,7 @@ public class AddAddressActivity extends BaseActivity<AddAddressPresenter> implem
 
     @OnClick(R.id.btn_saveAddress)
     public void saveAddress() {
-        presenter.saveAddress(etAddName, etAddPhone, tvAddShengshi, etAddXiangxi);
+        presenter.saveAddress(id,etAddName, etAddPhone, tvAddShengshi, etAddXiangxi);
     }
 
     private ArrayList<JsonBean> options1Items = new ArrayList<>();

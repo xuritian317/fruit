@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+<android.support.v4.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/refresh_orders"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <ListView
-        android:id="@+id/lv_item_orders"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone">
+        <ListView
+            android:id="@+id/lv_item_orders"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+        </ListView>
 
-    </ListView>
+        <TextView
+            android:id="@+id/tv_child_tishi"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="没有相关订单哦"
+            android:textSize="20sp"
+            android:visibility="visible"/>
 
-    <TextView
-        android:id="@+id/tv_child_tishi"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="没有相关订单哦"
-        android:gravity="center"
-        android:textSize="20sp"
-        android:visibility="gone"/>
-</LinearLayout>
+</android.support.v4.widget.SwipeRefreshLayout>

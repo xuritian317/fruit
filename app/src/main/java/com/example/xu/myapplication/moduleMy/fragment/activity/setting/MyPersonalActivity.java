@@ -51,7 +51,7 @@ public class MyPersonalActivity extends BaseActivity<PersonalPresenter> implemen
 
     @OnClick(R.id.rela_person_petName)
     public void setPetName() {
-        presenter.startIntent(NickNameActivity.class);
+        presenter.startIntent(NickNameActivity.class,105);
     }
 
     @BindView(R.id.tv_person_sex)
@@ -84,11 +84,16 @@ public class MyPersonalActivity extends BaseActivity<PersonalPresenter> implemen
 
     @OnClick(R.id.rela_person_email)
     public void setEmail() {
-        presenter.startIntent(EmailActivity.class);
+        presenter.startIntent(EmailActivity.class,106);
     }
 
     @BindView(R.id.btn_personal_save)
     Button btnPersonalSave;
+
+    @OnClick(R.id.btn_personal_save)
+    public void savePersonal(){
+        presenter.savePersonal(ivMyHead,tvPersonPetName,tvPersonSex,tvPersonBirth,tvPersonEmail);
+    }
     @Override
     public void setPresenter() {
         presenter = new PersonalPresenter(this);

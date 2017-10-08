@@ -15,12 +15,12 @@ import android.widget.TextView;
 
 import com.example.xu.myapplication.R;
 import com.example.xu.myapplication.base.BaseMainFragment;
-import com.example.xu.myapplication.moduleShopping.fragment.bean.FruitBean;
 import com.example.xu.myapplication.moduleShopping.fragment.activity.ShoppingPayActivity;
 import com.example.xu.myapplication.moduleShopping.fragment.adapter.ShoppingCarAdapter;
+import com.example.xu.myapplication.moduleShopping.fragment.bean.FruitBean;
 import com.example.xu.myapplication.moduleShopping.fragment.presenter.ShoppingPresenter;
 import com.example.xu.myapplication.moduleShopping.fragment.viewInterface.IShopping;
-import com.example.xu.myapplication.util.Logger;
+import com.example.xu.myapplication.util.SPUtil;
 import com.example.xu.myapplication.util.ToastUtils;
 
 import net.lemonsoft.lemonhello.LemonHello;
@@ -53,27 +53,27 @@ public class ShoppingFragment extends BaseMainFragment<ShoppingPresenter> implem
     @BindView(R.id.tv_shoppingCart)
     TextView tvShoppingCart;
     @BindView(R.id.cb_editor)
-    public CheckBox cbEditor;
+    CheckBox cbEditor;
     @BindView(R.id.refresh_shoppingCar)
     SwipeRefreshLayout refreshShoppingCar;
     @BindView(R.id.lv_shopping)
-    public ListView lvShopping;
+    ListView lvShopping;
     @BindView(R.id.cb_selectAll)
-    public CheckBox cbSelectAll;
+    CheckBox cbSelectAll;
     @BindView(R.id.tv_shopingMoney)
-    public TextView tvShopingMoney;
+    TextView tvShopingMoney;
     @BindView(R.id.btn_shopingAccounts)
-    public Button btnShopingAccounts;
+    Button btnShopingAccounts;
 
     @OnClick(R.id.btn_shopingAccounts)
     public void toPay() {
-        presenter.toActivity(ShoppingPayActivity.class);
+        presenter.toActivity(ShoppingPayActivity.class, tvShopingMoney);
     }
 
     @BindView(R.id.linear_shopping1)
-    public LinearLayout linearShopping1;
+    LinearLayout linearShopping1;
     @BindView(R.id.btn_shoppingDelete)
-    public Button btnShoppingDelete;
+    Button btnShoppingDelete;
 
     @OnClick(R.id.btn_shoppingDelete)
     public void shoppingDelete() {
@@ -81,7 +81,7 @@ public class ShoppingFragment extends BaseMainFragment<ShoppingPresenter> implem
     }
 
     @BindView(R.id.linear_shopping2)
-    public LinearLayout linearShopping2;
+    LinearLayout linearShopping2;
 
     @Override
     public int getLayout() {
@@ -95,7 +95,8 @@ public class ShoppingFragment extends BaseMainFragment<ShoppingPresenter> implem
 
     @Override
     public void initData() {
-        adapter = new ShoppingCarAdapter(this, getActivity());
+        adapter = new ShoppingCarAdapter(this, getActivity(), new SPUtil(getActivity()).getString
+                (SPUtil.USER_ID, ""));
         lvShopping.setAdapter(adapter);
 
 
@@ -123,7 +124,7 @@ public class ShoppingFragment extends BaseMainFragment<ShoppingPresenter> implem
         refreshShoppingCar.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                presenter.addList(adapter,refreshShoppingCar,tvShoppingCart);
+                presenter.addList(adapter, refreshShoppingCar, tvShoppingCart, cbSelectAll, tvShopingMoney);
             }
         });
     }
@@ -149,8 +150,8 @@ public class ShoppingFragment extends BaseMainFragment<ShoppingPresenter> implem
      * 删除界面Dialog显示
      */
     private void dialog_delete() {
-        if (presenter.getGoodsNum()==0){
-            ToastUtils.showToast(getActivity(),"需要选择商品哦");
+        if (presenter.getGoodsNum() == 0) {
+            ToastUtils.showToast(getActivity(), "需要选择商品哦");
             return;
         }
         LemonHello.getErrorHello(null, "确定删除这" + presenter.getGoodsNum() + "种商品吗？")
@@ -169,7 +170,8 @@ public class ShoppingFragment extends BaseMainFragment<ShoppingPresenter> implem
                     public void onClick(LemonHelloView helloView, LemonHelloInfo
                             helloInfo, LemonHelloAction helloAction) {
                         //删除并更新列表
-                        presenter.deleteGoods(adapter, refreshShoppingCar,tvShoppingCart,cbSelectAll);
+                        presenter.deleteGoods(adapter, refreshShoppingCar, tvShoppingCart,
+                                cbSelectAll,tvShopingMoney);
                         //dialog隐藏
 
                         helloView.hide();
@@ -181,7 +183,7 @@ public class ShoppingFragment extends BaseMainFragment<ShoppingPresenter> implem
     @Override
     public void onResume() {
         super.onResume();
-        presenter.addList(adapter,refreshShoppingCar,tvShoppingCart);
+        presenter.addList(adapter, refreshShoppingCar, tvShoppingCart, cbSelectAll, tvShopingMoney);
     }
 
     @Override
