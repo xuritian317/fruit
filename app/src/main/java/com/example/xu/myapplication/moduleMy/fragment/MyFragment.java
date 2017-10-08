@@ -20,6 +20,7 @@ import com.example.xu.myapplication.moduleMy.fragment.activity.setting.MyPersona
 import com.example.xu.myapplication.moduleMy.fragment.presenter.MyPresenter;
 import com.example.xu.myapplication.moduleMy.fragment.view.CircleImageView;
 import com.example.xu.myapplication.moduleMy.fragment.viewInterface.IMy;
+import com.example.xu.myapplication.util.Logger;
 import com.example.xu.myapplication.util.ToastUtils;
 
 import butterknife.BindView;
@@ -140,7 +141,14 @@ public class MyFragment extends BaseMainFragment<MyPresenter> implements IMy {
     @Override
     public void onResume() {
         super.onResume();
+        Logger.e("我的","onResume");
         presenter.getUser(refreshMy, ivMyHead, tvMyUserName, tvDaishou, tvEvaluate, tvTuikuan);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Logger.e("我的","onResume");
     }
 
     @Override

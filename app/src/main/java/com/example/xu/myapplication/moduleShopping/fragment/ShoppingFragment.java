@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -47,86 +48,34 @@ public class ShoppingFragment extends BaseMainFragment<ShoppingPresenter> implem
         return instance;
     }
 
-    private ShoppingCarAdapter adapter;
-    private List<FruitBean> lists;
-
-    @BindView(R.id.tv_shoppingCart)
-    TextView tvShoppingCart;
-    @BindView(R.id.cb_editor)
-    CheckBox cbEditor;
-    @BindView(R.id.refresh_shoppingCar)
-    SwipeRefreshLayout refreshShoppingCar;
-    @BindView(R.id.lv_shopping)
-    ListView lvShopping;
-    @BindView(R.id.cb_selectAll)
-    CheckBox cbSelectAll;
-    @BindView(R.id.tv_shopingMoney)
-    TextView tvShopingMoney;
-    @BindView(R.id.btn_shopingAccounts)
-    Button btnShopingAccounts;
-
-    @OnClick(R.id.btn_shopingAccounts)
-    public void toPay() {
-        presenter.toActivity(ShoppingPayActivity.class, tvShopingMoney);
+    @Override
+    public Context getCon() {
+        return null;
     }
 
-    @BindView(R.id.linear_shopping1)
-    LinearLayout linearShopping1;
-    @BindView(R.id.btn_shoppingDelete)
-    Button btnShoppingDelete;
-
-    @OnClick(R.id.btn_shoppingDelete)
-    public void shoppingDelete() {
-        dialog_delete();
+    @Override
+    public Activity getAct() {
+        return null;
     }
-
-    @BindView(R.id.linear_shopping2)
-    LinearLayout linearShopping2;
 
     @Override
     public int getLayout() {
-        return R.layout.fragment_shopping_main;
+        return R.layout.fragment_shopping_content;
     }
 
     @Override
     public void setPresenter() {
-        presenter = new ShoppingPresenter(this);
+
     }
 
     @Override
     public void initData() {
-        adapter = new ShoppingCarAdapter(this, getActivity(), new SPUtil(getActivity()).getString
-                (SPUtil.USER_ID, ""));
-        lvShopping.setAdapter(adapter);
-
 
     }
 
     @Override
     public void initView(Bundle savedInstanceState) {
 
-        cbEditor.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                presenter.cbEditorChanged(cbEditor, cbSelectAll, isChecked, linearShopping1,
-                        linearShopping2);
-            }
-        });
-
-        cbSelectAll.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                presenter.cbSelectAllChanged(isChecked);
-                adapter.notifyDataSetChanged();
-            }
-        });
-
-        refreshShoppingCar.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                presenter.addList(adapter, refreshShoppingCar, tvShoppingCart, cbSelectAll, tvShopingMoney);
-            }
-        });
     }
 
     @Override
@@ -134,65 +83,11 @@ public class ShoppingFragment extends BaseMainFragment<ShoppingPresenter> implem
 
     }
 
-    /**
-     * 计算选购商品总价格
-     */
-    public void UpView() {
-        presenter.UpdataSum(tvShopingMoney, cbSelectAll);
-        adapter.notifyDataSetChanged();
-
-        if (cbEditor.isChecked()) {
-            tvShopingMoney.setText("￥0.00");
+    @Override
+    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
+        super.onLazyInitView(savedInstanceState);
+        if (findChildFragment(ShoppingContentFragment.class) == null) {
+            loadRootFragment(R.id.frame_shopping, ShoppingContentFragment.newInstance());
         }
-    }
-
-    /**
-     * 删除界面Dialog显示
-     */
-    private void dialog_delete() {
-        if (presenter.getGoodsNum() == 0) {
-            ToastUtils.showToast(getActivity(), "需要选择商品哦");
-            return;
-        }
-        LemonHello.getErrorHello(null, "确定删除这" + presenter.getGoodsNum() + "种商品吗？")
-                .setContentFontSize(18)
-                .setWidth(300)
-                .addAction(new LemonHelloAction("取消", new LemonHelloActionDelegate() {
-                    @Override
-                    public void onClick(LemonHelloView helloView, LemonHelloInfo
-                            helloInfo, LemonHelloAction helloAction) {
-                        //dialog隐藏
-                        helloView.hide();
-                    }
-                }))
-                .addAction(new LemonHelloAction("确定", new LemonHelloActionDelegate() {
-                    @Override
-                    public void onClick(LemonHelloView helloView, LemonHelloInfo
-                            helloInfo, LemonHelloAction helloAction) {
-                        //删除并更新列表
-                        presenter.deleteGoods(adapter, refreshShoppingCar, tvShoppingCart,
-                                cbSelectAll,tvShopingMoney);
-                        //dialog隐藏
-
-                        helloView.hide();
-                    }
-                }))
-                .show(getActivity());
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        presenter.addList(adapter, refreshShoppingCar, tvShoppingCart, cbSelectAll, tvShopingMoney);
-    }
-
-    @Override
-    public Context getCon() {
-        return getActivity();
-    }
-
-    @Override
-    public Activity getAct() {
-        return getActivity();
     }
 }

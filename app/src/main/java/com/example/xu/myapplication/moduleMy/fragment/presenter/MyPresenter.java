@@ -98,11 +98,18 @@ public class MyPresenter extends BasePresenter {
      */
     public void getUser(final SwipeRefreshLayout refreshMy, final CircleImageView ivMyHead, final TextView tvMyUserName,
                         final TextView tv1, final TextView tv2, final TextView tv3) {
+        showBadgeView(tv1, 0);
+        showBadgeView(tv2, 0);
+        showBadgeView(tv3, 0);
+
         String phone = util.getString(SPUtil.IS_USER, "");
         if (TextUtils.equals(util.getString(SPUtil.IS_USER, ""), "")) {
             ivMyHead.setImageDrawable(view.getCon().getResources().getDrawable(R
                     .mipmap.iv_head));
             tvMyUserName.setText(view.getCon().getResources().getString(R.string.login_register));
+            if (refreshMy.isRefreshing()){
+                refreshMy.setRefreshing(false);
+            }
             return;
         }
         //刷新

@@ -81,6 +81,11 @@ public class ShoppingPresenter extends BasePresenter {
 
         String phone = util.getString(SPUtil.IS_USER, "");
         if (TextUtils.equals(util.getString(SPUtil.IS_USER, ""), "")) {
+            if (refreshShoppingCar.isRefreshing()){
+//                adapter.setData(lists);
+//                tvShopingCart.setText("购物车(0)");
+                refreshShoppingCar.setRefreshing(false);
+            }
             return;
         }
 

@@ -16,6 +16,7 @@ import com.example.xu.myapplication.Common;
 import com.example.xu.myapplication.R;
 import com.example.xu.myapplication.httpRequest.MyOkHttp;
 import com.example.xu.myapplication.httpRequest.response.JsonResponseHandler;
+import com.example.xu.myapplication.moduleShopping.fragment.ShoppingContentFragment;
 import com.example.xu.myapplication.moduleShopping.fragment.bean.FruitBean;
 import com.example.xu.myapplication.moduleShopping.fragment.ShoppingFragment;
 import com.example.xu.myapplication.util.Logger;
@@ -37,10 +38,10 @@ public class ShoppingCarAdapter extends BaseAdapter {
     private List<FruitBean> objects = new ArrayList<FruitBean>();
     private Context context;
     private LayoutInflater layoutInflater;
-    private ShoppingFragment fragment;
+    private ShoppingContentFragment fragment;
     private String userId;
 
-    public ShoppingCarAdapter(ShoppingFragment fragment, Context context,String userId) {
+    public ShoppingCarAdapter(ShoppingContentFragment fragment, Context context,String userId) {
         this.fragment = fragment;
         this.context = context;
         this.userId=userId;
