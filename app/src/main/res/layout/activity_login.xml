@@ -40,7 +40,7 @@
         android:layout_marginTop="35dp"
         android:background="@null"
         android:scaleType="centerCrop"
-        android:src="@mipmap/ic_launcher"/>
+        android:src="@mipmap/logo"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -132,6 +132,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:layout_marginBottom="10dp"
+            android:layout_marginLeft="20dp"
             android:layout_weight="1"
             android:text="@string/register_user"
             android:textColor="#b0b8b2"
@@ -144,6 +145,7 @@
             android:layout_gravity="right"
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="21dp"
+            android:layout_marginRight="20dp"
             android:text="@string/login_forget_pwd"
             android:textColor="#b0b8b2"
             android:textSize="14dp"/>

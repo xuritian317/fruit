@@ -146,13 +146,11 @@ public class MyFragment extends BaseMainFragment<MyPresenter> implements IMy {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onResume() {
+        super.onResume();
         presenter.getUser(refreshMy, ivMyHead, tvMyUserName, tvDaishou, tvEvaluate,
                 tvTuikuan,tvDaishouHint,tvEvaluateHint,tvTuikuanHint);
     }
-
-
 
     @Override
     public Context getCon() {

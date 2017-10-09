@@ -24,6 +24,9 @@ import butterknife.BindView;
 public class PagerChildFragment extends BaseFragment<PagerChildPresenter> implements IPagerChild {
     private static final String ARG_FROM = "arg_from";
 
+    /** Fragment当前状态是否可见 */
+    protected boolean isVisible;
+
     @BindView(R.id.tv_child_tishi)
     TextView tvChildTishi;
     @BindView(R.id.refresh_orders)
@@ -78,8 +81,8 @@ public class PagerChildFragment extends BaseFragment<PagerChildPresenter> implem
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onSupportVisible() {
+        super.onSupportVisible();
         getOrders();
     }
 

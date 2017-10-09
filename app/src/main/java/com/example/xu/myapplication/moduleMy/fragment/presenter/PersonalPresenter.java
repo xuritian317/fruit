@@ -37,7 +37,6 @@ import com.example.xu.myapplication.base.BasePresenter;
 import com.example.xu.myapplication.httpRequest.MyOkHttp;
 import com.example.xu.myapplication.httpRequest.response.JsonResponseHandler;
 import com.example.xu.myapplication.moduleMy.fragment.activity.img.ClipImageActivity;
-import com.example.xu.myapplication.moduleMy.fragment.activity.setting.MyPersonalActivity;
 import com.example.xu.myapplication.moduleMy.fragment.view.CircleImageView;
 import com.example.xu.myapplication.moduleMy.fragment.viewInterface.IMyPersonal;
 import com.example.xu.myapplication.util.BitmapUtil;
@@ -94,9 +93,13 @@ public class PersonalPresenter extends BasePresenter {
 
     private int type;
 
-    private String nick = "";
-    private String emailAddress = "";
+    private String old_img = "";
+    private String old_nick = "";
+    private int old_sex = 0;
+    private String old_eamil = "";
+    private String old_brith = "";
     private String head_img = "null";
+
 
     public PersonalPresenter(IMyPersonal view) {
         this.iView = view;
@@ -157,7 +160,6 @@ public class PersonalPresenter extends BasePresenter {
         lists = new ArrayList<String>();
         lists.add("男");
         lists.add("女");
-        lists.add("保密");
         opSex = new OptionsPickerView.Builder(iView.getCon(), new OptionsPickerView
                 .OnOptionsSelectListener
                 () {
@@ -342,19 +344,7 @@ public class PersonalPresenter extends BasePresenter {
                     /**
                      * 此处后面可以将bitmap转为二进制上传后台网络
                      */
-                    head_img = bitmapToBase64(BitmapUtil.compressImage(bitmap,100));
-                    Logger.e("head_img",head_img);
-                }
-                break;
-            case REQUEST_PET_NAME:
-                if (resultCode == RESULT_OK) {
-                    nick = data.getExtras().getString("nickName");
-                }
-                break;
-            case REQUEST_EMAIL:
-                if (requestCode == RESULT_OK) {
-                    emailAddress = data.getExtras().getString("email");
-                    Logger.e("emailAddress",emailAddress);
+                    head_img = bitmapToBase64(BitmapUtil.compressImage(bitmap, 100));
                 }
                 break;
         }
@@ -441,6 +431,15 @@ public class PersonalPresenter extends BasePresenter {
         iView.getAct().startActivityForResult(intent, REQUEST_CROP_PHOTO);
     }
 
+    /**
+     * 获得用户信息
+     *
+     * @param ivMyHead
+     * @param tvPersonPetName
+     * @param tvPersonSex
+     * @param tvPersonBirth
+     * @param tvPersonEmail
+     */
     public void getUser(final CircleImageView ivMyHead, final TextView tvPersonPetName,
                         final TextView tvPersonSex, final TextView tvPersonBirth,
                         final TextView tvPersonEmail) {
@@ -460,65 +459,56 @@ public class PersonalPresenter extends BasePresenter {
             public void onSuccess(int statusCode, JSONObject response) {
                 try {
                     String pwd = response.getString("password");
-                    String nickName = response.getString("nickName");
-                    String headImage = response.getString("headImage");
-                    String birthday = response.getString("birthday");
-                    int sex = response.getInt("sex");
-                    String email = response.getString("email");
+                    old_nick = response.getString("nickName");
+                    old_img = response.getString("headImage");
+                    old_brith = response.getString("birthday");
+                    old_sex = response.getInt("sex");
+                    old_eamil = response.getString("email");
 
                     //保存密码
                     util.putString(SPUtil.USER_PWD, pwd);
 
                     //头像
-                    if (TextUtils.equals("null",head_img)){
-                        if (TextUtils.equals(headImage, "null")) {
+                    if (TextUtils.equals("null", head_img)) {
+                        if (TextUtils.equals(old_img, "null")) {
                             ivMyHead.setImageDrawable(iView.getCon().getResources().getDrawable(
                                     R.mipmap.img_head));
                         } else {
-                            ivMyHead.setImageBitmap(convertStringToIcon(headImage));
+                            ivMyHead.setImageBitmap(convertStringToIcon(old_img));
                         }
                     }
                     //昵称
-                    if (TextUtils.equals("", nick)) {
-                        if (TextUtils.equals(nickName, "null")) {
-                            tvPersonPetName.setText("");
-                        } else {
-                            tvPersonPetName.setText(nickName);
-                        }
+
+                    if (TextUtils.equals(old_nick, "null")) {
+                        tvPersonPetName.setText("");
                     } else {
-                        tvPersonPetName.setText(nick);
+                        tvPersonPetName.setText(old_nick);
                     }
 
                     //生日
-                    if (TextUtils.equals(birthday, "null")) {
+                    if (TextUtils.equals(old_brith, "null")) {
                         tvPersonBirth.setText("");
                     } else {
-                        tvPersonBirth.setText(birthday.substring(0, 10));
+                        tvPersonBirth.setText(old_brith.substring(0, 10));
                     }
                     //性别
-                    switch (sex) {
+                    switch (old_sex) {
                         case 0:
                             tvPersonSex.setText("男");
                             break;
                         case 1:
                             tvPersonSex.setText("女");
                             break;
-                        case 2:
-                            tvPersonSex.setText("保密");
-                            break;
                         default:
                             tvPersonSex.setText("保密");
                             break;
                     }
                     //邮箱
-                    if (TextUtils.equals("", emailAddress)) {
-                        if (TextUtils.equals(email, "null")) {
-                            tvPersonEmail.setText("");
-                        } else {
-                            tvPersonEmail.setText(email);
-                        }
+
+                    if (TextUtils.equals(old_eamil, "null")) {
+                        tvPersonEmail.setText("");
                     } else {
-                        tvPersonEmail.setText(emailAddress);
+                        tvPersonEmail.setText(old_eamil);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -535,14 +525,15 @@ public class PersonalPresenter extends BasePresenter {
     /**
      * 邮箱对话框
      */
-    public void rxDialog_NickName(final TextView tv){
-        final RxDialogEditSureCancel rxDialogEditSureCancel = new RxDialogEditSureCancel(iView.getCon());//提示弹窗
+    public void rxDialog_NickName(final TextView tv) {
+        final RxDialogEditSureCancel rxDialogEditSureCancel = new RxDialogEditSureCancel(iView
+                .getCon());//提示弹窗
         rxDialogEditSureCancel.getTitleView().setBackgroundResource(R.drawable.logo);
-        rxDialogEditSureCancel.getEditText().setHint("昵称");
+        rxDialogEditSureCancel.getEditText().setHint("昵称(1-6位英文、中文)");
         rxDialogEditSureCancel.getSureView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String key = "[A-Za-z0-9_\\u4e00-\\u9fa5]{3,16}";
+                String key = "[A-Za-z\\u4e00-\\u9fa5]{1,6}";
                 String nickName = rxDialogEditSureCancel.getEditText().getText().toString().trim();
                 if (TextUtils.isEmpty(nickName)) {
                     ToastUtils.showToast(iView.getCon(), "昵称不能为空");
@@ -552,7 +543,7 @@ public class PersonalPresenter extends BasePresenter {
                 Matcher matcher = pattern.matcher(nickName);
                 if (matcher.matches()) {
                     tv.setText(nickName);
-                    Logger.e("nick",nickName);
+                    Logger.e("nick", nickName);
                     rxDialogEditSureCancel.cancel();
                 } else {
                     ToastUtils.showToast(iView.getCon(), "昵称格式不正确");
@@ -568,11 +559,13 @@ public class PersonalPresenter extends BasePresenter {
         rxDialogEditSureCancel.setCancelable(false);
         rxDialogEditSureCancel.show();
     }
+
     /**
      * 昵称对话框
      */
-    public void rxDialog_Email(final TextView tv){
-        final RxDialogEditSureCancel rxDialogEditSureCancel = new RxDialogEditSureCancel(iView.getCon());//提示弹窗
+    public void rxDialog_Email(final TextView tv) {
+        final RxDialogEditSureCancel rxDialogEditSureCancel = new RxDialogEditSureCancel(iView
+                .getCon());//提示弹窗
         rxDialogEditSureCancel.getTitleView().setBackgroundResource(R.drawable.logo);
         rxDialogEditSureCancel.getEditText().setHint("邮箱");
         rxDialogEditSureCancel.getSureView().setOnClickListener(new View.OnClickListener() {
@@ -603,6 +596,7 @@ public class PersonalPresenter extends BasePresenter {
         rxDialogEditSureCancel.setCancelable(false);
         rxDialogEditSureCancel.show();
     }
+
     /**
      * 提交用户信息
      *
@@ -629,25 +623,28 @@ public class PersonalPresenter extends BasePresenter {
             jo.put("phoneNumber", util.getString(SPUtil.IS_USER, ""));
             jo.put("password", util.getString(SPUtil.USER_PWD, ""));
             jo.put("nickName", tvPersonPetName.getText().toString());
-            jo.put("birthday", tvPersonBirth.getText().toString()+"T10:00:00.000Z");
+            jo.put("birthday", tvPersonBirth.getText().toString() + "T10:00:00.000Z");
             jo.put("email", tvPersonEmail.getText().toString());
             jo.put("sex", sex_id);
-            jo.put("headImage", head_img);
+            if (TextUtils.equals("null", head_img)) {
+                jo.put("headImage", old_img);
+            } else {
+                jo.put("headImage", head_img);
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Logger.e("用户信息",jo.toString());
         MyOkHttp.newInstance().postJson(Common.URL_UPDATE_USER, jo, new JsonResponseHandler() {
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
-                if (statusCode==200){
-                    ToastUtils.showToast(iView.getCon(),"个人信息修改成功");
+                if (statusCode == 200) {
+                    ToastUtils.showToast(iView.getCon(), "个人信息修改成功");
                 }
             }
 
             @Override
             public void onFailure(int statusCode, String error_msg) {
-                ToastUtils.showToast(iView.getCon(),"个人信息修改失败，请稍后再试");
+                ToastUtils.showToast(iView.getCon(), "个人信息修改失败，请稍后再试");
             }
         });
     }

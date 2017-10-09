@@ -1,7 +1,6 @@
 package com.example.xu.myapplication.moduleShopping.fragment.adapter;
 
 import android.content.Context;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,18 +10,17 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.xu.myapplication.Common;
+import com.example.xu.myapplication.GlideApp;
 import com.example.xu.myapplication.R;
 import com.example.xu.myapplication.httpRequest.MyOkHttp;
 import com.example.xu.myapplication.httpRequest.response.JsonResponseHandler;
 import com.example.xu.myapplication.modelGoodsInfo.fragment.GoodsInfoFragment;
 import com.example.xu.myapplication.moduleShopping.fragment.ShoppingContentFragment;
 import com.example.xu.myapplication.moduleShopping.fragment.bean.FruitBean;
-import com.example.xu.myapplication.moduleShopping.fragment.ShoppingFragment;
 import com.example.xu.myapplication.moduleType.entity.Fruit;
 import com.example.xu.myapplication.util.Logger;
-import com.example.xu.myapplication.util.ToastUtils;
 import com.jmf.addsubutils.AddSubUtils;
 
 import org.json.JSONException;
@@ -43,20 +41,20 @@ public class ShoppingCarAdapter extends BaseAdapter {
     private ShoppingContentFragment fragment;
     private String userId;
 
-    public ShoppingCarAdapter(ShoppingContentFragment fragment, Context context,String userId) {
+    public ShoppingCarAdapter(ShoppingContentFragment fragment, Context context, String userId) {
         this.fragment = fragment;
         this.context = context;
-        this.userId=userId;
+        this.userId = userId;
         this.layoutInflater = LayoutInflater.from(context);
     }
 
     public void setData(List<FruitBean> objects) {
         this.objects = objects;
-        notifyDataSetChanged();
+        this.notifyDataSetChanged();
     }
 
     public Fruit.FruitDetail getFruit(int position) {
-        FruitBean bean=objects.get(position);
+        FruitBean bean = objects.get(position);
         return new Fruit.FruitDetail(bean.getGoods());
     }
 
@@ -90,9 +88,11 @@ public class ShoppingCarAdapter extends BaseAdapter {
         //TODO implement
         holder.tvShoppingItemFruit.setText(object.getGoods().getGoodsName());
         holder.tvShoppingItemPrice.setText("￥" + object.getGoods().getGoodsPrice());
-
         //获取商品图片
-        Glide.with(context).load(object.getFruit_img()).into(holder.ivShoppingItemImg);
+
+//        Glide.with(context).load(object.getFruit_img()).into(holder.ivShoppingItemImg);
+        GlideApp.with(context).asBitmap().load(object.getFruit_img()).circleCrop().diskCacheStrategy(DiskCacheStrategy.ALL)
+                .error(R.mipmap.ic_launcher_round).into(holder.ivShoppingItemImg);
 
         holder.cbShoppingItemSelect.setOnCheckedChangeListener(new CompoundButton
                 .OnCheckedChangeListener() {
@@ -118,29 +118,29 @@ public class ShoppingCarAdapter extends BaseAdapter {
                     public void onChangeValue(int value, int position) {
                         // 使用传回来的position设置数据  避免数据错乱
                         objects.get(position).setNumber(value);
-                            JSONObject jo=new JSONObject();
-                            try {
-                                jo.put("goodsCount",value);
-                                jo.put("goodsId",object.getGoodId());
-                                jo.put("id",object.getId());
-                                jo.put("userId",userId);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                            MyOkHttp.newInstance().postJson(context, Common.URL_SHOPPING_CAR_UPDATE, jo,
-                                    new JsonResponseHandler() {
-                                        @Override
-                                        public void onSuccess(int statusCode, JSONObject response) {
-                                            if (statusCode==200){
+                        JSONObject jo = new JSONObject();
+                        try {
+                            jo.put("goodsCount", value);
+                            jo.put("goodsId", object.getGoodId());
+                            jo.put("id", object.getId());
+                            jo.put("userId", userId);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        MyOkHttp.newInstance().postJson(context, Common.URL_SHOPPING_CAR_UPDATE, jo,
+                                new JsonResponseHandler() {
+                                    @Override
+                                    public void onSuccess(int statusCode, JSONObject response) {
+                                        if (statusCode == 200) {
 
-                                            }
                                         }
+                                    }
 
-                                        @Override
-                                        public void onFailure(int statusCode, String error_msg) {
-                                            Logger.e("update_fail",statusCode+"");
-                                        }
-                                    });
+                                    @Override
+                                    public void onFailure(int statusCode, String error_msg) {
+                                        Logger.e("update_fail", statusCode + "");
+                                    }
+                                });
                         fragment.UpView();
                     }
                 });
@@ -148,7 +148,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
         holder.ivShoppingItemImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fragment.start(GoodsInfoFragment.newInstance(getFruit(index), 0,1));
+                fragment.start(GoodsInfoFragment.newInstance(getFruit(index), 0, 1));
             }
         });
 
@@ -167,7 +167,7 @@ public class ShoppingCarAdapter extends BaseAdapter {
         public ViewHolder(View view) {
             cbShoppingItemSelect = (CheckBox) view.findViewById(R.id.cb_shopping_itemSelect);
             tvShoppingItemFruit = (TextView) view.findViewById(R.id.tv_shopping_itemFruit);
-            ivShoppingItemImg= (ImageView) view.findViewById(R.id.iv_shopping_itemImg);
+            ivShoppingItemImg = (ImageView) view.findViewById(R.id.iv_shopping_itemImg);
             tvShoppingItemPrice = (TextView) view.findViewById(R.id.tv_shopping_itemPrice);
             shoppingItemAddSub = (AddSubUtils) view.findViewById(R.id.shopping_itemAddSub);
         }

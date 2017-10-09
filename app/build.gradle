@@ -39,8 +39,6 @@ dependencies {
     //广告位
     //最新版本
 
-
-    compile 'com.youth.banner:banner:1.4.10'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.1.1'

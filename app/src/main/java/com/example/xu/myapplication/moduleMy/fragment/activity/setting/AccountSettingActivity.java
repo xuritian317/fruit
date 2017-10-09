@@ -73,7 +73,7 @@ public class AccountSettingActivity extends BaseActivity<AccountSettingPresenter
             ToastUtils.showToast(AccountSettingActivity.this,"不能再退出登录了哦");
             return;
         }else {
-            tvLogout.setEnabled(false);
+            tvLogout.setEnabled(true);
         }
 
         final RxDialogSureCancel rxDialogSureCancel = new RxDialogSureCancel(AccountSettingActivity.this);//提示弹窗

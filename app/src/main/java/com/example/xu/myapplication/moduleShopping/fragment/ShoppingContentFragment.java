@@ -128,11 +128,12 @@ public class ShoppingContentFragment extends BaseFragment<ShoppingPresenter> imp
             }
         });
 
-//        refreshShoppingCar.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//            }
-//        });
+        refreshShoppingCar.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                presenter.addList(adapter, refreshShoppingCar, tvShoppingCart, cbSelectAll, tvShopingMoney);
+            }
+        });
 
     }
 
@@ -187,11 +188,6 @@ public class ShoppingContentFragment extends BaseFragment<ShoppingPresenter> imp
                 .show(getActivity());
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        presenter.addList(adapter, refreshShoppingCar, tvShoppingCart, cbSelectAll, tvShopingMoney);
-    }
 
     @Override
     public void onDestroyView() {
@@ -220,8 +216,8 @@ public class ShoppingContentFragment extends BaseFragment<ShoppingPresenter> imp
     @Subscribe
     public void onTabSelectedEvent(TabSelectedEvent event) {
         if (event.position != 2) return;
-        refreshShoppingCar.setRefreshing(true);
-        onRefresh();
+//        refreshShoppingCar.setRefreshing(true);
+//        onRefresh();
     }
 
     @Override

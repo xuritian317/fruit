@@ -79,13 +79,13 @@ public class ShoppingPresenter extends BasePresenter {
     public void addList(final ShoppingCarAdapter adapter, final SwipeRefreshLayout
             refreshShoppingCar, final TextView tvShopingCart, final CheckBox cbSelectAll
             , final TextView tvShopingMoney) {
-        lists.clear();
         if (!refreshShoppingCar.isRefreshing()) {
             refreshShoppingCar.setRefreshing(true);
         }
 
         String phone = util.getString(SPUtil.IS_USER, "");
         if (TextUtils.equals(util.getString(SPUtil.IS_USER, ""), "")) {
+            lists.clear();
             if (refreshShoppingCar.isRefreshing()) {
                 adapter.setData(lists);
                 tvShopingCart.setText("购物车(0)");
@@ -93,10 +93,6 @@ public class ShoppingPresenter extends BasePresenter {
             }
             return;
         }
-
-//        if (!refreshShoppingCar.isRefreshing()){
-//            refreshShoppingCar.setRefreshing(true);
-//        }
 
         JSONObject jo = new JSONObject();
         try {
@@ -107,6 +103,7 @@ public class ShoppingPresenter extends BasePresenter {
         MyOkHttp.newInstance().postJson(Common.URL_GET_USER, jo, new JsonResponseHandler() {
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
+                lists.clear();
                 try {
                     JSONArray array = new JSONArray(response.getString("shoppingCars"));
                     if (array.length() == 0) {
@@ -136,6 +133,7 @@ public class ShoppingPresenter extends BasePresenter {
                     }
 
                     adapter.setData(lists);
+                    Logger.e("购物车",lists.size()+"");
                     tvShopingCart.setText("购物车(" + array.length() + ")");
                     if (refreshShoppingCar.isRefreshing()) {
                         refreshShoppingCar.setRefreshing(false);

@@ -20,6 +20,12 @@ import com.example.xu.myapplication.moduleMy.fragment.bean.OrdersBean;
 import com.example.xu.myapplication.moduleMy.fragment.child_frag.PagerChildFragment;
 import com.example.xu.myapplication.util.ToastUtils;
 
+import net.lemonsoft.lemonhello.LemonHello;
+import net.lemonsoft.lemonhello.LemonHelloAction;
+import net.lemonsoft.lemonhello.LemonHelloInfo;
+import net.lemonsoft.lemonhello.LemonHelloView;
+import net.lemonsoft.lemonhello.interfaces.LemonHelloActionDelegate;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -38,8 +44,8 @@ public class PagerAdapter extends BaseAdapter {
     private LayoutInflater layoutInflater;
     private int mForm;
 
-    public PagerAdapter(PagerChildFragment fragment,Context context, int mForm) {
-        this.fragment=fragment;
+    public PagerAdapter(PagerChildFragment fragment, Context context, int mForm) {
+        this.fragment = fragment;
         this.context = context;
         this.layoutInflater = LayoutInflater.from(context);
         this.mForm = mForm;
@@ -95,7 +101,7 @@ public class PagerAdapter extends BaseAdapter {
                         holder.btnOrders1.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                deleteOrders(object.getId());
+                                deleteOrder(object.getId());
                             }
                         });
                     } else {
@@ -108,7 +114,7 @@ public class PagerAdapter extends BaseAdapter {
                         holder.btnOrders0.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                deleteOrders(object.getId());
+                                deleteOrder(object.getId());
                             }
                         });
                     }
@@ -118,23 +124,27 @@ public class PagerAdapter extends BaseAdapter {
                     holder.btnOrders1.setVisibility(View.VISIBLE);
                     holder.btnOrders1.setText("退款");
                     holder.btnOrders0.setText("确认收货");
-                    holder.tvOrdersState.setText("已发货");
+                    holder.tvOrdersState.setText("待收货");
 
                     holder.btnOrders1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            updateOrders(object.getId(),object.getOrderNumber(),object.getOrderPay()
-                            ,object.getGoodsCount(),2,0,object.getReceiveTime(),object.getReceiveAddress().getId()
-                            ,object.getUser().getId(),object.getGoods().getId());
+                            updateOrders(object.getId(), object.getOrderNumber(), object
+                                            .getOrderPay()
+                                    , object.getGoodsCount(), 2, 0, object.getReceiveTime(),
+                                    object.getReceiveAddress().getId()
+                                    , object.getUser().getId(), object.getGoods().getId(),"确定要退款吗？");
                         }
                     });
 
                     holder.btnOrders0.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            updateOrders(object.getId(),object.getOrderNumber(),object.getOrderPay()
-                                    ,object.getGoodsCount(),0,1,object.getReceiveTime(),object.getReceiveAddress().getId()
-                                    ,object.getUser().getId(),object.getGoods().getId());
+                            updateOrders(object.getId(), object.getOrderNumber(), object
+                                            .getOrderPay()
+                                    , object.getGoodsCount(), 0, 1, object.getReceiveTime(),
+                                    object.getReceiveAddress().getId()
+                                    , object.getUser().getId(), object.getGoods().getId(),"是否已收到物品？");
                         }
                     });
                 } else if (object.getOrderState() == 2) {
@@ -148,7 +158,7 @@ public class PagerAdapter extends BaseAdapter {
                     holder.btnOrders0.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            deleteOrders(object.getId());
+                            deleteOrder(object.getId());
                         }
                     });
                 }
@@ -161,7 +171,7 @@ public class PagerAdapter extends BaseAdapter {
                 holder.tvOrdersItemCount.setText("×" + object.getGoodsCount());
                 holder.tvOrdersZong.setText("合计" + object.getGoodsCount() + "件商品，实付款:￥" +
                         object.getOrderPay());
-                holder.tvOrdersState.setText("已发货");
+                holder.tvOrdersState.setText("待收货");
                 if (object.getOrderState() == 1) {
                     holder.btnOrders0.setVisibility(View.VISIBLE);
                     holder.btnOrders1.setVisibility(View.VISIBLE);
@@ -171,18 +181,22 @@ public class PagerAdapter extends BaseAdapter {
                     holder.btnOrders1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            updateOrders(object.getId(),object.getOrderNumber(),object.getOrderPay()
-                                    ,object.getGoodsCount(),2,0,object.getReceiveTime(),object.getReceiveAddress().getId()
-                                    ,object.getUser().getId(),object.getGoods().getId());
+                            updateOrders(object.getId(), object.getOrderNumber(), object
+                                            .getOrderPay()
+                                    , object.getGoodsCount(), 2, 0, object.getReceiveTime(),
+                                    object.getReceiveAddress().getId()
+                                    , object.getUser().getId(), object.getGoods().getId(),"确定要退款吗？");
                         }
                     });
 
                     holder.btnOrders0.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            updateOrders(object.getId(),object.getOrderNumber(),object.getOrderPay()
-                                    ,object.getGoodsCount(),0,1,object.getReceiveTime(),object.getReceiveAddress().getId()
-                                    ,object.getUser().getId(),object.getGoods().getId());
+                            updateOrders(object.getId(), object.getOrderNumber(), object
+                                            .getOrderPay()
+                                    , object.getGoodsCount(), 0, 1, object.getReceiveTime(),
+                                    object.getReceiveAddress().getId()
+                                    , object.getUser().getId(), object.getGoods().getId(),"是否已收到物品？");
                         }
                     });
                 }
@@ -205,7 +219,13 @@ public class PagerAdapter extends BaseAdapter {
                         holder.btnOrders1.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                deleteOrders(object.getId());
+                                deleteOrder(object.getId());
+                            }
+                        });
+                        holder.btnOrders0.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                ToastUtils.showToast(context, "该功能暂未开启");
                             }
                         });
                     } else {
@@ -218,7 +238,7 @@ public class PagerAdapter extends BaseAdapter {
                         holder.btnOrders0.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                deleteOrders(object.getId());
+                                deleteOrder(object.getId());
                             }
                         });
                     }
@@ -244,7 +264,13 @@ public class PagerAdapter extends BaseAdapter {
                         holder.btnOrders1.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                deleteOrders(object.getId());
+                                deleteOrder(object.getId());
+                            }
+                        });
+                        holder.btnOrders0.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                ToastUtils.showToast(context, "该功能暂未开启");
                             }
                         });
                     }
@@ -269,7 +295,7 @@ public class PagerAdapter extends BaseAdapter {
                     holder.btnOrders0.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            deleteOrders(object.getId());
+                            deleteOrder(object.getId());
                         }
                     });
                 }
@@ -281,68 +307,116 @@ public class PagerAdapter extends BaseAdapter {
     /*
     修改订单
      */
-    private void updateOrders(int id, String orderNumber, String orderPay, int goodsCount,
-                              int orderState, int reviewState, String receiveTime,
-                              int receiveAddressId, int userId, int goodsId) {
-        JSONObject jo = new JSONObject();
-        try {
-            jo.put("id", id);
-            jo.put("orderNumber", orderNumber);
-            jo.put("orderPay", orderPay);
-            jo.put("goodsCount", goodsCount);
-            jo.put("orderState", orderState);
-            jo.put("reviewState", reviewState);
-            jo.put("receiveTime", receiveTime);
-            jo.put("receiveAddressId", receiveAddressId);
-            jo.put("userId", userId);
-            jo.put("goodsId", goodsId);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+    private void updateOrders(final int id, final String orderNumber, final String orderPay,
+                              final int goodsCount, final int orderState, final int reviewState,
+                              final String receiveTime, final int receiveAddressId,
+                              final int userId, final int goodsId, String str) {
+        LemonHello.getInformationHello(null, str)
+                .setContentFontSize(18)
+                .setWidth(300)
+                .addAction(new LemonHelloAction("取消", new LemonHelloActionDelegate() {
+                    @Override
+                    public void onClick(LemonHelloView lemonHelloView, LemonHelloInfo
+                            lemonHelloInfo, LemonHelloAction lemonHelloAction) {
+                        lemonHelloView.hide();
+                    }
+                }))
+                .addAction(new LemonHelloAction("确定", new LemonHelloActionDelegate() {
+                    @Override
+                    public void onClick(final LemonHelloView lemonHelloView, LemonHelloInfo
+                            lemonHelloInfo, LemonHelloAction lemonHelloAction) {
 
-        MyOkHttp.newInstance().postJson(context, Common.URL_UPDATE_ORDERS, jo, new
-                JsonResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, JSONObject response) {
-                if (statusCode == 200) {
-                    fragment.getOrders();
-                }
-            }
+                        JSONObject jo = new JSONObject();
+                        try {
+                            jo.put("id", id);
+                            jo.put("orderNumber", orderNumber);
+                            jo.put("orderPay", orderPay);
+                            jo.put("goodsCount", goodsCount);
+                            jo.put("orderState", orderState);
+                            jo.put("reviewState", reviewState);
+                            jo.put("receiveTime", receiveTime);
+                            jo.put("receiveAddressId", receiveAddressId);
+                            jo.put("userId", userId);
+                            jo.put("goodsId", goodsId);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
 
-            @Override
-            public void onFailure(int statusCode, String error_msg) {
+                        MyOkHttp.newInstance().postJson(context, Common.URL_UPDATE_ORDERS, jo, new
+                                JsonResponseHandler() {
+                                    @Override
+                                    public void onSuccess(int statusCode, JSONObject response) {
+                                        if (statusCode == 200) {
+                                            fragment.getOrders();
+                                            lemonHelloView.hide();
+                                        }
+                                    }
 
-            }
-        });
+                                    @Override
+                                    public void onFailure(int statusCode, String error_msg) {
+                                        ToastUtils.showToast(context, "操作执行失败");
+                                        lemonHelloView.hide();
+                                    }
+                                });
+
+                    }
+                })).show(context);
     }
 
     /*
     删除订单
      */
-    private void deleteOrders(int id){
-        JSONObject jo = new JSONObject();
-        try {
-            jo.put("id", id);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        MyOkHttp.newInstance().postJson(context, Common.URL_DELETE_ORDERS + String.valueOf(id),
-                jo, new RawResponseHandler() {
+    private void deleteOrder(final int id) {
+        LemonHello.getErrorHello(null, "确定要删除订单吗？")
+                .setContentFontSize(18)
+                .setWidth(300)
+                .addAction(new LemonHelloAction("取消", new LemonHelloActionDelegate() {
                     @Override
-                    public void onSuccess(int statusCode, String response) {
-                        if (statusCode==200){
-                            fragment.getOrders();
-                        }
+                    public void onClick(LemonHelloView helloView, LemonHelloInfo
+                            helloInfo, LemonHelloAction helloAction) {
+                        //dialog隐藏
+                        helloView.hide();
                     }
+                }))
+                .addAction(new LemonHelloAction("确定", new LemonHelloActionDelegate() {
+                    @Override
+                    public void onClick(final LemonHelloView helloView, LemonHelloInfo
+                            helloInfo, LemonHelloAction helloAction) {
+                        //删除并更新列表
+                        JSONObject jo = new JSONObject();
+                        try {
+                            jo.put("id", id);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        MyOkHttp.newInstance().postJson(context, Common.URL_DELETE_ORDERS +
+                                        String.valueOf(id),
+                                jo, new RawResponseHandler() {
+                                    @Override
+                                    public void onSuccess(int statusCode, String response) {
+                                        if (statusCode == 200) {
+                                            fragment.getOrders();
+                                            //dialog隐藏
+                                            helloView.hide();
+                                        }
+                                    }
 
-                    @Override
-                    public void onFailure(int statusCode, String error_msg) {
-                        if (statusCode!=200){
-                            ToastUtils.showToast(context,"删除失败");
-                        }
+                                    @Override
+                                    public void onFailure(int statusCode, String error_msg) {
+                                        if (statusCode != 200) {
+                                            ToastUtils.showToast(context, "删除失败");
+                                            //dialog隐藏
+                                            helloView.hide();
+                                        }
+                                    }
+                                });
+
                     }
-                });
+                }))
+                .show(context);
+
     }
+
 
     protected class ViewHolder {
         private LinearLayout linearOrdersItem;

@@ -194,14 +194,14 @@ public class ShoppingPayPresenter extends BasePresenter {
             public void onSuccess(int statusCode, String response) {
                 Logger.e("添加订单成功", response);
                 deleteGood(list);
-
-                LemonHello.getSuccessHello(null, "下单成功")
+                LemonHello.getSuccessHello("下单成功", "在我的订单中可查看详情")
                         .setContentFontSize(18)
                         .setWidth(300)
                         .addAction(new LemonHelloAction("我知道啦", new LemonHelloActionDelegate() {
                             @Override
                             public void onClick(LemonHelloView lemonHelloView, LemonHelloInfo lemonHelloInfo, LemonHelloAction lemonHelloAction) {
                                 lemonHelloView.hide();
+                                view.getAct().finish();
                             }
                         }))
                         .show(view.getCon());
@@ -210,7 +210,6 @@ public class ShoppingPayPresenter extends BasePresenter {
             @Override
             public void onFailure(int statusCode, String error_msg) {
                 Logger.e("添加订单失败", error_msg);
-
             }
         });
 
