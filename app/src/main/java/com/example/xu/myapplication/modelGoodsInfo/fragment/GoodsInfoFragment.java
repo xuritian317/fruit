@@ -64,6 +64,12 @@ public class GoodsInfoFragment extends BaseFragment<GoodsInfoPresenter> implemen
         Logger.e("addGoods", "count\t" + count);
     }
 
+    @OnClick(R.id.img_goods_minus)
+    public void minusGoodsCount() {
+        count--;
+        tv_currentGoods.setText(fruitDetail.getGoodsName() + "," + count + "件");
+    }
+
     //用户点评数
     @BindView(R.id.tv_comment_count)
     TextView tv_commentCount;

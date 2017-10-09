@@ -9,6 +9,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 
 import com.example.xu.myapplication.R;
 import com.example.xu.myapplication.base.BaseFragment;
+import com.example.xu.myapplication.moduleActivity.main.eventbus.TabSelectedEvent;
 import com.example.xu.myapplication.moduleShopping.fragment.activity.ShoppingPayActivity;
 import com.example.xu.myapplication.moduleShopping.fragment.adapter.ShoppingCarAdapter;
 import com.example.xu.myapplication.moduleShopping.fragment.bean.FruitBean;
@@ -32,6 +34,9 @@ import net.lemonsoft.lemonhello.LemonHelloInfo;
 import net.lemonsoft.lemonhello.LemonHelloView;
 import net.lemonsoft.lemonhello.interfaces.LemonHelloActionDelegate;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.List;
 
 import butterknife.BindView;
@@ -40,9 +45,9 @@ import butterknife.OnClick;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ShoppingContentFragment extends BaseFragment<ShoppingPresenter> implements IShopping {
+public class ShoppingContentFragment extends BaseFragment<ShoppingPresenter> implements IShopping, SwipeRefreshLayout.OnRefreshListener {
 
-    private static  ShoppingContentFragment instance;
+    private static ShoppingContentFragment instance;
 
     public static ShoppingContentFragment newInstance() {
         if (instance == null)
@@ -100,11 +105,12 @@ public class ShoppingContentFragment extends BaseFragment<ShoppingPresenter> imp
                 (SPUtil.USER_ID, ""));
         lvShopping.setAdapter(adapter);
 
-
+        EventBus.getDefault().register(this);
     }
 
     @Override
     public void initView(Bundle savedInstanceState) {
+        refreshShoppingCar.setOnRefreshListener(this);
 
         cbEditor.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -122,12 +128,12 @@ public class ShoppingContentFragment extends BaseFragment<ShoppingPresenter> imp
             }
         });
 
-        refreshShoppingCar.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                presenter.addList(adapter, refreshShoppingCar, tvShoppingCart, cbSelectAll, tvShopingMoney);
-            }
-        });
+//        refreshShoppingCar.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//            }
+//        });
+
     }
 
     @Override
@@ -172,7 +178,7 @@ public class ShoppingContentFragment extends BaseFragment<ShoppingPresenter> imp
                             helloInfo, LemonHelloAction helloAction) {
                         //删除并更新列表
                         presenter.deleteGoods(adapter, refreshShoppingCar, tvShoppingCart,
-                                cbSelectAll,tvShopingMoney);
+                                cbSelectAll, tvShopingMoney);
                         //dialog隐藏
 
                         helloView.hide();
@@ -188,6 +194,12 @@ public class ShoppingContentFragment extends BaseFragment<ShoppingPresenter> imp
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Override
     public Context getCon() {
         return getActivity();
     }
@@ -197,4 +209,18 @@ public class ShoppingContentFragment extends BaseFragment<ShoppingPresenter> imp
         return getActivity();
     }
 
+    @Override
+    public void onRefresh() {
+        presenter.addList(adapter, refreshShoppingCar, tvShoppingCart, cbSelectAll, tvShopingMoney);
+    }
+
+    /**
+     * 选择tab事件
+     */
+    @Subscribe
+    public void onTabSelectedEvent(TabSelectedEvent event) {
+        if (event.position != 2) return;
+        refreshShoppingCar.setRefreshing(true);
+        onRefresh();
+    }
 }

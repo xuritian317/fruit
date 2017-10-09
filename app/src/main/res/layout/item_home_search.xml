@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="100dp"
+    android:layout_height="110dp"
     android:orientation="vertical">
 
     <LinearLayout
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
@@ -17,30 +19,37 @@
             android:layout_weight="1" />
 
         <LinearLayout
+            android:paddingStart="7dp"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="15dp"
+            android:layout_marginBottom="7dp"
+            android:layout_marginTop="7dp"
             android:layout_weight="3"
+            android:gravity="center"
             android:orientation="vertical">
 
             <TextView
+                android:gravity="center|start"
                 android:id="@+id/tv_goods_name_home"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:textSize="20sp" />
 
             <TextView
+                android:gravity="center|start"
                 android:id="@+id/tv_goods_price_home"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:textColor="@color/colorAccent" />
 
             <TextView
+                android:gravity="center|start"
                 android:id="@+id/tv_goods_intro_home"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp" />
+                android:layout_height="0dp"
+                android:layout_weight="1" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

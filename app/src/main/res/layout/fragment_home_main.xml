@@ -90,7 +90,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/color_Black">
+                    android:background="@color/typeTextColor">
                 </View>
 
                 <android.support.v7.widget.RecyclerView
@@ -100,12 +100,6 @@
 
                 </android.support.v7.widget.RecyclerView>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@color/color_Black">
-                </View>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -118,7 +112,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/color_Black">
+                    android:background="@color/typeTextColor">
                 </View>
 
                 <com.example.xu.myapplication.moduleHome.view.MyGridView
@@ -127,13 +121,6 @@
                     android:layout_height="wrap_content"
                     android:numColumns="3">
                 </com.example.xu.myapplication.moduleHome.view.MyGridView>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@color/color_Black">
-                </View>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -146,7 +133,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/color_Black">
+                    android:background="@color/typeTextColor">
                 </View>
 
                 <com.example.xu.myapplication.moduleHome.view.MyListView
@@ -162,7 +149,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="5dp"
-                    android:background="@color/color_Black">
+                    android:background="@color/typeTextColor">
                 </View>
             </LinearLayout>
 

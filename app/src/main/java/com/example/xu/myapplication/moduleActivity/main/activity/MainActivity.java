@@ -8,6 +8,7 @@ import com.example.xu.myapplication.base.BaseActivity;
 import com.example.xu.myapplication.base.BaseMainFragment;
 import com.example.xu.myapplication.moduleActivity.main.customer.BottomBar;
 import com.example.xu.myapplication.moduleActivity.main.customer.BottomBarTab;
+import com.example.xu.myapplication.moduleActivity.main.eventbus.TabSelectedEvent;
 import com.example.xu.myapplication.moduleActivity.main.viewInterface.IMain;
 import com.example.xu.myapplication.moduleActivity.main.presenter.MainPresenter;
 import com.example.xu.myapplication.moduleHome.HomeContentFragment;
@@ -18,6 +19,8 @@ import com.example.xu.myapplication.moduleShopping.fragment.ShoppingContentFragm
 import com.example.xu.myapplication.moduleShopping.fragment.ShoppingFragment;
 import com.example.xu.myapplication.moduleType.fragment.TypeContentFragment;
 import com.example.xu.myapplication.moduleType.fragment.TypeFragment;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import me.yokeyword.fragmentation.SupportFragment;
@@ -54,9 +57,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMain, 
 
         presenter.loadRootFragment(homeFragment);
 
-        mBottomBar.addItem(new BottomBarTab(this, R.drawable.ic_home_white_24dp))
-                .addItem(new BottomBarTab(this, R.drawable.ic_discover_white_24dp))
+        mBottomBar.addItem(new BottomBarTab(this, R.drawable.ic_home))
                 .addItem(new BottomBarTab(this, R.drawable.ic_message_white_24dp))
+                .addItem(new BottomBarTab(this, R.drawable.ic_shopping))
                 .addItem(new BottomBarTab(this, R.drawable.ic_account_circle_white_24dp));
 
         mBottomBar.setOnTabSelectedListener(new BottomBar.OnTabSelectedListener() {
@@ -93,7 +96,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMain, 
                 if (count == 1) {
                     // 在FirstPagerFragment中接收, 因为是嵌套的孙子Fragment 所以用EventBus比较方便
                     // 主要为了交互: 重选tab 如果列表不在顶部则移动到顶部,如果已经在顶部,则刷新
-//                    EventBus.getDefault().post(new TabSelectedEvent(position));
+                    EventBus.getDefault().post(new TabSelectedEvent(position));
                 }
             }
         });

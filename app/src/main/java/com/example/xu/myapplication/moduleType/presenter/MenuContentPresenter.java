@@ -18,12 +18,10 @@ import com.example.xu.myapplication.base.BasePresenter;
 import com.example.xu.myapplication.httpRequest.MyOkHttp;
 import com.example.xu.myapplication.httpRequest.response.GsonResponseHandler;
 import com.example.xu.myapplication.httpRequest.response.RawResponseHandler;
-import com.example.xu.myapplication.modelGoodsInfo.dao.ShoppingCarDao;
 import com.example.xu.myapplication.modelGoodsInfo.entity.RecommendBean;
 import com.example.xu.myapplication.moduleType.adapter.ContentAdapter;
 import com.example.xu.myapplication.moduleType.adapter.ContentMinusAdapter;
 import com.example.xu.myapplication.moduleType.dao.GoodsPutDao;
-import com.example.xu.myapplication.moduleType.dao.RecommendDao;
 import com.example.xu.myapplication.moduleType.entity.Fruit;
 import com.example.xu.myapplication.moduleType.listener.OnItemClickListener;
 import com.example.xu.myapplication.moduleType.viewInterface.IMenuContent;
@@ -87,13 +85,14 @@ public class MenuContentPresenter extends BasePresenter {
 
     private ArrayList<Fruit.FruitDetail> fruitList = new ArrayList<>();
 
-    public void showDialog(final Context context, final ArrayList<Fruit.FruitDetail> addList) {
-        if (addList.isEmpty() || addList.size() == 0) {
+    public void showDialog() {
+        if (view.isEmptyAddList() || view.getAddListCount() == 0) {
             view.showToast("请先添加商品");
             return;
         }
+        final Context context = view.getMenuContext();
         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setIcon(R.mipmap.ic_launcher);
+        builder.setIcon(R.mipmap.logo);
         builder.setTitle("自定义套餐");
         builder.setCancelable(true);
         View addView = LayoutInflater.from(context).inflate(R.layout.item_menu_content_add, null);
@@ -105,7 +104,7 @@ public class MenuContentPresenter extends BasePresenter {
         recycler_add.setLayoutManager(managerTop);
         final ContentMinusAdapter adapterTop = new ContentMinusAdapter(context);
         recycler_add.setAdapter(adapterTop);
-        adapterTop.setData(addList, true);
+        adapterTop.setData(view.getAddList(), true);
 
         GridLayoutManager managerBottom = new GridLayoutManager(context, 3);
         recycler_recommend.setLayoutManager(managerBottom);
@@ -115,15 +114,16 @@ public class MenuContentPresenter extends BasePresenter {
         adapterTop.setOnAddClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position, View view, RecyclerView.ViewHolder vh) {
-                addList.remove(position);
-                adapterTop.updateData(addList);
+                MenuContentPresenter.this.view.removeAddListItem(position);
+                adapterTop.updateData(MenuContentPresenter.this.view.getAddList());
+                MenuContentPresenter.this.view.setTvCount(MenuContentPresenter.this.view.getAddListCount());
             }
         });
         adapterTop.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position, View view, RecyclerView.ViewHolder vh) {
 
-                MyOkHttp.newInstance().get(Common.URL_GET_RECOMMEND + addList.get(position).getId(), null, new GsonResponseHandler<ArrayList<RecommendBean>>() {
+                MyOkHttp.newInstance().get(Common.URL_GET_RECOMMEND + MenuContentPresenter.this.view.getAddListItem(position).getId(), null, new GsonResponseHandler<ArrayList<RecommendBean>>() {
                     @Override
                     public void onSuccess(int statusCode, ArrayList<RecommendBean> response) {
                         ArrayList<Fruit.FruitDetail> fruitList = new ArrayList<Fruit.FruitDetail>();
@@ -139,7 +139,6 @@ public class MenuContentPresenter extends BasePresenter {
                         }
                         adapterBottom.setData(fruitList, true);
 
-                        recycler_recommend.invalidate();
                         Bundle bundle = new Bundle();
                         bundle.putParcelableArrayList(KEY_ARG, fruitList);
                         Message msg = new Message();
@@ -158,8 +157,9 @@ public class MenuContentPresenter extends BasePresenter {
         adapterBottom.setOnAddClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(int position, View view, RecyclerView.ViewHolder vh) {
-                addList.add(fruitList.get(position));
-                adapterTop.updateData(addList);
+                MenuContentPresenter.this.view.addItem(fruitList.get(position));
+                adapterTop.updateData(MenuContentPresenter.this.view.getAddList());
+                MenuContentPresenter.this.view.setTvCount(MenuContentPresenter.this.view.getAddListCount());
             }
         });
         adapterBottom.setOnItemClickListener(new OnItemClickListener() {
@@ -182,9 +182,9 @@ public class MenuContentPresenter extends BasePresenter {
             public void onClick(DialogInterface dialog, int which) {
                 StringBuilder nameBuilder = new StringBuilder();
                 double price = 0;
-                for (int i = 0; i < addList.size(); i++) {
-                    Fruit.FruitDetail fruit = addList.get(i);
-                    if (i == addList.size() - 1) {
+                for (int i = 0; i < view.getAddListCount(); i++) {
+                    Fruit.FruitDetail fruit = view.getAddListItem(i);
+                    if (i == view.getAddListCount() - 1) {
                         nameBuilder.append(fruit.getGoodsName());
                     } else {
                         nameBuilder.append(fruit.getGoodsName()).append(",");

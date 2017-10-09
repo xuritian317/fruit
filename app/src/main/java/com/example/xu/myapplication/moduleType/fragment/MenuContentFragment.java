@@ -1,6 +1,7 @@
 package com.example.xu.myapplication.moduleType.fragment;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -12,6 +13,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.xu.myapplication.Common;
 import com.example.xu.myapplication.R;
@@ -102,8 +104,11 @@ public class MenuContentFragment extends BaseFragment<MenuContentPresenter> impl
 
     @OnClick(R.id.fBtn_pack)
     public void addPack() {
-        presenter.showDialog(_mActivity, addList);
+        presenter.showDialog();
     }
+
+    @BindView(R.id.tv_content_count)
+    TextView tv_count;
 
     @Override
     public int getLayout() {
@@ -162,11 +167,14 @@ public class MenuContentFragment extends BaseFragment<MenuContentPresenter> impl
                 Fruit.FruitDetail fruit = goodsList.get(index).getGoods().get(position);
                 ToastUtils.showToast(_mActivity, fruit.getGoodsName() + "已加入");
                 addList.add(fruit);
+                tv_count.setText(addList.size() + "");
             }
         });
         if (flag) {
+            tv_count.setVisibility(View.VISIBLE);
             fBtn_pack.setVisibility(View.VISIBLE);
         } else {
+            tv_count.setVisibility(View.GONE);
             fBtn_pack.setVisibility(View.GONE);
         }
     }
@@ -189,5 +197,50 @@ public class MenuContentFragment extends BaseFragment<MenuContentPresenter> impl
     @Override
     public void showToast(String msg) {
         ToastUtils.showToast(_mActivity, msg);
+    }
+
+    @Override
+    public void setTvCount(int count) {
+        tv_count.setText(count + "");
+    }
+
+    @Override
+    public boolean isEmptyAddList() {
+        return addList.isEmpty();
+    }
+
+    @Override
+    public int getAddListCount() {
+        return addList.size();
+    }
+
+    @Override
+    public void setAddListItem(int position, Fruit.FruitDetail fruitDetail) {
+        addList.set(position, fruitDetail);
+    }
+
+    @Override
+    public void removeAddListItem(int position) {
+        addList.remove(position);
+    }
+
+    @Override
+    public Fruit.FruitDetail getAddListItem(int position) {
+        return addList.get(position);
+    }
+
+    @Override
+    public Context getMenuContext() {
+        return _mActivity;
+    }
+
+    @Override
+    public ArrayList<Fruit.FruitDetail> getAddList() {
+        return addList;
+    }
+
+    @Override
+    public void addItem(Fruit.FruitDetail fruitDetail) {
+        addList.add(fruitDetail);
     }
 }
