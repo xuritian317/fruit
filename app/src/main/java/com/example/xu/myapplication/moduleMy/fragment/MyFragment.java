@@ -146,8 +146,8 @@ public class MyFragment extends BaseMainFragment<MyPresenter> implements IMy {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onSupportVisible() {
+        super.onSupportVisible();
         presenter.getUser(refreshMy, ivMyHead, tvMyUserName, tvDaishou, tvEvaluate,
                 tvTuikuan,tvDaishouHint,tvEvaluateHint,tvTuikuanHint);
     }

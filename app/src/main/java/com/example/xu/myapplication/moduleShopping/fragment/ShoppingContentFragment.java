@@ -188,7 +188,6 @@ public class ShoppingContentFragment extends BaseFragment<ShoppingPresenter> imp
                 .show(getActivity());
     }
 
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
