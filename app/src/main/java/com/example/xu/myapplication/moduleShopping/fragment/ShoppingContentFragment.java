@@ -223,4 +223,10 @@ public class ShoppingContentFragment extends BaseFragment<ShoppingPresenter> imp
         refreshShoppingCar.setRefreshing(true);
         onRefresh();
     }
+
+    @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        presenter.addList(adapter, refreshShoppingCar, tvShoppingCart, cbSelectAll, tvShopingMoney);
+    }
 }

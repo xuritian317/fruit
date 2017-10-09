@@ -66,6 +66,8 @@ public class GoodsInfoFragment extends BaseFragment<GoodsInfoPresenter> implemen
 
     @OnClick(R.id.img_goods_minus)
     public void minusGoodsCount() {
+        if (count == 1)
+            return;
         count--;
         tv_currentGoods.setText(fruitDetail.getGoodsName() + "," + count + "件");
     }

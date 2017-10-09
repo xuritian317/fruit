@@ -26,6 +26,7 @@
         android:layout_alignEnd="@id/img_fruit"
         android:layout_marginBottom="5dp"
         android:layout_marginEnd="5dp"
+        android:src="@mipmap/add_mini"
         android:background="@drawable/type_zero"
-        android:src="@mipmap/add_mini" />
+         />
 </RelativeLayout>
