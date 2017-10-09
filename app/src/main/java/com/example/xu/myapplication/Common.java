@@ -11,7 +11,7 @@ public class Common {
     public static String URL_FRUIT_AREA ="http://www.mobilebooks.cn/api/t-classType-1";
     public static String URL_PACK_TYPE ="http://www.mobilebooks.cn/api/t-classType-2";
     public static String URL_PACK_SIZE ="http://www.mobilebooks.cn/api/t-classType-3";
-    public static String URL_GOODS_ALL ="http://www.mobilebooks.cn/api/t-goods";
+    public static String URL_GOODS_ALL ="http://www.mobilebooks.cn/api/t-freshGoods";
     public static String URL_POST_SHOPPING ="http://www.mobilebooks.cn/api/t-shopping-cars";
     public static String URL_POST_COLLECTION ="http://www.mobilebooks.cn/api/t-collections";
     public static String URL_GET_RECOMMEND ="http://www.mobilebooks.cn/api/t-recommendById/";
