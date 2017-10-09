@@ -6,6 +6,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -68,41 +69,47 @@ public class MyFragment extends BaseMainFragment<MyPresenter> implements IMy {
     LinearLayout linearShoucang;
     @BindView(R.id.linear_jifen)
     LinearLayout linearJifen;
+    @BindView(R.id.tv_daishou_hint)
+    TextView tvDaishouHint;
+    @BindView(R.id.tv_evaluate_hint)
+    TextView tvEvaluateHint;
+    @BindView(R.id.tv_tuikuan_hint)
+    TextView tvTuikuanHint;
 
     @OnClick({R.id.iv_MyHead, R.id.iv_MySetting, R.id.tv_dingdan, R.id.linear_daishou,
             R.id.tv_wancheng, R.id.linear_evaluate, R.id.linear_tuikuan, R.id.linear_xiaoxi,
             R.id.linear_shoucang, R.id.linear_jifen})
-    public void onViewOnClick(View view){
-        switch (view.getId()){
+    public void onViewOnClick(View view) {
+        switch (view.getId()) {
             case R.id.iv_MyHead:
                 presenter.toActivity(LoginActivity.class, MyPersonalActivity.class);
                 break;
-            case  R.id.iv_MySetting:
+            case R.id.iv_MySetting:
                 presenter.toActivity(AccountSettingActivity.class, null);
                 break;
             case R.id.tv_dingdan:
                 presenter.toMyOrdersActivity(0);
                 break;
-            case  R.id.linear_daishou:
+            case R.id.linear_daishou:
                 presenter.toMyOrdersActivity(1);
                 break;
             case R.id.tv_wancheng:
                 presenter.toMyOrdersActivity(2);
                 break;
-            case  R.id.linear_evaluate:
+            case R.id.linear_evaluate:
                 presenter.toMyOrdersActivity(3);
                 break;
             case R.id.linear_tuikuan:
                 presenter.toMyOrdersActivity(4);
                 break;
-            case  R.id.linear_xiaoxi:
-                ToastUtils.showToast(getActivity(),"功能暂未开启");
+            case R.id.linear_xiaoxi:
+                ToastUtils.showToast(getActivity(), "功能暂未开启");
                 break;
             case R.id.linear_shoucang:
-                presenter.toActivity(CollectActivity.class,null);
+                presenter.toActivity(CollectActivity.class, null);
                 break;
             case R.id.linear_jifen:
-                ToastUtils.showToast(getActivity(),"功能暂未开启");
+                ToastUtils.showToast(getActivity(), "功能暂未开启");
                 break;
         }
     }
@@ -128,7 +135,7 @@ public class MyFragment extends BaseMainFragment<MyPresenter> implements IMy {
             @Override
             public void onRefresh() {
                 presenter.getUser(refreshMy, ivMyHead, tvMyUserName, tvDaishou, tvEvaluate,
-                        tvTuikuan);
+                        tvTuikuan,tvDaishouHint,tvEvaluateHint,tvTuikuanHint);
             }
         });
     }
@@ -139,17 +146,13 @@ public class MyFragment extends BaseMainFragment<MyPresenter> implements IMy {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        Logger.e("我的","onResume");
-        presenter.getUser(refreshMy, ivMyHead, tvMyUserName, tvDaishou, tvEvaluate, tvTuikuan);
+    public void onStart() {
+        super.onStart();
+        presenter.getUser(refreshMy, ivMyHead, tvMyUserName, tvDaishou, tvEvaluate,
+                tvTuikuan,tvDaishouHint,tvEvaluateHint,tvTuikuanHint);
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        Logger.e("我的","onResume");
-    }
+
 
     @Override
     public Context getCon() {

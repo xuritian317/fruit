@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.example.xu.myapplication.R;
 import com.example.xu.myapplication.base.BaseFragment;
 import com.example.xu.myapplication.moduleHome.view.MyListView;
+import com.example.xu.myapplication.moduleHome.view.MyRefreshLayout;
 import com.example.xu.myapplication.moduleMy.fragment.adapter.PagerAdapter;
 import com.example.xu.myapplication.moduleMy.fragment.presenter.PagerChildPresenter;
 import com.example.xu.myapplication.moduleMy.fragment.viewInterface.IPagerChild;
@@ -26,7 +27,7 @@ public class PagerChildFragment extends BaseFragment<PagerChildPresenter> implem
     @BindView(R.id.tv_child_tishi)
     TextView tvChildTishi;
     @BindView(R.id.refresh_orders)
-    SwipeRefreshLayout refreshOrders;
+    MyRefreshLayout refreshOrders;
     @BindView(R.id.lv_item_orders)
     ListView lvItemOrders;
     private int mFrom;

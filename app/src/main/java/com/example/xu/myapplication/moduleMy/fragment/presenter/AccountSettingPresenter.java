@@ -12,6 +12,7 @@ import com.example.xu.myapplication.httpRequest.MyOkHttp;
 import com.example.xu.myapplication.httpRequest.response.JsonResponseHandler;
 import com.example.xu.myapplication.moduleMy.fragment.view.CircleImageView;
 import com.example.xu.myapplication.moduleMy.fragment.viewInterface.IAccountSetting;
+import com.example.xu.myapplication.util.BitmapUtil;
 import com.example.xu.myapplication.util.Logger;
 import com.example.xu.myapplication.util.SPUtil;
 
@@ -49,6 +50,9 @@ public class AccountSettingPresenter extends BasePresenter {
     public void getUser(final CircleImageView ivSettingHead, final TextView tvSettingNick) {
         String phone = util.getString(SPUtil.IS_USER, "");
         if (TextUtils.equals(util.getString(SPUtil.IS_USER, ""), "")) {
+            ivSettingHead.setImageDrawable(view.getCon().getResources().getDrawable(R
+                    .mipmap.img_head));
+            tvSettingNick.setText("登录/注册");
             return;
         }
         Logger.e("phone", phone + "");
@@ -79,7 +83,7 @@ public class AccountSettingPresenter extends BasePresenter {
                         ivSettingHead.setImageDrawable(view.getCon().getResources().getDrawable(R
                                 .mipmap.img_head));
                     } else {
-
+                        ivSettingHead.setImageBitmap(BitmapUtil.getBitmapFromBase64(headImage));
                     }
 
                 } catch (JSONException e) {

@@ -18,8 +18,10 @@ import com.example.xu.myapplication.httpRequest.response.RawResponseHandler;
 import com.example.xu.myapplication.moduleShopping.fragment.adapter.ShoppingCarAdapter;
 import com.example.xu.myapplication.moduleShopping.fragment.bean.FruitBean;
 import com.example.xu.myapplication.moduleShopping.fragment.viewInterface.IShopping;
+import com.example.xu.myapplication.util.Logger;
 import com.example.xu.myapplication.util.SPUtil;
 import com.example.xu.myapplication.util.ToastUtils;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,7 +38,7 @@ import java.util.List;
 
 public class ShoppingPresenter extends BasePresenter {
     private IShopping view;
-    private List<FruitBean> lists;
+    private List<FruitBean> lists = new ArrayList<FruitBean>();;
     private int a = 0;
 
     private SPUtil util;
@@ -77,13 +79,16 @@ public class ShoppingPresenter extends BasePresenter {
     public void addList(final ShoppingCarAdapter adapter, final SwipeRefreshLayout
             refreshShoppingCar, final TextView tvShopingCart, final CheckBox cbSelectAll
             , final TextView tvShopingMoney) {
-        lists = new ArrayList<FruitBean>();
+        lists.clear();
+        if (!refreshShoppingCar.isRefreshing()) {
+            refreshShoppingCar.setRefreshing(true);
+        }
 
         String phone = util.getString(SPUtil.IS_USER, "");
         if (TextUtils.equals(util.getString(SPUtil.IS_USER, ""), "")) {
-            if (refreshShoppingCar.isRefreshing()){
-//                adapter.setData(lists);
-//                tvShopingCart.setText("购物车(0)");
+            if (refreshShoppingCar.isRefreshing()) {
+                adapter.setData(lists);
+                tvShopingCart.setText("购物车(0)");
                 refreshShoppingCar.setRefreshing(false);
             }
             return;
@@ -111,6 +116,7 @@ public class ShoppingPresenter extends BasePresenter {
                     FruitBean bean = null;
                     JSONObject object;
                     JSONObject json;
+                    Gson gson=new Gson();
                     for (int i = 0; i < array.length(); i++) {
                         object = array.getJSONObject(i);
                         int count = object.getInt("goodsCount");
@@ -121,8 +127,11 @@ public class ShoppingPresenter extends BasePresenter {
                         String goodsName = json.getString("goodsName");
                         double goodsPrice = json.getDouble("goodsPrice");
                         String goodsImage = json.getString("goodsImage");
+
+                        FruitBean.GoodsBean goodsBean=gson.fromJson(goods,FruitBean.GoodsBean.class);
+
                         bean = new FruitBean(id, goodsName, goodsId, goodsPrice, count,
-                                goodsImage, false);
+                                goodsImage,false,goodsBean);
                         lists.add(bean);
                     }
 

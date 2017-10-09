@@ -6,27 +6,20 @@ import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
-
 import com.example.xu.myapplication.Common;
 import com.example.xu.myapplication.R;
 import com.example.xu.myapplication.base.BasePresenter;
 import com.example.xu.myapplication.httpRequest.MyOkHttp;
-import com.example.xu.myapplication.httpRequest.response.GsonResponseHandler;
 import com.example.xu.myapplication.httpRequest.response.JsonResponseHandler;
 import com.example.xu.myapplication.moduleMy.fragment.activity.orders.MyOrdersActivity;
-import com.example.xu.myapplication.moduleMy.fragment.bean.OrdersBean;
 import com.example.xu.myapplication.moduleMy.fragment.view.CircleImageView;
 import com.example.xu.myapplication.moduleMy.fragment.viewInterface.IMy;
-import com.example.xu.myapplication.util.Logger;
+import com.example.xu.myapplication.util.BitmapUtil;
 import com.example.xu.myapplication.util.SPUtil;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-
-import q.rorbin.badgeview.QBadgeView;
 
 /**
  * Created by 逝 on 2017/09/18.
@@ -67,49 +60,37 @@ public class MyPresenter extends BasePresenter {
             view.getAct().startActivity(new Intent(view.getCon(), cls1));
         }
     }
-
-    /**
-     * 显示BadgeView 标记
-     *
-     * @param tv
-     * @param badgeNumber
-     */
-    private void showBadgeView(TextView tv, int badgeNumber) {
-        if (badgeNumber == 0) {
-            return;
-        }
-        QBadgeView badge = new QBadgeView(view.getCon());
-        badge.bindTarget(tv);
-        badge.setBadgeGravity(Gravity.END | Gravity.TOP);
-        badge.setBadgeTextColor(view.getCon().getResources().getColor(R.color.color_White));
-        badge.setBadgeBackgroundColor(view.getCon().getResources().getColor(R.color.colorPrimary));
-        badge.setBadgeNumber(badgeNumber);
-        badge.setBadgePadding(1, false);
-    }
-
     /**
      * 根据用户手机号 获取用户所有信息
+     *
      * @param refreshMy
-     * @param ivMyHead  头像控件
-     * @param tvMyUserName 昵称控件
-     * @param tv1 需要显示的右上角角标的控件
-     * @param tv2 ...
-     * @param tv3 ...
+     * @param ivMyHead       头像控件
+     * @param myUserName
+     * @param tvDaishou
+     * @param tvEvaluate
+     * @param tvTuikuan
+     * @param tvDaishouHint
+     * @param tvEvaluateHint
      */
-    public void getUser(final SwipeRefreshLayout refreshMy, final CircleImageView ivMyHead, final TextView tvMyUserName,
-                        final TextView tv1, final TextView tv2, final TextView tv3) {
-        showBadgeView(tv1, 0);
-        showBadgeView(tv2, 0);
-        showBadgeView(tv3, 0);
+    public void getUser(final SwipeRefreshLayout refreshMy, final CircleImageView ivMyHead,
+                        final TextView myUserName, TextView tvDaishou, TextView tvEvaluate, TextView
+                                tvTuikuan, final TextView tvDaishouHint, final TextView
+                                tvEvaluateHint, final
+                        TextView tvTuikuanHint) {
 
         String phone = util.getString(SPUtil.IS_USER, "");
+        if (!refreshMy.isRefreshing()) {
+            refreshMy.setRefreshing(true);
+        }
         if (TextUtils.equals(util.getString(SPUtil.IS_USER, ""), "")) {
-            ivMyHead.setImageDrawable(view.getCon().getResources().getDrawable(R
-                    .mipmap.iv_head));
-            tvMyUserName.setText(view.getCon().getResources().getString(R.string.login_register));
-            if (refreshMy.isRefreshing()){
+            ivMyHead.setImageDrawable(view.getCon().getResources().getDrawable(R.mipmap.iv_head));
+            myUserName.setText(view.getCon().getResources().getString(R.string.login_register));
+            if (refreshMy.isRefreshing()) {
                 refreshMy.setRefreshing(false);
             }
+            tvDaishouHint.setVisibility(View.GONE);
+            tvEvaluateHint.setVisibility(View.GONE);
+            tvTuikuanHint.setVisibility(View.GONE);
             return;
         }
         //刷新
@@ -133,10 +114,10 @@ public class MyPresenter extends BasePresenter {
                     String orders = response.getString("orders");
                     //昵称
                     if (TextUtils.equals(nickName, "null")) {
-                        tvMyUserName.setVisibility(View.GONE);
+                        myUserName.setVisibility(View.GONE);
                     } else {
-                        tvMyUserName.setVisibility(View.VISIBLE);
-                        tvMyUserName.setText(nickName);
+                        myUserName.setVisibility(View.VISIBLE);
+                        myUserName.setText(nickName);
                     }
 
                     //头像
@@ -144,7 +125,7 @@ public class MyPresenter extends BasePresenter {
                         ivMyHead.setImageDrawable(view.getCon().getResources().getDrawable(R
                                 .mipmap.iv_head));
                     } else {
-
+                        ivMyHead.setImageBitmap(BitmapUtil.getBitmapFromBase64(headImage));
                     }
                     //订单
                     JSONArray array = new JSONArray(orders);
@@ -161,14 +142,30 @@ public class MyPresenter extends BasePresenter {
                         } else if (jo.getInt("orderState") == 0 && jo.getInt("reviewState") == 1) {
                             pingjia++;
                         }
-                        showBadgeView(tv1, daishou);
-                        showBadgeView(tv2, pingjia);
-                        showBadgeView(tv3, tuikuan);
+                    }
+                    if (daishou > 0) {
+                        tvDaishouHint.setVisibility(View.VISIBLE);
+                        tvDaishouHint.setText(String.valueOf(daishou));
+                    } else {
+                        tvDaishouHint.setVisibility(View.GONE);
+                    }
+                    if (pingjia > 0) {
+                        tvEvaluateHint.setVisibility(View.VISIBLE);
+                        tvEvaluateHint.setText(String.valueOf(pingjia));
+                    } else {
+                        tvEvaluateHint.setVisibility(View.GONE);
+                    }
+                    if (tuikuan > 0) {
+                        tvTuikuanHint.setVisibility(View.VISIBLE);
+                        tvTuikuanHint.setText(String.valueOf(tuikuan));
+                    } else {
+                        tvTuikuanHint.setVisibility(View.GONE);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                if (refreshMy.isRefreshing()){
+
+                if (refreshMy.isRefreshing()) {
                     refreshMy.setRefreshing(false);
                 }
             }

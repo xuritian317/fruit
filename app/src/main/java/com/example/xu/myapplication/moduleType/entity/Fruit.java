@@ -7,6 +7,7 @@ import com.example.xu.myapplication.modelGoodsInfo.entity.RecommendBean;
 import com.example.xu.myapplication.moduleHome.bean.BargainBean;
 import com.example.xu.myapplication.moduleHome.bean.RecommendsBean_0;
 import com.example.xu.myapplication.moduleHome.bean.RecommendsBean_1;
+import com.example.xu.myapplication.moduleShopping.fragment.bean.FruitBean;
 
 import java.util.ArrayList;
 
@@ -232,6 +233,20 @@ public class Fruit implements Parcelable {
             this.updateTime = goodsBean.getUpdateTime();
         }
         public FruitDetail(RecommendBean.GoodsBean goodsBean){
+            this.id = goodsBean.getId();
+            this.goodsName = goodsBean.getGoodsName();
+            this.goodsPrice = goodsBean.getGoodsPrice();
+            this.goodsImage = goodsBean.getGoodsImage();
+            this.goodsClassify = goodsBean.getGoodsClassify();
+            this.goodsIntroduction = goodsBean.getGoodsIntroduction();
+            this.temperature = goodsBean.getTemperature();
+            this.nutritionInfo = goodsBean.getNutritionInfo();
+            this.effect = goodsBean.getEffect();
+            this.hot = goodsBean.getHot();
+            this.createTime = goodsBean.getCreateTime();
+            this.updateTime = goodsBean.getUpdateTime();
+        }
+        public FruitDetail(FruitBean.GoodsBean goodsBean){
             this.id = goodsBean.getId();
             this.goodsName = goodsBean.getGoodsName();
             this.goodsPrice = goodsBean.getGoodsPrice();

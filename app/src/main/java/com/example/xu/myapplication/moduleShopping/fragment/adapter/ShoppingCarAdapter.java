@@ -16,9 +16,11 @@ import com.example.xu.myapplication.Common;
 import com.example.xu.myapplication.R;
 import com.example.xu.myapplication.httpRequest.MyOkHttp;
 import com.example.xu.myapplication.httpRequest.response.JsonResponseHandler;
+import com.example.xu.myapplication.modelGoodsInfo.fragment.GoodsInfoFragment;
 import com.example.xu.myapplication.moduleShopping.fragment.ShoppingContentFragment;
 import com.example.xu.myapplication.moduleShopping.fragment.bean.FruitBean;
 import com.example.xu.myapplication.moduleShopping.fragment.ShoppingFragment;
+import com.example.xu.myapplication.moduleType.entity.Fruit;
 import com.example.xu.myapplication.util.Logger;
 import com.example.xu.myapplication.util.ToastUtils;
 import com.jmf.addsubutils.AddSubUtils;
@@ -53,6 +55,10 @@ public class ShoppingCarAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    public Fruit.FruitDetail getFruit(int position) {
+        FruitBean bean=objects.get(position);
+        return new Fruit.FruitDetail(bean.getGoods());
+    }
 
 
     @Override
@@ -82,8 +88,8 @@ public class ShoppingCarAdapter extends BaseAdapter {
 
     private void initializeViews(final FruitBean object, ViewHolder holder, final int index) {
         //TODO implement
-        holder.tvShoppingItemFruit.setText(object.getFruit());
-        holder.tvShoppingItemPrice.setText("￥" + object.getPrice());
+        holder.tvShoppingItemFruit.setText(object.getGoods().getGoodsName());
+        holder.tvShoppingItemPrice.setText("￥" + object.getGoods().getGoodsPrice());
 
         //获取商品图片
         Glide.with(context).load(object.getFruit_img()).into(holder.ivShoppingItemImg);
@@ -138,6 +144,13 @@ public class ShoppingCarAdapter extends BaseAdapter {
                         fragment.UpView();
                     }
                 });
+
+        holder.ivShoppingItemImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fragment.start(GoodsInfoFragment.newInstance(getFruit(index), 0,1));
+            }
+        });
 
     }
 

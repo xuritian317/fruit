@@ -73,13 +73,28 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tv_daishou"
+                <FrameLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableTop="@mipmap/daishouhuo"
-                    android:gravity="center"
-                    android:text="@string/daishouhuo"/>
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_daishou"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableTop="@mipmap/daishouhuo"
+                        android:gravity="center"
+                        android:text="@string/daishouhuo"/>
+
+                    <TextView
+                        android:id="@+id/tv_daishou_hint"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top|right"
+                        android:background="@drawable/type_zero"
+                        android:gravity="center"
+                        android:textColor="@android:color/white"
+                        android:visibility="gone"/>
+                </FrameLayout>
             </LinearLayout>
 
             <TextView
@@ -99,13 +114,28 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tv_evaluate"
+                <FrameLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableTop="@mipmap/evaluate"
-                    android:gravity="center"
-                    android:text="@string/evaluate"/>
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_evaluate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableTop="@mipmap/evaluate"
+                        android:gravity="center"
+                        android:text="@string/evaluate"/>
+
+                    <TextView
+                        android:id="@+id/tv_evaluate_hint"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top|right"
+                        android:background="@drawable/type_zero"
+                        android:gravity="center"
+                        android:textColor="@android:color/white"
+                        android:visibility="gone"/>
+                </FrameLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -116,13 +146,30 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/tv_tuikuan"
+                <FrameLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawableTop="@mipmap/tuikuan"
-                    android:gravity="center"
-                    android:text="@string/tuikuan"/>
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_tuikuan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableTop="@mipmap/tuikuan"
+                        android:gravity="center"
+                        android:text="@string/tuikuan"/>
+
+                    <TextView
+                        android:id="@+id/tv_tuikuan_hint"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top|right"
+                        android:background="@drawable/type_zero"
+                        android:gravity="center"
+                        android:textColor="@android:color/white"
+                        android:visibility="gone"/>
+                </FrameLayout>
+
+
             </LinearLayout>
         </LinearLayout>
 

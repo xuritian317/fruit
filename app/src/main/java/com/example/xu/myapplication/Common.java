@@ -42,6 +42,8 @@ public class Common {
     public static String URL_UPDATE_ADDRESS = "http://www.mobilebooks.cn/api/t-receive-addressesPut";
     //根据ID收货地址
     public static String URL_CREATE_ADDRESS_BY_ID = "http://www.mobilebooks.cn/api/t-receive-addresses/";
+    //根据ID删除收货地址
+    public static String URL_DELETE_ADDRESS_BY_ID = "http://www.mobilebooks.cn/api/t-receive-addressesDelete/";
     //查询订单
     public static String URL_GET_ORDERS = "http://www.mobilebooks.cn/api/t-orders";
     //创建订单

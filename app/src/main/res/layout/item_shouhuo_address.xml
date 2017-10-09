@@ -55,7 +55,8 @@
             android:button="@drawable/checkbox_style"
             android:checked="false"
             android:text="@string/moren"
-            android:textColor="@color/_6"/>
+            android:textColor="@color/_6"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/tv_address_editor"

@@ -54,7 +54,7 @@ public class QueryAddressActivity extends BaseActivity<QueryAddressPresenter> im
 
     @Override
     public void initData() {
-        adapter=new ReceiveAddressAdapter(QueryAddressActivity.this);
+        adapter=new ReceiveAddressAdapter(this,QueryAddressActivity.this);
         lvAddress.setAdapter(adapter);
     }
 
@@ -71,6 +71,10 @@ public class QueryAddressActivity extends BaseActivity<QueryAddressPresenter> im
     @Override
     protected void onResume() {
         super.onResume();
+        getAddress();
+    }
+
+    public void getAddress(){
         presenter.getAddress(adapter,lvAddress,tvAddress);
     }
 

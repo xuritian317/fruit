@@ -13,9 +13,17 @@ import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import com.example.xu.myapplication.Common;
 import com.example.xu.myapplication.R;
+import com.example.xu.myapplication.httpRequest.MyOkHttp;
+import com.example.xu.myapplication.httpRequest.response.RawResponseHandler;
 import com.example.xu.myapplication.moduleMy.fragment.activity.setting.AddAddressActivity;
+import com.example.xu.myapplication.moduleMy.fragment.activity.setting.QueryAddressActivity;
 import com.example.xu.myapplication.moduleMy.fragment.bean.ReceiveAddressBean;
+import com.example.xu.myapplication.util.ToastUtils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,8 +34,10 @@ public class ReceiveAddressAdapter extends BaseAdapter {
 
     private Context context;
     private LayoutInflater layoutInflater;
+    private QueryAddressActivity activity;
 
-    public ReceiveAddressAdapter(Context context) {
+    public ReceiveAddressAdapter(QueryAddressActivity activity, Context context) {
+        this.activity = activity;
         this.context = context;
         this.layoutInflater = LayoutInflater.from(context);
     }
@@ -75,6 +85,43 @@ public class ReceiveAddressAdapter extends BaseAdapter {
                 context.startActivity(intent);
             }
         });
+
+        holder.tvAddressDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteOrders(object.getId());
+            }
+        });
+
+
+    }
+
+    private void deleteOrders(int id) {
+        JSONObject jo = new JSONObject();
+        try {
+            jo.put("id", id);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        MyOkHttp.newInstance().postJson(Common.URL_DELETE_ADDRESS_BY_ID + String.valueOf(id), jo,
+                new RawResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, String response) {
+                        if (statusCode == 200) {
+                            activity.getAddress();
+                            ToastUtils.showToast(context, "删除成功");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, String error_msg) {
+                        if (statusCode == 500) {
+                            ToastUtils.showToast(context, "删除失败，该地址可能已使用，请确认订单后删除。");
+                        }
+                    }
+                });
+
     }
 
     protected class ViewHolder {

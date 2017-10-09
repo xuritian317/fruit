@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -18,6 +19,7 @@ import com.example.xu.myapplication.moduleMy.fragment.presenter.AccountSettingPr
 import com.example.xu.myapplication.moduleMy.fragment.view.CircleImageView;
 import com.example.xu.myapplication.moduleMy.fragment.viewInterface.IAccountSetting;
 import com.example.xu.myapplication.util.SPUtil;
+import com.example.xu.myapplication.util.ToastUtils;
 import com.vondear.rxtools.view.dialog.RxDialogSureCancel;
 
 import butterknife.BindView;
@@ -55,6 +57,7 @@ public class AccountSettingActivity extends BaseActivity<AccountSettingPresenter
                 presenter.startIntent(QueryAddressActivity.class, null);
                 break;
             case R.id.rela_account_safe:
+                ToastUtils.showToast(AccountSettingActivity.this,"功能暂未开启");
                 break;
             case R.id.tv_logout:
                 rxLogout();
@@ -65,12 +68,21 @@ public class AccountSettingActivity extends BaseActivity<AccountSettingPresenter
     private SPUtil util;
 
     private void rxLogout() {
+        if (TextUtils.equals("",util.getString(SPUtil.IS_USER,""))){
+            tvLogout.setEnabled(false);
+            ToastUtils.showToast(AccountSettingActivity.this,"不能再退出登录了哦");
+            return;
+        }else {
+            tvLogout.setEnabled(false);
+        }
+
         final RxDialogSureCancel rxDialogSureCancel = new RxDialogSureCancel(AccountSettingActivity.this);//提示弹窗
         rxDialogSureCancel.getTitleView().setBackgroundResource(R.drawable.logo);
         rxDialogSureCancel.getSureView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 util.putString(SPUtil.IS_USER,"");
+                util.putString(SPUtil.USER_ID,"-1");
                 startActivity(new Intent(AccountSettingActivity.this,LoginActivity.class));
                 rxDialogSureCancel.cancel();
                 finish();

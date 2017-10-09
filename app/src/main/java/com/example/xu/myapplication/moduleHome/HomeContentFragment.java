@@ -62,8 +62,6 @@ public class HomeContentFragment extends BaseMainFragment<HomePresenter> impleme
     Banner banner;
     @BindView(R.id.rv_home_bargain)
     RecyclerView rvHomeBargain;
-    @BindView(R.id.sr_home)
-    SwipeRefreshLayout srHome;
     @BindView(R.id.gridView_0)
     MyGridView gridView0;
     @BindView(R.id.listView_1)

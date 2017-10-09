@@ -45,12 +45,12 @@ public class RegisterPresenter extends BasePresenter {
             ToastUtils.showToast(view.getCon(), "手机号不能为空！");
             return;
         }
-        Pattern pattern = Pattern.compile(key);
-        Matcher matcher = pattern.matcher(phone);
-        if (!matcher.matches()) {
+
+        if (!isMatches(key,phone)){
             ToastUtils.showToast(view.getCon(), "请输入正确的手机号！");
             return;
         }
+
         //倒计时
         RxTool.countDown(tvRegisterPhoneCode, 60000, 1000, "获取验证码");
 
@@ -94,6 +94,11 @@ public class RegisterPresenter extends BasePresenter {
         if (TextUtils.isEmpty(phone) || TextUtils.isEmpty(code) || TextUtils.isEmpty(pwd1) ||
                 TextUtils.isEmpty(pwd2)) {
             ToastUtils.showToast(view.getCon(), "不能为空！");
+            return;
+        }
+        String regex="[A-Za-z0-9]{6,12}";
+        if (!isMatches(regex,pwd1)){
+            ToastUtils.showToast(view.getCon(),"密码格式不符合规范");
             return;
         }
 
@@ -153,5 +158,11 @@ public class RegisterPresenter extends BasePresenter {
                 Logger.e("error_msg", "response");
             }
         });
+    }
+
+    private boolean isMatches(String regex,String str){
+        Pattern pattern=Pattern.compile(regex);
+        Matcher matcher=pattern.matcher(str);
+        return matcher.matches();
     }
 }

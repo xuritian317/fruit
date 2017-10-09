@@ -54,10 +54,7 @@
         </LinearLayout>
 
     </android.support.v7.widget.Toolbar>
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/sr_home"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+
 
         <ScrollView
             android:layout_width="match_parent"
@@ -170,6 +167,4 @@
             </LinearLayout>
 
         </ScrollView>
-    </android.support.v4.widget.SwipeRefreshLayout>
-
 </LinearLayout>

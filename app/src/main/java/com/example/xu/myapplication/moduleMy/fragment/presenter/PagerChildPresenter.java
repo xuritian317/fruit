@@ -75,6 +75,9 @@ public class PagerChildPresenter extends BasePresenter {
         lists.clear();
         String phone = util.getString(SPUtil.IS_USER, "");
         if (TextUtils.equals(util.getString(SPUtil.IS_USER, ""), "")) {
+            if (refreshOrders.isRefreshing()){
+                refreshOrders.setRefreshing(false);
+            }
             return;
         }
 

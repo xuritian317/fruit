@@ -98,6 +98,7 @@
             android:layout_weight="1"
             android:background="@null"
             android:hint="请输入密码"
+            android:inputType="textPassword"
             android:singleLine="true"
             android:textColor="@color/_9"
             android:textColorHint="@color/_9"

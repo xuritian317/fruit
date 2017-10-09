@@ -15,6 +15,7 @@ import com.example.xu.myapplication.R;
 import com.example.xu.myapplication.base.BaseActivity;
 import com.example.xu.myapplication.moduleActivity.main.presenter.LoginPresenter;
 import com.example.xu.myapplication.moduleActivity.main.viewInterface.ILogin;
+import com.example.xu.myapplication.util.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -53,8 +54,10 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements ILogi
                 presenter.toActivity(RegisterActivity.class);
                 break;
             case R.id.tv_forget_password:
+                ToastUtils.showToast(LoginActivity.this,"该功能暂未开启");
                 break;
             case R.id.tv_about_us:
+                ToastUtils.showToast(LoginActivity.this,"该功能暂未开启");
                 break;
         }
     }
