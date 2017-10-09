@@ -6,3 +6,4 @@
 
 界面详情如下
 
+![Alt Text](https://github.com/xuritian317/fruit/blob/master/Screenshots/1.png)
