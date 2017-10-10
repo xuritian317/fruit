@@ -3,13 +3,10 @@ package com.example.xu.myapplication.moduleType.dao;
 import com.example.xu.myapplication.Common;
 import com.example.xu.myapplication.httpRequest.MyOkHttp;
 import com.example.xu.myapplication.httpRequest.response.GsonResponseHandler;
-import com.example.xu.myapplication.httpRequest.response.RawResponseHandler;
-import com.example.xu.myapplication.moduleType.entity.Fruit;
+import com.example.xu.myapplication.model.Fruit;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
 
 /**
  * Created by xu on 2017/10/8.

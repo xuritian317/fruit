@@ -3,7 +3,7 @@ package com.example.xu.myapplication.moduleType.viewInterface;
 import android.content.Context;
 
 import com.example.xu.myapplication.base.BaseViewInterface;
-import com.example.xu.myapplication.moduleType.entity.Fruit;
+import com.example.xu.myapplication.model.Fruit;
 
 import java.util.ArrayList;
 

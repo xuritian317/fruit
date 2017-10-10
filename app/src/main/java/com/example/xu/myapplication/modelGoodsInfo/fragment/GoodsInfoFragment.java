@@ -16,7 +16,7 @@ import com.example.xu.myapplication.base.BaseFragment;
 import com.example.xu.myapplication.modelGoodsInfo.presenter.GoodsInfoPresenter;
 import com.example.xu.myapplication.modelGoodsInfo.viewInterface.IGoodsInfo;
 import com.example.xu.myapplication.moduleActivity.main.customer.BottomBar;
-import com.example.xu.myapplication.moduleType.entity.Fruit;
+import com.example.xu.myapplication.model.Fruit;
 import com.example.xu.myapplication.util.Logger;
 import com.example.xu.myapplication.util.ToastUtils;
 

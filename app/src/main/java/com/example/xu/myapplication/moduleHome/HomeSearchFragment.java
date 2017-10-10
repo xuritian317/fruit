@@ -4,7 +4,6 @@ package com.example.xu.myapplication.moduleHome;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,8 +18,7 @@ import com.example.xu.myapplication.httpRequest.MyOkHttp;
 import com.example.xu.myapplication.httpRequest.response.GsonResponseHandler;
 import com.example.xu.myapplication.modelGoodsInfo.fragment.GoodsInfoFragment;
 import com.example.xu.myapplication.moduleHome.adapter.RecyclerSearchAdapter;
-import com.example.xu.myapplication.moduleHome.dao.GoodsLikeDao;
-import com.example.xu.myapplication.moduleType.entity.Fruit;
+import com.example.xu.myapplication.model.Fruit;
 import com.example.xu.myapplication.moduleType.listener.OnItemClickListener;
 import com.example.xu.myapplication.util.Logger;
 

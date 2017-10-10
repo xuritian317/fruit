@@ -20,7 +20,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.xu.myapplication.R;
 import com.example.xu.myapplication.moduleHome.bean.RecommendsBean_1;
-import com.example.xu.myapplication.moduleType.entity.Fruit;
+import com.example.xu.myapplication.model.Fruit;
 
 public class RecommendsAdapter_1 extends BaseAdapter {
 

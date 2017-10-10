@@ -1,4 +1,4 @@
-package com.example.xu.myapplication.moduleType.entity;
+package com.example.xu.myapplication.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -8,6 +8,7 @@ import com.example.xu.myapplication.moduleHome.bean.BargainBean;
 import com.example.xu.myapplication.moduleHome.bean.RecommendsBean_0;
 import com.example.xu.myapplication.moduleHome.bean.RecommendsBean_1;
 import com.example.xu.myapplication.moduleShopping.bean.FruitBean;
+import com.example.xu.myapplication.moduleType.entity.Bargain;
 
 import java.util.ArrayList;
 
@@ -26,10 +27,11 @@ public class Fruit implements Parcelable {
      * updateTime : 2017-09-29T08:13:08.845Z
      */
 
+
+    private int id;
     private String classifyName;
     private int classifyType;
     private String createTime;
-    private int id;
     private String updateTime;
     private ArrayList<FruitDetail> goods;
 
@@ -190,7 +192,8 @@ public class Fruit implements Parcelable {
             this.createTime = fruitDetail.getCreateTime();
             this.updateTime = fruitDetail.getUpdateTime();
         }
-        public FruitDetail(BargainBean.GoodsBean goodsBean){
+
+        public FruitDetail(BargainBean.GoodsBean goodsBean) {
             this.id = goodsBean.getId();
             this.goodsName = goodsBean.getGoodsName();
             this.goodsPrice = goodsBean.getGoodsPrice();
@@ -204,7 +207,8 @@ public class Fruit implements Parcelable {
             this.createTime = goodsBean.getCreateTime();
             this.updateTime = goodsBean.getUpdateTime();
         }
-        public FruitDetail(RecommendsBean_0.GoodsBean goodsBean){
+
+        public FruitDetail(RecommendsBean_0.GoodsBean goodsBean) {
             this.id = goodsBean.getId();
             this.goodsName = goodsBean.getGoodsName();
             this.goodsPrice = goodsBean.getGoodsPrice();
@@ -218,7 +222,8 @@ public class Fruit implements Parcelable {
             this.createTime = goodsBean.getCreateTime();
             this.updateTime = goodsBean.getUpdateTime();
         }
-        public FruitDetail(RecommendsBean_1.GoodsBean goodsBean){
+
+        public FruitDetail(RecommendsBean_1.GoodsBean goodsBean) {
             this.id = goodsBean.getId();
             this.goodsName = goodsBean.getGoodsName();
             this.goodsPrice = goodsBean.getGoodsPrice();
@@ -232,7 +237,8 @@ public class Fruit implements Parcelable {
             this.createTime = goodsBean.getCreateTime();
             this.updateTime = goodsBean.getUpdateTime();
         }
-        public FruitDetail(RecommendBean.GoodsBean goodsBean){
+
+        public FruitDetail(RecommendBean.GoodsBean goodsBean) {
             this.id = goodsBean.getId();
             this.goodsName = goodsBean.getGoodsName();
             this.goodsPrice = goodsBean.getGoodsPrice();
@@ -246,7 +252,8 @@ public class Fruit implements Parcelable {
             this.createTime = goodsBean.getCreateTime();
             this.updateTime = goodsBean.getUpdateTime();
         }
-        public FruitDetail(FruitBean.GoodsBean goodsBean){
+
+        public FruitDetail(FruitBean.GoodsBean goodsBean) {
             this.id = goodsBean.getId();
             this.goodsName = goodsBean.getGoodsName();
             this.goodsPrice = goodsBean.getGoodsPrice();
@@ -260,6 +267,7 @@ public class Fruit implements Parcelable {
             this.createTime = goodsBean.getCreateTime();
             this.updateTime = goodsBean.getUpdateTime();
         }
+
         public static final Creator<FruitDetail> CREATOR = new Creator<FruitDetail>() {
             @Override
             public FruitDetail createFromParcel(Parcel in) {

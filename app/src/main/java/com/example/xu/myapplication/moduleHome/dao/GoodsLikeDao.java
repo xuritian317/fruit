@@ -3,7 +3,7 @@ package com.example.xu.myapplication.moduleHome.dao;
 import com.example.xu.myapplication.Common;
 import com.example.xu.myapplication.httpRequest.MyOkHttp;
 import com.example.xu.myapplication.httpRequest.response.GsonResponseHandler;
-import com.example.xu.myapplication.moduleType.entity.Fruit;
+import com.example.xu.myapplication.model.Fruit;
 
 import org.json.JSONException;
 import org.json.JSONObject;

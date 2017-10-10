@@ -1,16 +1,13 @@
 package com.example.xu.myapplication.modelGoodsInfo.presenter;
 
 import android.content.Context;
-import android.support.v4.app.FragmentActivity;
-import android.support.v7.widget.GridLayoutManager;
 
 import com.example.xu.myapplication.base.BasePresenter;
 import com.example.xu.myapplication.modelGoodsInfo.dao.CollectionDao;
 import com.example.xu.myapplication.modelGoodsInfo.dao.RecommendDao;
 import com.example.xu.myapplication.modelGoodsInfo.dao.ShoppingCarDao;
 import com.example.xu.myapplication.modelGoodsInfo.viewInterface.IGoodsInfo;
-import com.example.xu.myapplication.moduleType.adapter.ContentAdapter;
-import com.example.xu.myapplication.moduleType.entity.Fruit;
+import com.example.xu.myapplication.model.Fruit;
 import com.example.xu.myapplication.util.Logger;
 import com.example.xu.myapplication.util.SPUtil;
 

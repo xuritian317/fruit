@@ -2,7 +2,7 @@ package com.example.xu.myapplication.moduleType.presenter;
 
 import com.example.xu.myapplication.R;
 import com.example.xu.myapplication.base.BasePresenter;
-import com.example.xu.myapplication.moduleType.entity.Fruit;
+import com.example.xu.myapplication.model.Fruit;
 import com.example.xu.myapplication.moduleType.fragment.MenuContentFragment;
 import com.example.xu.myapplication.moduleType.fragment.MenuListFragment;
 import com.example.xu.myapplication.moduleType.viewInterface.ITypeContent;

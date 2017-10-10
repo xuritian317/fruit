@@ -104,6 +104,7 @@ public class ShoppingPresenter extends BasePresenter {
                     if (array.length() == 0) {
                         view.setCbSelect(false);
                         view.setTvShoppingMoneyText("￥0.00");
+                        view.setTvShoppingCartText("购物车(0)");
                         view.setRefresh(false);
                         return;
                     }

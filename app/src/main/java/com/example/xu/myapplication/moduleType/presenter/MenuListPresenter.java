@@ -11,7 +11,7 @@ import com.example.xu.myapplication.moduleType.dao.FruitTypeDao;
 import com.example.xu.myapplication.moduleType.dao.PackSizeDao;
 import com.example.xu.myapplication.moduleType.dao.PackTypeDao;
 import com.example.xu.myapplication.moduleType.entity.Bargain;
-import com.example.xu.myapplication.moduleType.entity.Fruit;
+import com.example.xu.myapplication.model.Fruit;
 import com.example.xu.myapplication.moduleType.fragment.MenuContentFragment;
 import com.example.xu.myapplication.moduleType.viewInterface.IMenuList;
 import com.example.xu.myapplication.util.Logger;

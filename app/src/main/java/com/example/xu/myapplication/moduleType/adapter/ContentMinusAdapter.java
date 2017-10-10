@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.xu.myapplication.GlideApp;
 import com.example.xu.myapplication.R;
-import com.example.xu.myapplication.moduleType.entity.Fruit;
+import com.example.xu.myapplication.model.Fruit;
 import com.example.xu.myapplication.moduleType.listener.OnItemClickListener;
 
 import java.util.ArrayList;

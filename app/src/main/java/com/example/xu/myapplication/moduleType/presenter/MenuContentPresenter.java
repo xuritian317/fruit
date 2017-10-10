@@ -22,7 +22,7 @@ import com.example.xu.myapplication.modelGoodsInfo.entity.RecommendBean;
 import com.example.xu.myapplication.moduleType.adapter.ContentAdapter;
 import com.example.xu.myapplication.moduleType.adapter.ContentMinusAdapter;
 import com.example.xu.myapplication.moduleType.dao.GoodsPutDao;
-import com.example.xu.myapplication.moduleType.entity.Fruit;
+import com.example.xu.myapplication.model.Fruit;
 import com.example.xu.myapplication.moduleType.listener.OnItemClickListener;
 import com.example.xu.myapplication.moduleType.viewInterface.IMenuContent;
 import com.example.xu.myapplication.util.Logger;

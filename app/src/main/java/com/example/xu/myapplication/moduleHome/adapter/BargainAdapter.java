@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide;
 import com.example.xu.myapplication.R;
 import com.example.xu.myapplication.moduleHome.bean.BargainBean;
 import com.example.xu.myapplication.moduleHome.listener.OnItemClickListener;
-import com.example.xu.myapplication.moduleType.entity.Fruit;
+import com.example.xu.myapplication.model.Fruit;
 
 import java.util.ArrayList;
 

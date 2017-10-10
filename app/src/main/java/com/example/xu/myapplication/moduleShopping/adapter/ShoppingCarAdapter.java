@@ -11,16 +11,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.example.xu.myapplication.Common;
 import com.example.xu.myapplication.GlideApp;
 import com.example.xu.myapplication.R;
-import com.example.xu.myapplication.httpRequest.MyOkHttp;
-import com.example.xu.myapplication.httpRequest.response.JsonResponseHandler;
 import com.example.xu.myapplication.modelGoodsInfo.fragment.GoodsInfoFragment;
 import com.example.xu.myapplication.moduleShopping.ShoppingContentFragment;
 import com.example.xu.myapplication.moduleShopping.bean.FruitBean;
-import com.example.xu.myapplication.moduleType.entity.Fruit;
-import com.example.xu.myapplication.util.Logger;
+import com.example.xu.myapplication.model.Fruit;
 import com.jmf.addsubutils.AddSubUtils;
 
 import org.json.JSONException;
