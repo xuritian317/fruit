@@ -1,5 +1,6 @@
 package com.example.xu.myapplication.moduleActivity.main.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -19,6 +20,8 @@ import com.example.xu.myapplication.moduleShopping.ShoppingContentFragment;
 import com.example.xu.myapplication.moduleShopping.ShoppingFragment;
 import com.example.xu.myapplication.moduleType.fragment.TypeContentFragment;
 import com.example.xu.myapplication.moduleType.fragment.TypeFragment;
+import com.example.xu.myapplication.service.MessageService;
+import com.example.xu.myapplication.service.MyService;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -30,7 +33,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMain, 
     private SupportFragment[] mFragments;
 
     @BindView(R.id.bottomBar)
-     BottomBar mBottomBar;
+    BottomBar mBottomBar;
     // 再点一次退出程序时间设置
     private static final long WAIT_TIME = 2000L;
     private long TOUCH_TIME = 0;
@@ -48,6 +51,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMain, 
 
     @Override
     public void initData() {
+        startService(new Intent(this, MyService.class));
         mFragments = new SupportFragment[4];
     }
 
@@ -65,7 +69,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMain, 
         mBottomBar.setOnTabSelectedListener(new BottomBar.OnTabSelectedListener() {
             @Override
             public void onTabSelected(int position, int prePosition) {
-                presenter.showHideFrag(position,prePosition);
+                presenter.showHideFrag(position, prePosition);
             }
 
             @Override
@@ -143,7 +147,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMain, 
 
     @Override
     public void loadRootFragment(int containerId, int showPosition, SupportFragment... toFragments) {
-        loadMultipleRootFragment(containerId,showPosition,toFragments);
+        loadMultipleRootFragment(containerId, showPosition, toFragments);
     }
 
     @Override

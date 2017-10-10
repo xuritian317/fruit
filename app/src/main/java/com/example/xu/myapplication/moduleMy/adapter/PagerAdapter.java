@@ -317,10 +317,10 @@ public class PagerAdapter extends BaseAdapter {
                             jo.put("orderNumber", orderNumber);
                             jo.put("orderPay", orderPay);
                             jo.put("goodsCount", goodsCount);
-                            jo.put("orderState", orderState);
-                            jo.put("reviewState", reviewState);
-                            jo.put("receiveTime", receiveTime);
-                            jo.put("receiveAddressId", receiveAddressId);
+                            jo.put("orderState", orderState);//3
+                            jo.put("reviewState", reviewState);//0
+                            jo.put("receiveTime", receiveTime);//
+                            jo.put("receiveAddressId", receiveAddressId);//
                             jo.put("userId", userId);
                             jo.put("goodsId", goodsId);
                         } catch (JSONException e) {

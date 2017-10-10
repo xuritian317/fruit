@@ -2,6 +2,7 @@ package com.example.xu.myapplication.moduleMy.activity.orders;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -62,6 +63,7 @@ public class MyOrdersActivity extends BaseActivity<OrdersPresenter> implements I
 
     @Override
     public void initView(Bundle savedInstanceState) {
+
         index = this.getIntent().getIntExtra("order", 0);
         //设置第几个tab被选中
         tabOrders.getTabAt(index).select();
@@ -80,5 +82,10 @@ public class MyOrdersActivity extends BaseActivity<OrdersPresenter> implements I
     @Override
     public Activity getAct() {
         return MyOrdersActivity.this;
+    }
+
+    public static MyOrdersActivity newInstance(int position) {
+        MyOrdersActivity instance = new MyOrdersActivity();
+        return instance;
     }
 }
