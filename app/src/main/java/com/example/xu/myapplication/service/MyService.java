@@ -76,6 +76,7 @@ public class MyService extends Service {
                                     Logger.e("get UserOrder", userOrder.toString() + "");
                                     if (userOrder.getId() == orderId) {
                                         order = userOrder;
+                                        Logger.e("get order", order.toString() + "");
                                     }
                                 }
                                 if (order == null)
