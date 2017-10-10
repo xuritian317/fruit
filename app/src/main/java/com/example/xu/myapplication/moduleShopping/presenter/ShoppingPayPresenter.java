@@ -233,6 +233,7 @@ public class ShoppingPayPresenter extends BasePresenter {
                 RawResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, String response) {
+                        Logger.e("onSuccess","删除成功");
                     }
 
                     @Override

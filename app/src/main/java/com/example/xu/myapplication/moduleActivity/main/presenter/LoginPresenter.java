@@ -10,6 +10,7 @@ import com.example.xu.myapplication.base.BasePresenter;
 import com.example.xu.myapplication.httpRequest.MyOkHttp;
 import com.example.xu.myapplication.httpRequest.response.JsonResponseHandler;
 import com.example.xu.myapplication.moduleActivity.main.viewInterface.ILogin;
+import com.example.xu.myapplication.util.Logger;
 import com.example.xu.myapplication.util.SPUtil;
 import com.example.xu.myapplication.util.ToastUtils;
 
@@ -69,6 +70,7 @@ public class LoginPresenter extends BasePresenter {
                         util.putString(SPUtil.IS_USER,phone);
                         util.putString(SPUtil.USER_ID,response.getString("id"));
                         view.getAct().finish();
+                        Logger.e("idididididididididiididididid",response.getString("id"));
                     } else {
                         ToastUtils.showToast(view.getCon(),"密码输入错误，请重试");
                     }

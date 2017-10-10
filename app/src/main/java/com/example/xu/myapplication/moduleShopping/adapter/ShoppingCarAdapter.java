@@ -39,9 +39,9 @@ public class ShoppingCarAdapter extends BaseAdapter {
     private Context context;
     private LayoutInflater layoutInflater;
     private ShoppingContentFragment fragment;
-    private String userId;
+    private int userId;
 
-    public ShoppingCarAdapter(ShoppingContentFragment fragment, Context context, String userId) {
+    public ShoppingCarAdapter(ShoppingContentFragment fragment, Context context, int userId) {
         this.fragment = fragment;
         this.context = context;
         this.userId = userId;
@@ -127,20 +127,20 @@ public class ShoppingCarAdapter extends BaseAdapter {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        MyOkHttp.newInstance().postJson(context, Common.URL_SHOPPING_CAR_UPDATE, jo,
-                                new JsonResponseHandler() {
-                                    @Override
-                                    public void onSuccess(int statusCode, JSONObject response) {
-                                        if (statusCode == 200) {
-
-                                        }
-                                    }
-
-                                    @Override
-                                    public void onFailure(int statusCode, String error_msg) {
-                                        Logger.e("update_fail", statusCode + "");
-                                    }
-                                });
+//                        MyOkHttp.newInstance().postJson(context, Common.URL_SHOPPING_CAR_UPDATE, jo,
+//                                new JsonResponseHandler() {
+//                                    @Override
+//                                    public void onSuccess(int statusCode, JSONObject response) {
+//                                        if (statusCode == 200) {
+//
+//                                        }
+//                                    }
+//
+//                                    @Override
+//                                    public void onFailure(int statusCode, String error_msg) {
+//                                        Logger.e("update_fail", statusCode + "");
+//                                    }
+//                                });
                         fragment.UpView();
                     }
                 });

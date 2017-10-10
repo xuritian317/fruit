@@ -39,5 +39,19 @@ public interface IShopping extends BaseViewInterface {
 
     void setTvShoppingMoneyText(String text);
 
+    List<FruitBean> getList();
 
+    int getListSize();
+
+    void clearList();
+
+    void listAddItem(FruitBean Bean);
+
+    FruitBean getListItem(int position);
+
+    int getA();
+
+    void setA(int value);
+
+    boolean isEmptyList();
 }

@@ -38,12 +38,8 @@ import java.util.List;
 
 public class ShoppingPresenter extends BasePresenter {
     private IShopping view;
-    private List<FruitBean> lists = new ArrayList<FruitBean>();
-    ;
-    private int a = 0;
 
     private SPUtil util;
-
 
     public ShoppingPresenter(IShopping view) {
         this.view = view;
@@ -56,9 +52,9 @@ public class ShoppingPresenter extends BasePresenter {
     public void toActivity(Class<?> cls, TextView tv) {
         List<FruitBean> list = new ArrayList<FruitBean>();
         int size = 0;
-        for (int i = 0; i < lists.size(); i++) {
-            if (lists.get(i).isChecked()) {
-                list.add(lists.get(i));
+        for (int i = 0; i < view.getListSize(); i++) {
+            if (view.getListItem(i).isChecked()) {
+                list.add(view.getListItem(i));
                 size++;
             }
         }
@@ -84,9 +80,9 @@ public class ShoppingPresenter extends BasePresenter {
 
         String phone = util.getString(SPUtil.IS_USER, "");
         if (TextUtils.equals(util.getString(SPUtil.IS_USER, ""), "")) {
-            lists.clear();
+            view.clearList();
             if (view.isRefresh()) {
-                view.setAdapterData(lists);
+                view.setAdapterData(view.getList());
                 view.setTvShoppingCartText("购物车(0)");
                 view.setRefresh(false);
             }
@@ -102,7 +98,7 @@ public class ShoppingPresenter extends BasePresenter {
         MyOkHttp.newInstance().postJson(Common.URL_GET_USER, jo, new JsonResponseHandler() {
             @Override
             public void onSuccess(int statusCode, JSONObject response) {
-                lists.clear();
+                view.clearList();
                 try {
                     JSONArray array = new JSONArray(response.getString("shoppingCars"));
                     if (array.length() == 0) {
@@ -128,10 +124,10 @@ public class ShoppingPresenter extends BasePresenter {
 
                         bean = new FruitBean(id, goodsName, goodsId, goodsPrice, count,
                                 goodsImage, false, goodsBean);
-                        lists.add(bean);
+                        view.listAddItem(bean);
                     }
-                    view.setAdapterData(lists);
-                    Logger.e("购物车", lists.size() + "");
+                    view.setAdapterData(view.getList());
+                    Logger.e("购物车", view.getListSize() + "");
                     view.setTvShoppingCartText("购物车(" + array.length() + ")");
                     if (view.isRefresh()) {
                         view.setRefresh(false);
@@ -183,13 +179,13 @@ public class ShoppingPresenter extends BasePresenter {
      */
     public void cbSelectAllChanged(boolean isChecked) {
         if (isChecked) {
-            for (int i = 0; i < lists.size(); i++) {
-                lists.get(i).setChecked(true);
+            for (int i = 0; i < view.getListSize(); i++) {
+                view.getListItem(i).setChecked(true);
             }
         } else {
-            if (a == 1) {
-                for (int i = 0; i < lists.size(); i++) {
-                    lists.get(i).setChecked(false);
+            if (view.getA() == 1) {
+                for (int i = 0; i < view.getListSize(); i++) {
+                    view.getListItem(i).setChecked(false);
                 }
             }
         }
@@ -205,24 +201,24 @@ public class ShoppingPresenter extends BasePresenter {
         double sum = 0;
         int size = 0;
         BigDecimal bd;
-        for (int i = 0; i < lists.size(); i++) {
-            if (lists.get(i).isChecked()) {
+        for (int i = 0; i < view.getListSize(); i++) {
+            if (view.getListItem(i).isChecked()) {
                 size++;
                 /**
                  * 解决 double 进行运算时，经常出现精度丢失的问题
                  */
                 bd = new BigDecimal(Double.toString(sum));
-                sum = bd.add(new BigDecimal(Double.toString(lists.get(i).getPrice()))
-                        .multiply(new BigDecimal(Double.toString(lists.get(i).getNumber()))))
+                sum = bd.add(new BigDecimal(Double.toString(view.getListItem(i).getPrice()))
+                        .multiply(new BigDecimal(Double.toString(view.getListItem(i).getNumber()))))
                         .doubleValue();
             }
         }
         tvShopingMoney.setText("￥" + sum);
-        if (size == lists.size()) {
+        if (size == view.getListSize()) {
             cbSelectAll.setChecked(true);
-            a = 1;
+            view.setA(1);
         } else {
-            a = 0;
+            view.setA(0);
             cbSelectAll.setChecked(false);
         }
     }
@@ -234,8 +230,8 @@ public class ShoppingPresenter extends BasePresenter {
      */
     public int getGoodsNum() {
         int size = 0;
-        for (int i = 0; i < lists.size(); i++) {
-            if (lists.get(i).isChecked()) {
+        for (int i = 0; i < view.getListSize(); i++) {
+            if (view.getListItem(i).isChecked()) {
                 size++;
             }
         }
@@ -245,14 +241,12 @@ public class ShoppingPresenter extends BasePresenter {
     /**
      * 删除商品操作
      */
-    public void deleteGoods(final ShoppingCarAdapter adapter, final SwipeRefreshLayout
-            refreshShoppingCar, final TextView tvShoppingCart, final CheckBox cbSelectAll,
-                            final TextView tvShopingMoney) {
+    public void deleteGoods() {
         JSONObject jo = new JSONObject();
         JSONArray array = new JSONArray();
-        for (int i = 0; i < lists.size(); i++) {
-            if (lists.get(i).isChecked()) {
-                array.put(lists.get(i).getId());
+        for (int i = 0; i < view.getListSize(); i++) {
+            if (view.getListItem(i).isChecked()) {
+                array.put(view.getListItem(i).getId());
             }
         }
         try {

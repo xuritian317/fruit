@@ -86,6 +86,9 @@ public class ShoppingContentFragment extends BaseFragment<ShoppingPresenter> imp
     @BindView(R.id.linear_shopping2)
     LinearLayout linearShopping2;
 
+    private List<FruitBean> lists = new ArrayList<FruitBean>();
+    private int a = 0;
+
     @Override
     public int getLayout() {
         return R.layout.fragment_shopping_main;
@@ -98,8 +101,12 @@ public class ShoppingContentFragment extends BaseFragment<ShoppingPresenter> imp
 
     @Override
     public void initData() {
-        adapter = new ShoppingCarAdapter(ShoppingContentFragment.this, getActivity(), new SPUtil(getActivity()).getString
-                (SPUtil.USER_ID, ""));
+        int userId = Integer.parseInt(new SPUtil(getActivity()).getString
+                (SPUtil.USER_ID, "-1"));
+        if (userId == -1) {
+            return;
+        }
+        adapter = new ShoppingCarAdapter(ShoppingContentFragment.this, getActivity(), userId);
         lvShopping.setAdapter(adapter);
 
         EventBus.getDefault().register(this);
@@ -175,8 +182,7 @@ public class ShoppingContentFragment extends BaseFragment<ShoppingPresenter> imp
                     public void onClick(LemonHelloView helloView, LemonHelloInfo
                             helloInfo, LemonHelloAction helloAction) {
                         //删除并更新列表
-                        presenter.deleteGoods(adapter, refreshShoppingCar, tvShoppingCart,
-                                cbSelectAll, tvShopingMoney);
+                        presenter.deleteGoods();
                         //dialog隐藏
 
                         helloView.hide();
@@ -229,6 +235,46 @@ public class ShoppingContentFragment extends BaseFragment<ShoppingPresenter> imp
     @Override
     public void setTvShoppingMoneyText(String text) {
         tvShopingMoney.setText(text);
+    }
+
+    @Override
+    public List<FruitBean> getList() {
+        return lists;
+    }
+
+    @Override
+    public int getListSize() {
+        return lists.size();
+    }
+
+    @Override
+    public void clearList() {
+        lists.clear();
+    }
+
+    @Override
+    public void listAddItem(FruitBean goodsBean) {
+        lists.add(goodsBean);
+    }
+
+    @Override
+    public FruitBean getListItem(int position) {
+        return lists.get(position);
+    }
+
+    @Override
+    public int getA() {
+        return a;
+    }
+
+    @Override
+    public void setA(int value) {
+        a = value;
+    }
+
+    @Override
+    public boolean isEmptyList() {
+        return lists.isEmpty();
     }
 
     @Override
