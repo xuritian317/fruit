@@ -202,19 +202,43 @@ public class PagerAdapter extends BaseAdapter {
                 holder.btnOrders1.setVisibility(View.VISIBLE);
                 holder.btnOrders0.setText("继续收货");
                 holder.btnOrders1.setText("放弃收货");
+
+                holder.btnOrders1.setBackground(context.getDrawable(R.drawable
+                        .btn_style_red));
+                holder.btnOrders1.setTextColor(context.getResources().getColor(R.color
+                        .color_Red));
+
                 holder.btnOrders0.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        updateOrders(object.getId(),object.getOrderNumber(),object.getOrderPay(),
-                                object.getGoodsCount(),1,0,object.getReceiveTime(),
-                                object.getReceiveAddress().getId(),object.getUser().getId(),
-                                object.getGoods().getId(),"确定要继续收货吗？");
+//                        updateOrders(object.getId(),object.getOrderNumber(),object.getOrderPay(),
+//                                object.getGoodsCount(),1,0,object.getReceiveTime(),
+//                                object.getReceiveAddress().getId(),object.getUser().getId(),
+//                                object.getGoods().getId(),"确定要继续收货吗？");
+                        LemonHello.getInformationHello("确定要继续收货吗", "请在两小时内取货，否则商品自动特价处理")
+                                .setContentFontSize(13)
+                                .setWidth(300)
+                                .addAction(new LemonHelloAction("取消", new LemonHelloActionDelegate() {
+                                    @Override
+                                    public void onClick(LemonHelloView lemonHelloView, LemonHelloInfo
+                                            lemonHelloInfo, LemonHelloAction lemonHelloAction) {
+                                        lemonHelloView.hide();
+                                    }
+                                }))
+                                .addAction(new LemonHelloAction("确定", new LemonHelloActionDelegate() {
+                                    @Override
+                                    public void onClick(final LemonHelloView lemonHelloView, LemonHelloInfo
+                                            lemonHelloInfo, LemonHelloAction lemonHelloAction) {
+                                        lemonHelloView.hide();
+                                    }
+                                })).show(context);
                     }
                 });
                 holder.btnOrders1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        deleteOrder(object.getId(),"确定要特价出售吗？");
+
+                        fangqiOrder(object.getId());
                     }
                 });
                 break;
@@ -354,6 +378,60 @@ public class PagerAdapter extends BaseAdapter {
     private void deleteOrder(final int id,String str) {
         LemonHello.getErrorHello(null, str)
                 .setContentFontSize(18)
+                .setWidth(300)
+                .addAction(new LemonHelloAction("取消", new LemonHelloActionDelegate() {
+                    @Override
+                    public void onClick(LemonHelloView helloView, LemonHelloInfo
+                            helloInfo, LemonHelloAction helloAction) {
+                        //dialog隐藏
+                        helloView.hide();
+                    }
+                }))
+                .addAction(new LemonHelloAction("确定", new LemonHelloActionDelegate() {
+                    @Override
+                    public void onClick(final LemonHelloView helloView, LemonHelloInfo
+                            helloInfo, LemonHelloAction helloAction) {
+                        //删除并更新列表
+                        JSONObject jo = new JSONObject();
+                        try {
+                            jo.put("id", id);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        MyOkHttp.newInstance().postJson(context, Common.URL_DELETE_ORDERS +
+                                        String.valueOf(id),
+                                jo, new RawResponseHandler() {
+                                    @Override
+                                    public void onSuccess(int statusCode, String response) {
+                                        if (statusCode == 200) {
+                                            fragment.getOrders();
+                                            //dialog隐藏
+                                            helloView.hide();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(int statusCode, String error_msg) {
+                                        if (statusCode != 200) {
+                                            ToastUtils.showToast(context, "删除失败");
+                                            //dialog隐藏
+                                            helloView.hide();
+                                        }
+                                    }
+                                });
+
+                    }
+                }))
+                .show(context);
+
+    }
+
+    /*
+    放弃订单
+     */
+    private void fangqiOrder(final int id) {
+        LemonHello.getErrorHello("确定要放弃收货吗？", "放弃收货后，该商品会自动特价处理，余额会自动转入您的账户")
+                .setContentFontSize(13)
                 .setWidth(300)
                 .addAction(new LemonHelloAction("取消", new LemonHelloActionDelegate() {
                     @Override

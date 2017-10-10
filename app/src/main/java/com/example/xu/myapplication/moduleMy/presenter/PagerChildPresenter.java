@@ -106,26 +106,15 @@ public class PagerChildPresenter extends BasePresenter {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
                 switch (mFrom) {
                     case 0:
                         lists.addAll(objects);
-                        if (lists.size() != 0) {
-                            lvItemOrders.setVisibility(View.VISIBLE);
-                        } else {
-                            tvChildTishi.setVisibility(View.VISIBLE);
-                        }
                         break;
                     case 1:
                         for (int i = 0; i < objects.size(); i++) {
                             if (objects.get(i).getOrderState() == 1) {
                                 lists.add(objects.get(i));
                             }
-                        }
-                        if (lists.size() != 0) {
-                            lvItemOrders.setVisibility(View.VISIBLE);
-                        } else {
-                            tvChildTishi.setVisibility(View.VISIBLE);
                         }
                         break;
                     case 2:
@@ -134,22 +123,12 @@ public class PagerChildPresenter extends BasePresenter {
                                 lists.add(objects.get(i));
                             }
                         }
-                        if (lists.size() != 0) {
-                            lvItemOrders.setVisibility(View.VISIBLE);
-                        } else {
-                            tvChildTishi.setVisibility(View.VISIBLE);
-                        }
                         break;
                     case 3:
                         for (int i = 0; i < objects.size(); i++) {
                             if (objects.get(i).getOrderState() == 0) {
                                 lists.add(objects.get(i));
                             }
-                        }
-                        if (lists.size() != 0) {
-                            lvItemOrders.setVisibility(View.VISIBLE);
-                        } else {
-                            tvChildTishi.setVisibility(View.VISIBLE);
                         }
                         break;
                     case 4:
@@ -159,11 +138,6 @@ public class PagerChildPresenter extends BasePresenter {
                                 lists.add(objects.get(i));
                             }
                         }
-                        if (lists.size() != 0) {
-                            lvItemOrders.setVisibility(View.VISIBLE);
-                        } else {
-                            tvChildTishi.setVisibility(View.VISIBLE);
-                        }
                         break;
                     case 5:
                         for (int i = 0; i < objects.size(); i++) {
@@ -171,12 +145,13 @@ public class PagerChildPresenter extends BasePresenter {
                                 lists.add(objects.get(i));
                             }
                         }
-                        if (lists.size() != 0) {
-                            lvItemOrders.setVisibility(View.VISIBLE);
-                        } else {
-                            tvChildTishi.setVisibility(View.VISIBLE);
-                        }
                         break;
+                }
+
+                if (lists.size() != 0) {
+                    lvItemOrders.setVisibility(View.VISIBLE);
+                } else {
+                    tvChildTishi.setVisibility(View.VISIBLE);
                 }
                 adapter.setDatas(lists);
 

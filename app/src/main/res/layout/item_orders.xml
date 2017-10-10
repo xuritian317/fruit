@@ -66,7 +66,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/color_Black"
                     android:textSize="15sp"
-                    android:text="收获时间"
+                    android:text="收货时间"
                     android:singleLine="true"
                     android:ellipsize="end"/>
 
