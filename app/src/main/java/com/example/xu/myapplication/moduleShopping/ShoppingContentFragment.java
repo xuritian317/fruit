@@ -103,9 +103,6 @@ public class ShoppingContentFragment extends BaseFragment<ShoppingPresenter> imp
     public void initData() {
         int userId = Integer.parseInt(new SPUtil(getActivity()).getString
                 (SPUtil.USER_ID, "-1"));
-        if (userId == -1) {
-            return;
-        }
         adapter = new ShoppingCarAdapter(ShoppingContentFragment.this, getActivity(), userId);
         lvShopping.setAdapter(adapter);
 

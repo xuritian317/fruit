@@ -82,7 +82,7 @@ public class ShoppingPresenter extends BasePresenter {
         if (TextUtils.equals(util.getString(SPUtil.IS_USER, ""), "")) {
             view.clearList();
             if (view.isRefresh()) {
-                view.setAdapterData(view.getList());
+//                view.setAdapterData(view.getList());
                 view.setTvShoppingCartText("购物车(0)");
                 view.setRefresh(false);
             }
@@ -104,6 +104,8 @@ public class ShoppingPresenter extends BasePresenter {
                     if (array.length() == 0) {
                         view.setCbSelect(false);
                         view.setTvShoppingMoneyText("￥0.00");
+                        view.setRefresh(false);
+                        return;
                     }
                     FruitBean bean = null;
                     JSONObject object;
@@ -126,7 +128,8 @@ public class ShoppingPresenter extends BasePresenter {
                                 goodsImage, false, goodsBean);
                         view.listAddItem(bean);
                     }
-                    view.setAdapterData(view.getList());
+                    if (!view.isEmptyList())
+                        view.setAdapterData(view.getList());
                     Logger.e("购物车", view.getListSize() + "");
                     view.setTvShoppingCartText("购物车(" + array.length() + ")");
                     if (view.isRefresh()) {
