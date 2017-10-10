@@ -4,6 +4,8 @@ import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -58,7 +60,6 @@ public class MyService extends Service {
             super.handleMessage(msg);
             switch (msg.what) {
                 case HTAG1:
-                    Logger.e("HTAG1", HTAG1 + "");
                     final int orderId = msg.arg1;
                     Logger.e("get orderId", orderId + "");
                     int userId = msg.arg2;
@@ -97,7 +98,6 @@ public class MyService extends Service {
                     });
                     break;
                 case HTAG2:
-                    Logger.e("HTAG2", HTAG2 + "");
                     Bundle bundle = msg.getData();
                     UserOrder order = bundle.getParcelable(TAG_DETAIL);
 
@@ -132,15 +132,14 @@ public class MyService extends Service {
 
                     break;
                 case HTAG3:
-                    Logger.e("HTAG3", HTAG3 + "");
                     sendNotification();
                     break;
                 case HTAG_BEGAIN:
-                    Logger.e("HTAG_BEGAIN", HTAG_BEGAIN + "");
                     MyOkHttp.newInstance().get(Common.URL_MESSAGE_USER, null, new GsonResponseHandler<ArrayList<MessageDetail>>() {
                         @Override
                         public void onSuccess(int statusCode, ArrayList<MessageDetail> response) {
                             for (MessageDetail messageDetail : response) {
+                                Logger.e("get orderId", messageDetail.getUserId() + "");
                                 if (messageDetail.getUserId() == localId) {
                                     int orderId = Integer.parseInt(messageDetail.getContent());
                                     int userId = messageDetail.getUserId();
@@ -178,7 +177,7 @@ public class MyService extends Service {
                 handler.sendEmptyMessage(HTAG_BEGAIN);
             }
         };
-        timer.schedule(task, 1000, 15 * 1000);
+        timer.schedule(task, 30000, 60 * 1000);
     }
 
     @Override
@@ -194,6 +193,7 @@ public class MyService extends Service {
         Notification notification = new NotificationCompat.Builder(this)
                 .setTicker("过期商品通知")
                 .setSmallIcon(R.mipmap.logo)
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.logo))
                 .setContentText("即将有过期商品")
                 .setContentTitle("您的商品即将过期")
                 .setContentIntent(pendingIntent)
