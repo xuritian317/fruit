@@ -78,7 +78,8 @@ public class MyService extends Service {
                                         order = userOrder;
                                     }
                                 }
-                                Logger.e("get order", order.toString() + "");
+                                if (order == null)
+                                    return;
                                 Message msg = new Message();
                                 Bundle bundle = new Bundle();
                                 bundle.putParcelable(TAG_DETAIL, order);
@@ -139,23 +140,23 @@ public class MyService extends Service {
                         @Override
                         public void onSuccess(int statusCode, ArrayList<MessageDetail> response) {
                             for (MessageDetail messageDetail : response) {
-                                Logger.e("get orderId", messageDetail.getUserId() + "");
                                 if (messageDetail.getUserId() == localId) {
                                     int orderId = Integer.parseInt(messageDetail.getContent());
                                     int userId = messageDetail.getUserId();
-                                    Logger.e("get orderId", orderId + "");
+                                    Logger.e("get orderId success", orderId + "");
                                     Message msg = new Message();
                                     msg.what = HTAG1;
                                     msg.arg1 = orderId;
                                     msg.arg2 = userId;
                                     handler.sendMessage(msg);
+                                    return;
                                 }
                             }
                         }
 
                         @Override
                         public void onFailure(int statusCode, String error_msg) {
-                            Logger.e("get orderId", error_msg);
+                            Logger.e("get orderId onFailure", error_msg);
                         }
                     });
                     break;
@@ -177,7 +178,7 @@ public class MyService extends Service {
                 handler.sendEmptyMessage(HTAG_BEGAIN);
             }
         };
-        timer.schedule(task, 30000, 60 * 1000);
+        timer.schedule(task, 1000, 5 * 1000);
     }
 
     @Override
