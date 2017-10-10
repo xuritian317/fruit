@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.xu.myapplication.moduleMy.fragment.MyFragment">
+    tools:context="com.example.xu.myapplication.moduleMy.MyFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,7 +17,7 @@
             android:layout_height="120dp"
             android:background="@color/colorPrimary">
 
-            <com.example.xu.myapplication.moduleMy.fragment.view.CircleImageView
+            <com.example.xu.myapplication.moduleMy.view.CircleImageView
                 android:id="@+id/iv_MyHead"
                 android:layout_width="60dp"
                 android:layout_height="60dp"

@@ -35,7 +35,7 @@
         app:clipType="circle"         ： 裁剪框类型为圆形
         app:mHorizontalPadding="30dp" ：裁剪框距离左右边距为30dp
      -->
-    <com.example.xu.myapplication.moduleMy.fragment.view.ClipViewLayout
+    <com.example.xu.myapplication.moduleMy.view.ClipViewLayout
         android:id="@+id/clipViewLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"

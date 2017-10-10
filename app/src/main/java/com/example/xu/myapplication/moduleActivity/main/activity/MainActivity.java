@@ -13,10 +13,10 @@ import com.example.xu.myapplication.moduleActivity.main.viewInterface.IMain;
 import com.example.xu.myapplication.moduleActivity.main.presenter.MainPresenter;
 import com.example.xu.myapplication.moduleHome.HomeContentFragment;
 import com.example.xu.myapplication.moduleHome.HomeFragment;
-import com.example.xu.myapplication.moduleMy.fragment.MyFragment;
-import com.example.xu.myapplication.moduleMy.fragment.MyContentFragment;
-import com.example.xu.myapplication.moduleShopping.fragment.ShoppingContentFragment;
-import com.example.xu.myapplication.moduleShopping.fragment.ShoppingFragment;
+import com.example.xu.myapplication.moduleMy.MyFragment;
+import com.example.xu.myapplication.moduleMy.MyContentFragment;
+import com.example.xu.myapplication.moduleShopping.ShoppingContentFragment;
+import com.example.xu.myapplication.moduleShopping.ShoppingFragment;
 import com.example.xu.myapplication.moduleType.fragment.TypeContentFragment;
 import com.example.xu.myapplication.moduleType.fragment.TypeFragment;
 

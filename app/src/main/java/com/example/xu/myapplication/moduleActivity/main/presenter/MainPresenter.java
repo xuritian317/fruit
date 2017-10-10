@@ -4,8 +4,8 @@ import com.example.xu.myapplication.R;
 import com.example.xu.myapplication.base.BasePresenter;
 import com.example.xu.myapplication.moduleActivity.main.viewInterface.IMain;
 import com.example.xu.myapplication.moduleHome.HomeFragment;
-import com.example.xu.myapplication.moduleMy.fragment.MyFragment;
-import com.example.xu.myapplication.moduleShopping.fragment.ShoppingFragment;
+import com.example.xu.myapplication.moduleMy.MyFragment;
+import com.example.xu.myapplication.moduleShopping.ShoppingFragment;
 import com.example.xu.myapplication.moduleType.fragment.TypeFragment;
 
 import me.yokeyword.fragmentation.SupportFragment;

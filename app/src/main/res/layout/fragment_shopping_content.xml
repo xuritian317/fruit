@@ -3,7 +3,7 @@
              android:id="@+id/frame_shopping"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context="com.example.xu.myapplication.moduleShopping.fragment.ShoppingContentFragment">
+             tools:context="com.example.xu.myapplication.moduleShopping.ShoppingContentFragment">
 
 
 </FrameLayout>

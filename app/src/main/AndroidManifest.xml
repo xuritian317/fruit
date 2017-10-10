@@ -21,31 +21,31 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".moduleShopping.fragment.activity.ShoppingPayActivity">
+        <activity android:name=".moduleShopping.activity.ShoppingPayActivity">
         </activity>
-        <activity android:name=".moduleMy.fragment.activity.orders.MyOrdersActivity">
+        <activity android:name=".moduleMy.activity.orders.MyOrdersActivity">
         </activity>
-        <activity android:name=".moduleMy.fragment.activity.setting.MyPersonalActivity">
+        <activity android:name=".moduleMy.activity.setting.MyPersonalActivity">
         </activity>
-        <activity android:name=".moduleMy.fragment.activity.img.ClipImageActivity">
+        <activity android:name=".moduleMy.activity.img.ClipImageActivity">
         </activity>
-        <activity android:name=".moduleMy.fragment.activity.setting.AccountSettingActivity">
+        <activity android:name=".moduleMy.activity.setting.AccountSettingActivity">
         </activity>
-        <activity android:name=".moduleMy.fragment.activity.setting.NickNameActivity">
+        <activity android:name=".moduleMy.activity.setting.NickNameActivity">
         </activity>
-        <activity android:name=".moduleMy.fragment.activity.setting.EmailActivity">
+        <activity android:name=".moduleMy.activity.setting.EmailActivity">
         </activity>
         <activity android:name=".moduleActivity.main.activity.LoginActivity">
         </activity>
         <activity android:name=".moduleActivity.main.activity.RegisterActivity">
         </activity>
-        <activity android:name=".moduleMy.fragment.activity.setting.QueryAddressActivity">
+        <activity android:name=".moduleMy.activity.setting.QueryAddressActivity">
         </activity>
-        <activity android:name=".moduleMy.fragment.activity.setting.AddAddressActivity">
+        <activity android:name=".moduleMy.activity.setting.AddAddressActivity">
         </activity>
-        <activity android:name=".moduleShopping.fragment.activity.ReceiveAddressActivity">
+        <activity android:name=".moduleShopping.activity.ReceiveAddressActivity">
         </activity>
-        <activity android:name=".moduleMy.fragment.activity.collect.CollectActivity">
+        <activity android:name=".moduleMy.activity.collect.CollectActivity">
         </activity>
     </application>
 

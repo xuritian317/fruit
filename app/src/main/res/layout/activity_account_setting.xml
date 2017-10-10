@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/color_gray"
     android:orientation="vertical"
-    tools:context="com.example.xu.myapplication.moduleMy.fragment.activity.setting.AccountSettingActivity">
+    tools:context=".moduleMy.activity.setting.AccountSettingActivity">
 
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
@@ -46,7 +46,7 @@
         android:layout_height="80dp"
         android:background="@color/color_White">
 
-        <com.example.xu.myapplication.moduleMy.fragment.view.CircleImageView
+        <com.example.xu.myapplication.moduleMy.view.CircleImageView
             android:id="@+id/iv_setting_head"
             android:layout_width="60dp"
             android:layout_height="60dp"

@@ -7,7 +7,7 @@ import com.example.xu.myapplication.modelGoodsInfo.entity.RecommendBean;
 import com.example.xu.myapplication.moduleHome.bean.BargainBean;
 import com.example.xu.myapplication.moduleHome.bean.RecommendsBean_0;
 import com.example.xu.myapplication.moduleHome.bean.RecommendsBean_1;
-import com.example.xu.myapplication.moduleShopping.fragment.bean.FruitBean;
+import com.example.xu.myapplication.moduleShopping.bean.FruitBean;
 
 import java.util.ArrayList;
 
