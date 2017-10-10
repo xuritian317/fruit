@@ -6,9 +6,8 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.view.LayoutInflater;
+import android.text.TextUtils;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -22,6 +21,7 @@ import com.example.xu.myapplication.moduleMy.activity.setting.MyPersonalActivity
 import com.example.xu.myapplication.moduleMy.presenter.MyPresenter;
 import com.example.xu.myapplication.moduleMy.view.CircleImageView;
 import com.example.xu.myapplication.moduleMy.viewInterface.IMy;
+import com.example.xu.myapplication.util.SPUtil;
 import com.example.xu.myapplication.util.ToastUtils;
 
 import butterknife.BindView;
@@ -31,7 +31,8 @@ import butterknife.OnClick;
  * A simple {@link Fragment} subclass.
  */
 public class MyContentFragment extends BaseFragment<MyPresenter> implements IMy {
-    public static MyContentFragment newInstance(){
+
+    public static MyContentFragment newInstance() {
         MyContentFragment instance = new MyContentFragment();
         return instance;
     }
@@ -49,24 +50,22 @@ public class MyContentFragment extends BaseFragment<MyPresenter> implements IMy 
     TextView tvDingdan;
     @BindView(R.id.linear_daishou)
     LinearLayout linearDaishou;
-    @BindView(R.id.tv_daishou)
-    TextView tvDaishou;
     @BindView(R.id.tv_wancheng)
     TextView tvWancheng;
-    @BindView(R.id.tv_evaluate)
-    TextView tvEvaluate;
     @BindView(R.id.linear_evaluate)
     LinearLayout linearEvaluate;
     @BindView(R.id.linear_tuikuan)
     LinearLayout linearTuikuan;
-    @BindView(R.id.tv_tuikuan)
-    TextView tvTuikuan;
     @BindView(R.id.linear_xiaoxi)
     LinearLayout linearXiaoxi;
     @BindView(R.id.linear_shoucang)
     LinearLayout linearShoucang;
     @BindView(R.id.linear_jifen)
     LinearLayout linearJifen;
+    @BindView(R.id.tv_daichuli_hint)
+    TextView tvDaichuliHint;
+    @BindView(R.id.linear_daichuli)
+    LinearLayout linearDaichuli;
     @BindView(R.id.tv_daishou_hint)
     TextView tvDaishouHint;
     @BindView(R.id.tv_evaluate_hint)
@@ -74,9 +73,10 @@ public class MyContentFragment extends BaseFragment<MyPresenter> implements IMy 
     @BindView(R.id.tv_tuikuan_hint)
     TextView tvTuikuanHint;
 
+    private SPUtil util;
     @OnClick({R.id.iv_MyHead, R.id.iv_MySetting, R.id.tv_dingdan, R.id.linear_daishou,
-            R.id.tv_wancheng, R.id.linear_evaluate, R.id.linear_tuikuan, R.id.linear_xiaoxi,
-            R.id.linear_shoucang, R.id.linear_jifen})
+            R.id.linear_daichuli, R.id.tv_wancheng, R.id.linear_evaluate, R.id.linear_tuikuan,
+            R.id.linear_xiaoxi, R.id.linear_shoucang, R.id.linear_jifen})
     public void onViewOnClick(View view) {
         switch (view.getId()) {
             case R.id.iv_MyHead:
@@ -86,19 +86,22 @@ public class MyContentFragment extends BaseFragment<MyPresenter> implements IMy 
                 presenter.toActivity(AccountSettingActivity.class, null);
                 break;
             case R.id.tv_dingdan:
-                presenter.toMyOrdersActivity(0);
+                toOrdersActivity(0);
                 break;
             case R.id.linear_daishou:
-                presenter.toMyOrdersActivity(1);
+                toOrdersActivity(1);
+                break;
+            case R.id.linear_daichuli:
+                toOrdersActivity(2);
                 break;
             case R.id.tv_wancheng:
-                presenter.toMyOrdersActivity(2);
+                toOrdersActivity(3);
                 break;
             case R.id.linear_evaluate:
-                presenter.toMyOrdersActivity(3);
+                toOrdersActivity(4);
                 break;
             case R.id.linear_tuikuan:
-                presenter.toMyOrdersActivity(4);
+                toOrdersActivity(5);
                 break;
             case R.id.linear_xiaoxi:
                 ToastUtils.showToast(getActivity(), "功能暂未开启");
@@ -124,7 +127,7 @@ public class MyContentFragment extends BaseFragment<MyPresenter> implements IMy 
 
     @Override
     public void initData() {
-
+        util=new SPUtil(getActivity());
     }
 
     @Override
@@ -132,8 +135,8 @@ public class MyContentFragment extends BaseFragment<MyPresenter> implements IMy 
         refreshMy.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                presenter.getUser(refreshMy, ivMyHead, tvMyUserName, tvDaishou, tvEvaluate,
-                        tvTuikuan,tvDaishouHint,tvEvaluateHint,tvTuikuanHint);
+                presenter.getUser(refreshMy, ivMyHead, tvMyUserName, tvDaishouHint, tvDaichuliHint,
+                        tvEvaluateHint, tvTuikuanHint);
             }
         });
     }
@@ -146,10 +149,17 @@ public class MyContentFragment extends BaseFragment<MyPresenter> implements IMy 
     @Override
     public void onSupportVisible() {
         super.onSupportVisible();
-        presenter.getUser(refreshMy, ivMyHead, tvMyUserName, tvDaishou, tvEvaluate,
-                tvTuikuan,tvDaishouHint,tvEvaluateHint,tvTuikuanHint);
+        presenter.getUser(refreshMy, ivMyHead, tvMyUserName, tvDaishouHint, tvDaichuliHint,
+                tvEvaluateHint, tvTuikuanHint);
     }
 
+    private void toOrdersActivity(int index){
+        if (TextUtils.equals(util.getString(SPUtil.IS_USER, ""), "")) {
+            ToastUtils.showToast(getActivity(),"请先登录哦");
+            return;
+        }
+        presenter.toMyOrdersActivity(index);
+    }
     @Override
     public Context getCon() {
         return getActivity();
@@ -159,5 +169,4 @@ public class MyContentFragment extends BaseFragment<MyPresenter> implements IMy 
     public Activity getAct() {
         return getActivity();
     }
-
 }

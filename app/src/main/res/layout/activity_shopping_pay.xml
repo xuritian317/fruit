@@ -165,6 +165,32 @@
                 android:layout_height="2dp"
                 android:layout_marginTop="10dp"
                 android:background="@color/tab_unSelect"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="17:00点送达，当天的可能会延后哦"
+                    android:layout_marginRight="15dp"
+                    android:textSize="16sp"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/tab_unSelect"/>
         </LinearLayout>
     </ScrollView>
 

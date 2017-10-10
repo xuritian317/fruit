@@ -16,6 +16,7 @@ import com.example.xu.myapplication.base.BaseActivity;
 import com.example.xu.myapplication.moduleActivity.main.presenter.LoginPresenter;
 import com.example.xu.myapplication.moduleActivity.main.viewInterface.ILogin;
 import com.example.xu.myapplication.util.ToastUtils;
+import com.vondear.rxtools.view.dialog.RxDialogSure;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -57,9 +58,24 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements ILogi
                 ToastUtils.showToast(LoginActivity.this,"该功能暂未开启");
                 break;
             case R.id.tv_about_us:
-                ToastUtils.showToast(LoginActivity.this,"该功能暂未开启");
+                showAboutUs();
                 break;
         }
+    }
+
+    private void showAboutUs() {
+        final RxDialogSure dialog=new RxDialogSure(this);
+        dialog.getContentView().setText(this.getResources().getString(R.string.about_us));
+        dialog.getLogoView().setImageResource(R.mipmap.logo);
+        dialog.getTitleView().setText("蔬果配送");
+        dialog.getTitleView().setTextColor(getResources().getColor(R.color.colorPrimary));
+        dialog.getSureView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
+            }
+        });
+        dialog.show();
     }
 
     @Override

@@ -49,7 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:orientation="horizontal"
-            android:weightSum="5">
+            android:weightSum="6">
 
             <TextView
                 android:id="@+id/tv_dingdan"
@@ -78,7 +78,6 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:id="@+id/tv_daishou"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawableTop="@mipmap/daishouhuo"
@@ -87,6 +86,36 @@
 
                     <TextView
                         android:id="@+id/tv_daishou_hint"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top|right"
+                        android:background="@drawable/type_zero"
+                        android:gravity="center"
+                        android:textColor="@android:color/white"
+                        android:visibility="gone"/>
+                </FrameLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/linear_daichuli"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableTop="@mipmap/daichuli"
+                        android:gravity="center"
+                        android:text="@string/daichuli"/>
+
+                    <TextView
+                        android:id="@+id/tv_daichuli_hint"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="top|right"
@@ -119,7 +148,6 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:id="@+id/tv_evaluate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawableTop="@mipmap/evaluate"
@@ -151,7 +179,6 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:id="@+id/tv_tuikuan"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawableTop="@mipmap/tuikuan"

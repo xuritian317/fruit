@@ -25,14 +25,17 @@ public class MyOrdersActivity extends BaseActivity<OrdersPresenter> implements I
 
     @BindView(R.id.iv_orders_back)
     ImageView ivOrdersBack;
+
     @OnClick(R.id.iv_orders_back)
-    public void back(){
+    public void back() {
         finish();
     }
+
     private int index;
 
     @Override
     public void setPresenter() {
+        presenter = new OrdersPresenter(this);
     }
 
     @Override
@@ -44,14 +47,15 @@ public class MyOrdersActivity extends BaseActivity<OrdersPresenter> implements I
     public void initData() {
         tabOrders.addTab(tabOrders.newTab().setText(R.string.dingdan));
         tabOrders.addTab(tabOrders.newTab().setText(R.string.daishouhuo));
+        tabOrders.addTab(tabOrders.newTab().setText(R.string.daichuli));
         tabOrders.addTab(tabOrders.newTab().setText(R.string.yiwancheng));
         tabOrders.addTab(tabOrders.newTab().setText(R.string.evaluate));
         tabOrders.addTab(tabOrders.newTab().setText(R.string.tuikuan));
 
         vpOrders.setAdapter(new FragmentAdapter(getSupportFragmentManager(),
                 getString(R.string.dingdan), getString(R.string.daishouhuo),
-                getString(R.string.yiwancheng), getString(R.string.evaluate),
-                getString(R.string.tuikuan)));
+                getString(R.string.daichuli), getString(R.string.yiwancheng),
+                getString(R.string.evaluate), getString(R.string.tuikuan)));
         tabOrders.setupWithViewPager(vpOrders);
 
     }

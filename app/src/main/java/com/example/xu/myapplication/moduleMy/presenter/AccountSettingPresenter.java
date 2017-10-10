@@ -15,6 +15,7 @@ import com.example.xu.myapplication.moduleMy.viewInterface.IAccountSetting;
 import com.example.xu.myapplication.util.BitmapUtil;
 import com.example.xu.myapplication.util.Logger;
 import com.example.xu.myapplication.util.SPUtil;
+import com.example.xu.myapplication.util.ToastUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,14 +35,18 @@ public class AccountSettingPresenter extends BasePresenter {
     }
 
     public void startIntent(Class<?> cls0, Class<?> cls1) {
-        if (cls1 == null) {
-            view.getAct().startActivity(new Intent(view.getCon(), cls0));
-            return;
-        }
 
-        if (TextUtils.equals(util.getString(SPUtil.IS_USER,""),"")) {
+        if (TextUtils.equals(util.getString(SPUtil.IS_USER, ""), "")) {
+            if (cls1 == null) {
+                ToastUtils.showToast(view.getCon(), "请先登录哦");
+                return;
+            }
             view.getAct().startActivity(new Intent(view.getCon(), cls0));
         } else {
+            if (cls1 == null) {
+                view.getAct().startActivity(new Intent(view.getCon(), cls0));
+                return;
+            }
             view.getAct().startActivity(new Intent(view.getCon(), cls1));
         }
     }

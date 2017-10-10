@@ -5,6 +5,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
+
 import com.example.xu.myapplication.Common;
 import com.example.xu.myapplication.R;
 import com.example.xu.myapplication.base.BasePresenter;
@@ -15,6 +16,7 @@ import com.example.xu.myapplication.moduleMy.view.CircleImageView;
 import com.example.xu.myapplication.moduleMy.viewInterface.IMy;
 import com.example.xu.myapplication.util.BitmapUtil;
 import com.example.xu.myapplication.util.SPUtil;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -59,23 +61,20 @@ public class MyPresenter extends BasePresenter {
             view.getAct().startActivity(new Intent(view.getCon(), cls1));
         }
     }
+
     /**
      * 根据用户手机号 获取用户所有信息
      *
      * @param refreshMy
      * @param ivMyHead       头像控件
      * @param myUserName
-     * @param tvDaishou
-     * @param tvEvaluate
-     * @param tvTuikuan
      * @param tvDaishouHint
      * @param tvEvaluateHint
      */
     public void getUser(final SwipeRefreshLayout refreshMy, final CircleImageView ivMyHead,
-                        final TextView myUserName, TextView tvDaishou, TextView tvEvaluate, TextView
-                                tvTuikuan, final TextView tvDaishouHint, final TextView
-                                tvEvaluateHint, final
-                        TextView tvTuikuanHint) {
+                        final TextView myUserName, final TextView tvDaishouHint,
+                        final TextView tvDaichuliHint, final TextView tvEvaluateHint,
+                        final TextView tvTuikuanHint) {
 
         String phone = util.getString(SPUtil.IS_USER, "");
         if (!refreshMy.isRefreshing()) {
@@ -130,6 +129,7 @@ public class MyPresenter extends BasePresenter {
                     JSONArray array = new JSONArray(orders);
                     JSONObject jo;
                     int daishou = 0;
+                    int daichuli = 0;
                     int pingjia = 0;
                     int tuikuan = 0;
                     for (int i = 0; i < array.length(); i++) {
@@ -140,6 +140,8 @@ public class MyPresenter extends BasePresenter {
                             tuikuan++;
                         } else if (jo.getInt("orderState") == 0 && jo.getInt("reviewState") == 1) {
                             pingjia++;
+                        } else if (jo.getInt("orderState") == 3) {
+                            daichuli++;
                         }
                     }
                     if (daishou > 0) {
@@ -147,6 +149,12 @@ public class MyPresenter extends BasePresenter {
                         tvDaishouHint.setText(String.valueOf(daishou));
                     } else {
                         tvDaishouHint.setVisibility(View.GONE);
+                    }
+                    if (daichuli > 0) {
+                        tvDaichuliHint.setVisibility(View.VISIBLE);
+                        tvDaichuliHint.setText(String.valueOf(daichuli));
+                    } else {
+                        tvDaichuliHint.setVisibility(View.GONE);
                     }
                     if (pingjia > 0) {
                         tvEvaluateHint.setVisibility(View.VISIBLE);

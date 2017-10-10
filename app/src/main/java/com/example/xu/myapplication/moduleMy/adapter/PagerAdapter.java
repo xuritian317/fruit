@@ -83,15 +83,17 @@ public class PagerAdapter extends BaseAdapter {
 
     private void initializeViews(final OrdersBean object, ViewHolder holder) {
         //TODO implement
+        Glide.with(context).load(object.getGoods().getGoodsImage()).into(holder
+                .ivOrdersItemImg);
+        holder.tvOrdersItemFruit.setText(object.getGoods().getGoodsName());
+        holder.tvOrdersItemPrice.setText("￥" + object.getGoods().getGoodsPrice());
+        holder.tvOrdersItemCount.setText("×" + object.getGoodsCount());
+        holder.tvOrdersZong.setText("合计" + object.getGoodsCount() + "件商品，实付款:￥" +
+                object.getOrderPay());
+        String time = object.getReceiveTime().substring(0, 16);
+        holder.tvOrdersReceiveTime.setText(time.replace("T", " "));
         switch (mForm) {
             case 0:
-                Glide.with(context).load(object.getGoods().getGoodsImage()).into(holder
-                        .ivOrdersItemImg);
-                holder.tvOrdersItemFruit.setText(object.getGoods().getGoodsName());
-                holder.tvOrdersItemPrice.setText("￥" + object.getGoods().getGoodsPrice());
-                holder.tvOrdersItemCount.setText("×" + object.getGoodsCount());
-                holder.tvOrdersZong.setText("合计" + object.getGoodsCount() + "件商品，实付款:￥" +
-                        object.getOrderPay());
                 if (object.getOrderState() == 0) {
                     if (object.getReviewState() == 1) {
                         holder.btnOrders0.setVisibility(View.VISIBLE);
@@ -101,7 +103,13 @@ public class PagerAdapter extends BaseAdapter {
                         holder.btnOrders1.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                deleteOrder(object.getId());
+                                deleteOrder(object.getId(),"确定要删除订单吗？");
+                            }
+                        });
+                        holder.btnOrders0.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                ToastUtils.showToast(context, "该功能暂未开启");
                             }
                         });
                     } else {
@@ -114,7 +122,7 @@ public class PagerAdapter extends BaseAdapter {
                         holder.btnOrders0.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                deleteOrder(object.getId());
+                                deleteOrder(object.getId(),"确定要删除订单吗？");
                             }
                         });
                     }
@@ -129,22 +137,22 @@ public class PagerAdapter extends BaseAdapter {
                     holder.btnOrders1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            updateOrders(object.getId(), object.getOrderNumber(), object
-                                            .getOrderPay()
-                                    , object.getGoodsCount(), 2, 0, object.getReceiveTime(),
-                                    object.getReceiveAddress().getId()
-                                    , object.getUser().getId(), object.getGoods().getId(),"确定要退款吗？");
+                            updateOrders(object.getId(), object.getOrderNumber(),
+                                    object.getOrderPay(), object.getGoodsCount(), 2, 0,
+                                    object.getReceiveTime(), object.getReceiveAddress().getId()
+                                    , object.getUser().getId(), object.getGoods().getId(),
+                                    "确定要退款吗？");
                         }
                     });
 
                     holder.btnOrders0.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            updateOrders(object.getId(), object.getOrderNumber(), object
-                                            .getOrderPay()
-                                    , object.getGoodsCount(), 0, 1, object.getReceiveTime(),
-                                    object.getReceiveAddress().getId()
-                                    , object.getUser().getId(), object.getGoods().getId(),"是否已收到物品？");
+                            updateOrders(object.getId(), object.getOrderNumber(),
+                                    object.getOrderPay(), object.getGoodsCount(), 0, 1,
+                                    object.getReceiveTime(), object.getReceiveAddress().getId()
+                                    , object.getUser().getId(), object.getGoods().getId(),
+                                    "是否已收到物品？");
                         }
                     });
                 } else if (object.getOrderState() == 2) {
@@ -158,147 +166,124 @@ public class PagerAdapter extends BaseAdapter {
                     holder.btnOrders0.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            deleteOrder(object.getId());
+                            deleteOrder(object.getId(),"确定要删除订单吗？");
                         }
                     });
                 }
                 break;
             case 1:
-                Glide.with(context).load(object.getGoods().getGoodsImage()).into(holder
-                        .ivOrdersItemImg);
-                holder.tvOrdersItemFruit.setText(object.getGoods().getGoodsName());
-                holder.tvOrdersItemPrice.setText("￥" + object.getGoods().getGoodsPrice());
-                holder.tvOrdersItemCount.setText("×" + object.getGoodsCount());
-                holder.tvOrdersZong.setText("合计" + object.getGoodsCount() + "件商品，实付款:￥" +
-                        object.getOrderPay());
                 holder.tvOrdersState.setText("待收货");
-                if (object.getOrderState() == 1) {
+                holder.btnOrders0.setVisibility(View.VISIBLE);
+                holder.btnOrders1.setVisibility(View.VISIBLE);
+                holder.btnOrders1.setText("退款");
+                holder.btnOrders0.setText("确认收货");
+                holder.btnOrders1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        updateOrders(object.getId(), object.getOrderNumber(), object.getOrderPay()
+                                , object.getGoodsCount(), 2, 0, object.getReceiveTime(),
+                                object.getReceiveAddress().getId(), object.getUser().getId(),
+                                object.getGoods().getId(), "确定要退款吗？");
+                    }
+                });
+                holder.btnOrders0.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        updateOrders(object.getId(), object.getOrderNumber(), object.getOrderPay()
+                                , object.getGoodsCount(), 0, 1, object.getReceiveTime(),
+                                object.getReceiveAddress().getId(), object.getUser().getId(),
+                                object.getGoods().getId(), "是否已收到物品？");
+                    }
+                });
+                break;
+            case 2:
+                holder.tvOrdersState.setText("特价出售");
+                holder.btnOrders0.setVisibility(View.VISIBLE);
+                holder.btnOrders1.setVisibility(View.VISIBLE);
+                holder.btnOrders0.setText("继续收货");
+                holder.btnOrders1.setText("放弃收货");
+                holder.btnOrders0.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        updateOrders(object.getId(),object.getOrderNumber(),object.getOrderPay(),
+                                object.getGoodsCount(),1,0,object.getReceiveTime(),
+                                object.getReceiveAddress().getId(),object.getUser().getId(),
+                                object.getGoods().getId(),"确定要继续收货吗？");
+                    }
+                });
+                holder.btnOrders1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        deleteOrder(object.getId(),"确定要特价出售吗？");
+                    }
+                });
+                break;
+            case 3:
+                holder.tvOrdersState.setText("已收货");
+                if (object.getReviewState() == 1) {
                     holder.btnOrders0.setVisibility(View.VISIBLE);
                     holder.btnOrders1.setVisibility(View.VISIBLE);
-                    holder.btnOrders1.setText("退款");
-                    holder.btnOrders0.setText("确认收货");
-
+                    holder.btnOrders1.setText("删除订单");
+                    holder.btnOrders0.setText("评价");
                     holder.btnOrders1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            updateOrders(object.getId(), object.getOrderNumber(), object
-                                            .getOrderPay()
-                                    , object.getGoodsCount(), 2, 0, object.getReceiveTime(),
-                                    object.getReceiveAddress().getId()
-                                    , object.getUser().getId(), object.getGoods().getId(),"确定要退款吗？");
+                            deleteOrder(object.getId(),"确定要删除订单吗？");
                         }
                     });
-
                     holder.btnOrders0.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            updateOrders(object.getId(), object.getOrderNumber(), object
-                                            .getOrderPay()
-                                    , object.getGoodsCount(), 0, 1, object.getReceiveTime(),
-                                    object.getReceiveAddress().getId()
-                                    , object.getUser().getId(), object.getGoods().getId(),"是否已收到物品？");
+                            ToastUtils.showToast(context, "该功能暂未开启");
                         }
                     });
-                }
-                break;
-            case 2:
-                Glide.with(context).load(object.getGoods().getGoodsImage()).into(holder
-                        .ivOrdersItemImg);
-                holder.tvOrdersItemFruit.setText(object.getGoods().getGoodsName());
-                holder.tvOrdersItemPrice.setText("￥" + object.getGoods().getGoodsPrice());
-                holder.tvOrdersItemCount.setText("×" + object.getGoodsCount());
-                holder.tvOrdersZong.setText("合计" + object.getGoodsCount() + "件商品，实付款:￥" +
-                        object.getOrderPay());
-                holder.tvOrdersState.setText("已收货");
-                if (object.getOrderState() == 0) {
-                    if (object.getReviewState() == 1) {
-                        holder.btnOrders0.setVisibility(View.VISIBLE);
-                        holder.btnOrders1.setVisibility(View.VISIBLE);
-                        holder.btnOrders1.setText("删除订单");
-                        holder.btnOrders0.setText("评价");
-                        holder.btnOrders1.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                deleteOrder(object.getId());
-                            }
-                        });
-                        holder.btnOrders0.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                ToastUtils.showToast(context, "该功能暂未开启");
-                            }
-                        });
-                    } else {
-                        holder.btnOrders0.setVisibility(View.VISIBLE);
-                        holder.btnOrders0.setBackground(context.getDrawable(R.drawable
-                                .btn_style_gray));
-                        holder.btnOrders0.setTextColor(context.getResources().getColor(R.color
-                                .gray));
-                        holder.btnOrders0.setText("删除订单");
-                        holder.btnOrders0.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                deleteOrder(object.getId());
-                            }
-                        });
-                    }
-
-                }
-                break;
-            case 3:
-                Glide.with(context).load(object.getGoods().getGoodsImage()).into(holder
-                        .ivOrdersItemImg);
-                holder.tvOrdersItemFruit.setText(object.getGoods().getGoodsName());
-                holder.tvOrdersItemPrice.setText("￥" + object.getGoods().getGoodsPrice());
-                holder.tvOrdersItemCount.setText("×" + object.getGoodsCount());
-                holder.tvOrdersZong.setText("合计" + object.getGoodsCount() + "件商品，实付款:￥" +
-                        object.getOrderPay());
-                holder.tvOrdersState.setText("已收货");
-                if (object.getOrderState() == 0) {
-                    if (object.getReviewState() == 1) {
-                        holder.btnOrders0.setVisibility(View.VISIBLE);
-                        holder.btnOrders1.setVisibility(View.VISIBLE);
-                        holder.btnOrders1.setText("删除订单");
-                        holder.btnOrders0.setText("评价");
-
-                        holder.btnOrders1.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                deleteOrder(object.getId());
-                            }
-                        });
-                        holder.btnOrders0.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                ToastUtils.showToast(context, "该功能暂未开启");
-                            }
-                        });
-                    }
-                }
-                break;
-            case 4:
-                Glide.with(context).load(object.getGoods().getGoodsImage()).into(holder
-                        .ivOrdersItemImg);
-                holder.tvOrdersItemFruit.setText(object.getGoods().getGoodsName());
-                holder.tvOrdersItemPrice.setText("￥" + object.getGoods().getGoodsPrice());
-                holder.tvOrdersItemCount.setText("×" + object.getGoodsCount());
-                holder.tvOrdersZong.setText("合计" + object.getGoodsCount() + "件商品，实付款:￥" +
-                        object.getOrderPay());
-                holder.tvOrdersState.setText("已取消");
-                if (object.getOrderState() == 2) {
+                } else {
                     holder.btnOrders0.setVisibility(View.VISIBLE);
-                    holder.btnOrders0.setBackground(context.getDrawable(R.drawable
-                            .btn_style_gray));
-                    holder.btnOrders0.setTextColor(context.getResources().getColor(R.color
-                            .gray));
+                    holder.btnOrders0.setBackground(context.getDrawable(R.drawable.btn_style_gray));
+                    holder.btnOrders0.setTextColor(context.getResources().getColor(R.color.gray));
                     holder.btnOrders0.setText("删除订单");
                     holder.btnOrders0.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            deleteOrder(object.getId());
+                            deleteOrder(object.getId(),"确定要删除订单吗？");
                         }
                     });
                 }
+                break;
+            case 4:
+                holder.tvOrdersState.setText("已收货");
+                holder.btnOrders0.setVisibility(View.VISIBLE);
+                holder.btnOrders1.setVisibility(View.VISIBLE);
+                holder.btnOrders1.setText("删除订单");
+                holder.btnOrders0.setText("评价");
+
+                holder.btnOrders1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        deleteOrder(object.getId(),"确定要删除订单吗？");
+                    }
+                });
+                holder.btnOrders0.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ToastUtils.showToast(context, "该功能暂未开启");
+                    }
+                });
+
+                break;
+            case 5:
+                holder.tvOrdersState.setText("已取消");
+                holder.btnOrders0.setVisibility(View.VISIBLE);
+                holder.btnOrders0.setBackground(context.getDrawable(R.drawable.btn_style_gray));
+                holder.btnOrders0.setTextColor(context.getResources().getColor(R.color.gray));
+                holder.btnOrders0.setText("删除订单");
+                holder.btnOrders0.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        deleteOrder(object.getId(),"确定要删除订单吗？");
+                    }
+                });
+
                 break;
         }
 
@@ -366,8 +351,8 @@ public class PagerAdapter extends BaseAdapter {
     /*
     删除订单
      */
-    private void deleteOrder(final int id) {
-        LemonHello.getErrorHello(null, "确定要删除订单吗？")
+    private void deleteOrder(final int id,String str) {
+        LemonHello.getErrorHello(null, str)
                 .setContentFontSize(18)
                 .setWidth(300)
                 .addAction(new LemonHelloAction("取消", new LemonHelloActionDelegate() {
@@ -424,6 +409,7 @@ public class PagerAdapter extends BaseAdapter {
         private TextView tvOrdersItemFruit;
         private TextView tvOrdersItemPrice;
         private TextView tvOrdersItemCount;
+        private TextView tvOrdersReceiveTime;
         private TextView tvOrdersState;
         private TextView tvOrdersZong;
         private Button btnOrders2;
@@ -436,6 +422,7 @@ public class PagerAdapter extends BaseAdapter {
             tvOrdersItemFruit = (TextView) view.findViewById(R.id.tv_orders_itemFruit);
             tvOrdersItemPrice = (TextView) view.findViewById(R.id.tv_orders_itemPrice);
             tvOrdersItemCount = (TextView) view.findViewById(R.id.tv_orders_itemCount);
+            tvOrdersReceiveTime = (TextView) view.findViewById(R.id.tv_orders_receiveTime);
             tvOrdersState = (TextView) view.findViewById(R.id.tv_orders_state);
             tvOrdersZong = (TextView) view.findViewById(R.id.tv_orders_zong);
             btnOrders2 = (Button) view.findViewById(R.id.btn_orders_2);

@@ -109,12 +109,12 @@ public class PagerChildPresenter extends BasePresenter {
 
                 switch (mFrom) {
                     case 0:
-                        if (objects.size() != 0) {
+                        lists.addAll(objects);
+                        if (lists.size() != 0) {
                             lvItemOrders.setVisibility(View.VISIBLE);
                         } else {
                             tvChildTishi.setVisibility(View.VISIBLE);
                         }
-                        adapter.setDatas(objects);
                         break;
                     case 1:
                         for (int i = 0; i < objects.size(); i++) {
@@ -127,9 +127,20 @@ public class PagerChildPresenter extends BasePresenter {
                         } else {
                             tvChildTishi.setVisibility(View.VISIBLE);
                         }
-                        adapter.setDatas(lists);
                         break;
                     case 2:
+                        for (int i = 0; i < objects.size(); i++) {
+                            if (objects.get(i).getOrderState() == 3) {
+                                lists.add(objects.get(i));
+                            }
+                        }
+                        if (lists.size() != 0) {
+                            lvItemOrders.setVisibility(View.VISIBLE);
+                        } else {
+                            tvChildTishi.setVisibility(View.VISIBLE);
+                        }
+                        break;
+                    case 3:
                         for (int i = 0; i < objects.size(); i++) {
                             if (objects.get(i).getOrderState() == 0) {
                                 lists.add(objects.get(i));
@@ -140,9 +151,8 @@ public class PagerChildPresenter extends BasePresenter {
                         } else {
                             tvChildTishi.setVisibility(View.VISIBLE);
                         }
-                        adapter.setDatas(lists);
                         break;
-                    case 3:
+                    case 4:
                         for (int i = 0; i < objects.size(); i++) {
                             if (objects.get(i).getOrderState() == 0 && objects.get(i)
                                     .getReviewState() == 1) {
@@ -154,9 +164,8 @@ public class PagerChildPresenter extends BasePresenter {
                         } else {
                             tvChildTishi.setVisibility(View.VISIBLE);
                         }
-                        adapter.setDatas(lists);
                         break;
-                    case 4:
+                    case 5:
                         for (int i = 0; i < objects.size(); i++) {
                             if (objects.get(i).getOrderState() == 2) {
                                 lists.add(objects.get(i));
@@ -167,9 +176,10 @@ public class PagerChildPresenter extends BasePresenter {
                         } else {
                             tvChildTishi.setVisibility(View.VISIBLE);
                         }
-                        adapter.setDatas(lists);
                         break;
                 }
+                adapter.setDatas(lists);
+
                 if (refreshOrders.isRefreshing()){
                     refreshOrders.setRefreshing(false);
                 }

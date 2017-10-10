@@ -23,6 +23,7 @@
     <string name="xiaoxi">我的消息</string>
     <string name="tuikuan">退款</string>
     <string name="evaluate">待评价</string>
+    <string name="daichuli">待处理</string>
     <string name="yiwancheng">已完成</string>
     <string name="daishouhuo">待收货</string>
     <string name="dingdan">我的订单</string>
@@ -70,4 +71,7 @@
     <string name="delete_order">删除订单</string>
     <string name="pinjia">评价</string>
     <string name="payOrders">提交订单</string>
+
+    <string name="about_us">蔬果配送，是一款致力于用户健康购物的app，集选购，配送于一体。我们不但为用户提供权威的水果营养搭配套餐，还为用户开辟了自定义搭配套餐的空间。在用户DIY的同时会伴随着所选商品的推荐搭配与禁忌搭配提示，用户可放心选购，“暖心购物，健康出行”是我们的项目理念，一切为用户的健康考虑。
+  我们一方面为用户提供营养套餐的选购，另一方面为用户提供商品到期推送提醒，此时用户可根据所处环境选择是否收货，如若用户因繁忙而未取货，我们将对商品进行特价处理，从而避免浪费。立志为用户营造健康舒适的购物生活。</string>
 </resources>

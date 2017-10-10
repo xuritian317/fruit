@@ -30,6 +30,8 @@ public class FragmentAdapter extends FragmentPagerAdapter {
             return PagerChildFragment.newInstance(3);
         } else if (position == 4) {
             return PagerChildFragment.newInstance(4);
+        } else if (position == 5) {
+            return PagerChildFragment.newInstance(5);
         } else {
             return null;
         }

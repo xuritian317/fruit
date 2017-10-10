@@ -172,7 +172,7 @@ public class ShoppingPayPresenter extends BasePresenter {
                 jo.put("goodsId", list.get(i).getGoodId());
                 jo.put("orderPay",b1.multiply(b2).doubleValue());
                 jo.put("receiveAddressId", lists.get(address_id).getId());
-                jo.put("receiveTime", tvPayTime.getText().toString()+"T15:59:59.000Z");
+                jo.put("receiveTime", tvPayTime.getText().toString()+"T09:00:00.000Z");
                 jo.put("userId", util.getString(SPUtil.USER_ID, ""));
             } catch (Exception e) {
                 e.printStackTrace();

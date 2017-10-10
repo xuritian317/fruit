@@ -25,29 +25,59 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="15dp"
-            android:orientation="vertical">
+            android:orientation="horizontal"
+            android:weightSum="2">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:layout_margin="15dp"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_orders_itemFruit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/color_Black"
-                android:textSize="17sp"
-                android:singleLine="true"
-                android:ellipsize="end"/>
+                <TextView
+                    android:id="@+id/tv_orders_itemFruit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_Black"
+                    android:textSize="17sp"
+                    android:singleLine="true"
+                    android:ellipsize="end"/>
 
-            <TextView
-                android:id="@+id/tv_orders_itemPrice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"/>
+                <TextView
+                    android:id="@+id/tv_orders_itemPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"/>
 
-            <TextView
-                android:id="@+id/tv_orders_itemCount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"/>
+                <TextView
+                    android:id="@+id/tv_orders_itemCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:layout_margin="15dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_Black"
+                    android:textSize="15sp"
+                    android:text="收获时间"
+                    android:singleLine="true"
+                    android:ellipsize="end"/>
+
+                <TextView
+                    android:id="@+id/tv_orders_receiveTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2017-10-09 17:00"
+                    android:layout_marginTop="5dp"/>
+
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
