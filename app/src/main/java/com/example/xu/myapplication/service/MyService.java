@@ -168,12 +168,13 @@ public class MyService extends Service {
     public void onCreate() {
         super.onCreate();
         localId = Integer.parseInt(new SPUtil(this).getString(SPUtil.USER_ID, "-1"));
-        if (localId == -1)
-            return;
+
         timer = new Timer();
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
+                if (localId == -1)
+                    return;
                 handler.sendEmptyMessage(HTAG_BEGAIN);
             }
         };
