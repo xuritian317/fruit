@@ -123,7 +123,7 @@ public class HomeSearchFragment extends BaseFragment {
 //
 //                        Bundle bundle = new Bundle();
 //                        bundle.putParcelableArrayList(ARG_DATA, response);
-//                        Message msg = new Message();
+//                        MessageDetail msg = new MessageDetail();
 //                        msg.setData(bundle);
 //                        handler.sendMessage(msg);
 //                    }

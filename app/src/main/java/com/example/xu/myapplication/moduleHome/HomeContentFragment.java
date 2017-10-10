@@ -46,7 +46,6 @@ public class HomeContentFragment extends BaseMainFragment<HomePresenter> impleme
         return instance;
     }
 
-    private BargainAdapter adapter;
     private RecommendsAdapter_0 adapter0;
     private RecommendsAdapter_1 adapter1;
 
@@ -60,8 +59,6 @@ public class HomeContentFragment extends BaseMainFragment<HomePresenter> impleme
 
     @BindView(R.id.banner)
     Banner banner;
-    @BindView(R.id.rv_home_bargain)
-    RecyclerView rvHomeBargain;
     @BindView(R.id.gridView_0)
     MyGridView gridView0;
     @BindView(R.id.listView_1)
@@ -80,7 +77,6 @@ public class HomeContentFragment extends BaseMainFragment<HomePresenter> impleme
     @Override
     public void initData() {
         //设置布局管理器
-        adapter = new BargainAdapter(getActivity());
         adapter0 = new RecommendsAdapter_0(getActivity());
         adapter1 = new RecommendsAdapter_1(getActivity());
 
@@ -90,14 +86,6 @@ public class HomeContentFragment extends BaseMainFragment<HomePresenter> impleme
         presenter.getRecommends1(adapter1);
         listView1.setAdapter(adapter1);
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        rvHomeBargain.setLayoutManager(linearLayoutManager);
-        //设置水平RecyclerView的item之间的间距
-        rvHomeBargain.addItemDecoration(new SpaceItemDecoration(0, 20));
-
-        presenter.getBargain(adapter, rvHomeBargain);
-
         presenter.getImgs(banner);
         //banner设置点击事件，下标是从0开始
         banner.setOnBannerListener(new OnBannerListener() {
@@ -105,14 +93,6 @@ public class HomeContentFragment extends BaseMainFragment<HomePresenter> impleme
             public void OnBannerClick(int position) {
                 Logger.e("position", position + "");
                 ToastUtils.showToast(_mActivity, "此活动未开启");
-            }
-        });
-
-
-        adapter.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(int position, View view, RecyclerView.ViewHolder vh) {
-                start(GoodsInfoFragment.newInstance(adapter.getFruit(position), Double.parseDouble(adapter.getOldPrice(position)),adapter.getCount(position)));
             }
         });
         gridView0.setOnItemClickListener(new AdapterView.OnItemClickListener() {

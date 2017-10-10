@@ -18,6 +18,8 @@ public class Common {
     public static String URL_GOODS_PUT ="http://www.mobilebooks.cn/api/t-goodsPut";
     public static String URL_PACK_IMG ="https://imgjd4.fruitday.com/images/product_pic/415/1/1-270x270-415-D45A5SWR.jpg";
     public static String URL_GOODS_LIKE ="http://www.mobilebooks.cn/api/t-goodsLike";
+    public static String URL_MESSAGE_USER ="http://www.mobilebooks.cn/api/t-messages";
+    public static String URL_USER_ID ="http://www.mobilebooks.cn/api/t-users/";
 
     //查询特价商品
     public static String URL_BARGAIN = "http://www.mobilebooks.cn/api/t-bargains";

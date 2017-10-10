@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.example.xu.myapplication">
+    package="com.example.xu.myapplication">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:name=".App"
@@ -16,37 +17,30 @@
         android:theme="@style/AppTheme.NoActionBar">
         <activity android:name=".moduleActivity.main.activity.MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".moduleShopping.activity.ShoppingPayActivity">
-        </activity>
-        <activity android:name=".moduleMy.activity.orders.MyOrdersActivity">
-        </activity>
-        <activity android:name=".moduleMy.activity.setting.MyPersonalActivity">
-        </activity>
-        <activity android:name=".moduleMy.activity.img.ClipImageActivity">
-        </activity>
-        <activity android:name=".moduleMy.activity.setting.AccountSettingActivity">
-        </activity>
-        <activity android:name=".moduleMy.activity.setting.NickNameActivity">
-        </activity>
-        <activity android:name=".moduleMy.activity.setting.EmailActivity">
-        </activity>
-        <activity android:name=".moduleActivity.main.activity.LoginActivity">
-        </activity>
-        <activity android:name=".moduleActivity.main.activity.RegisterActivity">
-        </activity>
-        <activity android:name=".moduleMy.activity.setting.QueryAddressActivity">
-        </activity>
-        <activity android:name=".moduleMy.activity.setting.AddAddressActivity">
-        </activity>
-        <activity android:name=".moduleShopping.activity.ReceiveAddressActivity">
-        </activity>
-        <activity android:name=".moduleMy.activity.collect.CollectActivity">
-        </activity>
+        <activity android:name=".moduleShopping.activity.ShoppingPayActivity" />
+        <activity android:name=".moduleMy.activity.orders.MyOrdersActivity" />
+        <activity android:name=".moduleMy.activity.setting.MyPersonalActivity" />
+        <activity android:name=".moduleMy.activity.img.ClipImageActivity" />
+        <activity android:name=".moduleMy.activity.setting.AccountSettingActivity" />
+        <activity android:name=".moduleMy.activity.setting.NickNameActivity" />
+        <activity android:name=".moduleMy.activity.setting.EmailActivity" />
+        <activity android:name=".moduleActivity.main.activity.LoginActivity" />
+        <activity android:name=".moduleActivity.main.activity.RegisterActivity" />
+        <activity android:name=".moduleMy.activity.setting.QueryAddressActivity" />
+        <activity android:name=".moduleMy.activity.setting.AddAddressActivity" />
+        <activity android:name=".moduleShopping.activity.ReceiveAddressActivity" />
+        <activity android:name=".moduleMy.activity.collect.CollectActivity" />
+
+        <service android:name=".service.MessageService"></service>
+        <service
+            android:name=".service.MyService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>

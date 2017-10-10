@@ -58,7 +58,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MyViewHolder> 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         holder.tvName.setText(dataList.get(position));
-        if (position == 0 || position == 3 || position == 6 || position == 8) {
+        if (position == 0 || position == 3 || position == 5 ) {
             holder.viewLine.setVisibility(View.INVISIBLE);
             holder.itemView.setBackgroundResource(R.color.bg_app);
             holder.tvName.setTextColor(mContext.getResources().getColor(R.color.typeColor));

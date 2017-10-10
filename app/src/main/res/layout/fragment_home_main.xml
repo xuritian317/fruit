@@ -1,9 +1,8 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/color_White"
     android:orientation="vertical"
     tools:context="com.example.xu.myapplication.moduleHome.HomeFragment">
@@ -14,6 +13,7 @@
         android:background="@color/colorPrimary"
         app:contentInsetLeft="0dp"
         app:contentInsetStart="0dp">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -22,10 +22,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/app_name"
                 android:layout_marginLeft="15dp"
+                android:text="@string/app_name"
                 android:textColor="@color/white"
-                android:textSize="20dp"/>
+                android:textSize="20dp" />
 
             <RelativeLayout
                 android:id="@+id/relative_search"
@@ -40,14 +40,14 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="5dp"
-                    android:background="@mipmap/search_icon"/>
+                    android:background="@mipmap/search_icon" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="30dp"
-                    android:hint="搜你想搜的"/>
+                    android:hint="搜你想搜的" />
             </RelativeLayout>
 
 
@@ -56,102 +56,71 @@
     </android.support.v7.widget.Toolbar>
 
 
-        <ScrollView
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        android:overScrollMode="never"
+        android:scrollbars="none">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fillViewport="true"
-            android:overScrollMode="never"
-            android:scrollbars="none">
+            android:orientation="vertical">
 
-            <LinearLayout
+            <com.youth.banner.Banner
+                android:id="@+id/banner"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"></com.youth.banner.Banner>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:background="@color/tab_unSelect"></View>
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:text="@string/home_pake"
+                android:textSize="20sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/typeTextColor"></View>
+
+            <com.example.xu.myapplication.moduleHome.view.MyListView
+                android:id="@+id/listView_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <com.youth.banner.Banner
-                    android:id="@+id/banner"
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp">
-                </com.youth.banner.Banner>
+                android:divider="@null"
+                android:footerDividersEnabled="false">
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="4dp"
-                    android:background="@color/tab_unSelect">
-                </View>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/xianshi"
-                    android:textSize="20sp"/>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/typeTextColor">
-                </View>
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_home_bargain"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                </android.support.v7.widget.RecyclerView>
+            </com.example.xu.myapplication.moduleHome.view.MyListView>
 
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/xianguo"
-                    android:textSize="20sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:text="@string/home_lingshou"
+                android:textSize="20sp" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/typeTextColor">
-                </View>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/typeTextColor"></View>
 
-                <com.example.xu.myapplication.moduleHome.view.MyGridView
-                    android:id="@+id/gridView_0"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:numColumns="3">
-                </com.example.xu.myapplication.moduleHome.view.MyGridView>
+            <com.example.xu.myapplication.moduleHome.view.MyGridView
+                android:id="@+id/gridView_0"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:numColumns="3"></com.example.xu.myapplication.moduleHome.view.MyGridView>
+        </LinearLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/taocan"
-                    android:textSize="20sp"/>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/typeTextColor">
-                </View>
-
-                <com.example.xu.myapplication.moduleHome.view.MyListView
-                    android:id="@+id/listView_1"
-                    android:divider="@null"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:footerDividersEnabled="false">
-
-                </com.example.xu.myapplication.moduleHome.view.MyListView>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@color/typeTextColor">
-                </View>
-            </LinearLayout>
-
-        </ScrollView>
+    </ScrollView>
 </LinearLayout>

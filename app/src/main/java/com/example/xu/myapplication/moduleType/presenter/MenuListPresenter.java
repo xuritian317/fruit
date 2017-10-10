@@ -42,41 +42,12 @@ public class MenuListPresenter extends BasePresenter {
     }
 
     public void showContent(int position) {
-        if (position == 0 || position == 3 || position == 6 || position == 8 || position == view.getCurrentPosition())
+        if (position == 0 || position == 3 || position == 5 || position == view.getCurrentPosition())
             return;
         view.setCurrentPosition(position);
         view.setAdapterCheck(position);
         switch (position) {
             case 1:
-                FruitTypeDao.newInstance(new FruitTypeDao.CallBackFruitType() {
-                    @Override
-                    public void onSuccess(ArrayList<Fruit> response) {
-
-                        MenuContentFragment fragment = MenuContentFragment.newInstance(response, false);
-                        view.switchFragment(fragment);
-                    }
-
-                    @Override
-                    public void onFailure(String message) {
-                        Logger.e("FruitTypeDao", "onFailure");
-                    }
-                }).getFruitType();
-                break;
-            case 2:
-                FruitAreaDao.newInstance(new FruitAreaDao.CallBackFruitArea() {
-                    @Override
-                    public void onSuccess(ArrayList<Fruit> response) {
-                        MenuContentFragment fragment = MenuContentFragment.newInstance(response, false);
-                        view.switchFragment(fragment);
-                    }
-
-                    @Override
-                    public void onFailure(String message) {
-                        Logger.e("FruitAreaDao", "onFailure");
-                    }
-                }).getFruitArea();
-                break;
-            case 4:
                 PackTypeDao.newInstance(new PackTypeDao.CallBackPackType() {
                     @Override
                     public void onSuccess(ArrayList<Fruit> response) {
@@ -89,8 +60,9 @@ public class MenuListPresenter extends BasePresenter {
                         Logger.e("FruitTypeDao", "onFailure");
                     }
                 }).getPackType();
+
                 break;
-            case 5:
+            case 2:
                 PackSizeDao.newInstance(new PackSizeDao.CallBackPackSize() {
                     @Override
                     public void onSuccess(ArrayList<Fruit> response) {
@@ -103,30 +75,9 @@ public class MenuListPresenter extends BasePresenter {
                         Logger.e("FruitTypeDao", "onFailure");
                     }
                 }).getPackType();
-                break;
-            case 7:
-                BargainDao.newInstance(new BargainDao.CallBackBargain() {
-                    @Override
-                    public void onSuccess(ArrayList<Bargain> response) {
-                        ArrayList<Fruit.FruitDetail> detailList = new ArrayList<Fruit.FruitDetail>();
-                        for (Bargain bargain : response) {
-                            Fruit.FruitDetail fruitDetail = new Fruit.FruitDetail(bargain.getGoods());
-                            fruitDetail.setGoodsPrice(bargain.getBargainPrice());
-                            detailList.add(fruitDetail);
-                        }
-                        ArrayList<Fruit> fruitList = new ArrayList<Fruit>();
-                        fruitList.add(new Fruit(Common.NAME_FRUIT_TYPE, detailList));
-                        MenuContentFragment fragment = MenuContentFragment.newInstance(fruitList, false);
-                        view.switchFragment(fragment);
-                    }
 
-                    @Override
-                    public void onFailure(String message) {
-                        Logger.e("FruitTypeDao", "onFailure");
-                    }
-                }).getPackType();
                 break;
-            case 9:
+            case 4:
                 FruitAllDao.newInstance(new FruitAllDao.CallBackFruitAll() {
                     @Override
                     public void onSuccess(ArrayList<Fruit.FruitDetail> response) {
@@ -142,6 +93,36 @@ public class MenuListPresenter extends BasePresenter {
                     }
                 }).getFruitType();
                 break;
+            case 6:
+                FruitTypeDao.newInstance(new FruitTypeDao.CallBackFruitType() {
+                    @Override
+                    public void onSuccess(ArrayList<Fruit> response) {
+
+                        MenuContentFragment fragment = MenuContentFragment.newInstance(response, false);
+                        view.switchFragment(fragment);
+                    }
+
+                    @Override
+                    public void onFailure(String message) {
+                        Logger.e("FruitTypeDao", "onFailure");
+                    }
+                }).getFruitType();
+                break;
+            case 7:
+                FruitAreaDao.newInstance(new FruitAreaDao.CallBackFruitArea() {
+                    @Override
+                    public void onSuccess(ArrayList<Fruit> response) {
+                        MenuContentFragment fragment = MenuContentFragment.newInstance(response, false);
+                        view.switchFragment(fragment);
+                    }
+
+                    @Override
+                    public void onFailure(String message) {
+                        Logger.e("FruitAreaDao", "onFailure");
+                    }
+                }).getFruitArea();
+                break;
+
             default:
                 break;
         }

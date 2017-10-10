@@ -5,21 +5,18 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="type">分类</string>
     <string-array name="array_menu">
-        <item>-鲜果-</item>
-        <item>品类</item>
-        <item>产地</item>
         <item>-固定套餐-</item>
         <item>种类</item>
         <item>规格</item>
-        <item>-特价-</item>
-        <item>特价</item>
         <item>-自定义套餐-</item>
         <item>自定义套餐</item>
-
+        <item>-零售-</item>
+        <item>品类</item>
+        <item>产地</item>
     </string-array>
     <string name="xianshi">限时特价</string>
-    <string name="xianguo">鲜果特惠</string>
-    <string name="taocan">优惠套餐</string>
+    <string name="home_lingshou">零售</string>
+    <string name="home_pake">营养套餐</string>
 
     <string name="jifen">我的积分</string>
     <string name="shoucang">我的收藏</string>
