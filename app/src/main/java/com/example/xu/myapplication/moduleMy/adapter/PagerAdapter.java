@@ -103,7 +103,7 @@ public class PagerAdapter extends BaseAdapter {
                         holder.btnOrders1.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                deleteOrder(object.getId(),"确定要删除订单吗？");
+                                deleteOrder(object.getId(),null,"确定要删除订单吗？");
                             }
                         });
                         holder.btnOrders0.setOnClickListener(new View.OnClickListener() {
@@ -122,7 +122,7 @@ public class PagerAdapter extends BaseAdapter {
                         holder.btnOrders0.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                deleteOrder(object.getId(),"确定要删除订单吗？");
+                                deleteOrder(object.getId(),null,"确定要删除订单吗？");
                             }
                         });
                     }
@@ -166,7 +166,7 @@ public class PagerAdapter extends BaseAdapter {
                     holder.btnOrders0.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            deleteOrder(object.getId(),"确定要删除订单吗？");
+                            deleteOrder(object.getId(),null,"确定要删除订单吗？");
                         }
                     });
                 }
@@ -238,7 +238,8 @@ public class PagerAdapter extends BaseAdapter {
                     @Override
                     public void onClick(View v) {
 
-                        fangqiOrder(object.getId());
+                        deleteOrder(object.getId(),"确定要放弃收货吗？",
+                                "放弃收货后，该商品会自动特价处理，余额会自动转入您的账户");
                     }
                 });
                 break;
@@ -252,7 +253,7 @@ public class PagerAdapter extends BaseAdapter {
                     holder.btnOrders1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            deleteOrder(object.getId(),"确定要删除订单吗？");
+                            deleteOrder(object.getId(),null,"确定要删除订单吗？");
                         }
                     });
                     holder.btnOrders0.setOnClickListener(new View.OnClickListener() {
@@ -269,7 +270,7 @@ public class PagerAdapter extends BaseAdapter {
                     holder.btnOrders0.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            deleteOrder(object.getId(),"确定要删除订单吗？");
+                            deleteOrder(object.getId(),null,"确定要删除订单吗？");
                         }
                     });
                 }
@@ -284,7 +285,7 @@ public class PagerAdapter extends BaseAdapter {
                 holder.btnOrders1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        deleteOrder(object.getId(),"确定要删除订单吗？");
+                        deleteOrder(object.getId(),null,"确定要删除订单吗？");
                     }
                 });
                 holder.btnOrders0.setOnClickListener(new View.OnClickListener() {
@@ -304,7 +305,7 @@ public class PagerAdapter extends BaseAdapter {
                 holder.btnOrders0.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        deleteOrder(object.getId(),"确定要删除订单吗？");
+                        deleteOrder(object.getId(),null,"确定要删除订单吗？");
                     }
                 });
 
@@ -375,63 +376,9 @@ public class PagerAdapter extends BaseAdapter {
     /*
     删除订单
      */
-    private void deleteOrder(final int id,String str) {
-        LemonHello.getErrorHello(null, str)
+    private void deleteOrder(final int id,String str1,String str2) {
+        LemonHello.getErrorHello(str1, str2)
                 .setContentFontSize(18)
-                .setWidth(300)
-                .addAction(new LemonHelloAction("取消", new LemonHelloActionDelegate() {
-                    @Override
-                    public void onClick(LemonHelloView helloView, LemonHelloInfo
-                            helloInfo, LemonHelloAction helloAction) {
-                        //dialog隐藏
-                        helloView.hide();
-                    }
-                }))
-                .addAction(new LemonHelloAction("确定", new LemonHelloActionDelegate() {
-                    @Override
-                    public void onClick(final LemonHelloView helloView, LemonHelloInfo
-                            helloInfo, LemonHelloAction helloAction) {
-                        //删除并更新列表
-                        JSONObject jo = new JSONObject();
-                        try {
-                            jo.put("id", id);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        MyOkHttp.newInstance().postJson(context, Common.URL_DELETE_ORDERS +
-                                        String.valueOf(id),
-                                jo, new RawResponseHandler() {
-                                    @Override
-                                    public void onSuccess(int statusCode, String response) {
-                                        if (statusCode == 200) {
-                                            fragment.getOrders();
-                                            //dialog隐藏
-                                            helloView.hide();
-                                        }
-                                    }
-
-                                    @Override
-                                    public void onFailure(int statusCode, String error_msg) {
-                                        if (statusCode != 200) {
-                                            ToastUtils.showToast(context, "删除失败");
-                                            //dialog隐藏
-                                            helloView.hide();
-                                        }
-                                    }
-                                });
-
-                    }
-                }))
-                .show(context);
-
-    }
-
-    /*
-    放弃订单
-     */
-    private void fangqiOrder(final int id) {
-        LemonHello.getErrorHello("确定要放弃收货吗？", "放弃收货后，该商品会自动特价处理，余额会自动转入您的账户")
-                .setContentFontSize(13)
                 .setWidth(300)
                 .addAction(new LemonHelloAction("取消", new LemonHelloActionDelegate() {
                     @Override

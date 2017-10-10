@@ -62,8 +62,9 @@ public class PagerChildPresenter extends BasePresenter {
 
     /**
      * 获取订单数据
-     *  @param adapter      填充数据 adapter
-     * @param mFrom        根据没mFrom的值 分类订单
+     *
+     * @param adapter       填充数据 adapter
+     * @param mFrom         根据没mFrom的值 分类订单
      * @param lvItemOrders
      * @param tvChildTishi
      * @param refreshOrders
@@ -74,13 +75,13 @@ public class PagerChildPresenter extends BasePresenter {
         lists.clear();
         String phone = util.getString(SPUtil.IS_USER, "");
         if (TextUtils.equals(util.getString(SPUtil.IS_USER, ""), "")) {
-            if (refreshOrders.isRefreshing()){
+            if (refreshOrders.isRefreshing()) {
                 refreshOrders.setRefreshing(false);
             }
             return;
         }
 
-        if (!refreshOrders.isRefreshing()){
+        if (!refreshOrders.isRefreshing()) {
             refreshOrders.setRefreshing(true);
         }
 
@@ -150,12 +151,13 @@ public class PagerChildPresenter extends BasePresenter {
 
                 if (lists.size() != 0) {
                     lvItemOrders.setVisibility(View.VISIBLE);
+                    tvChildTishi.setVisibility(View.GONE);
+                    adapter.setDatas(lists);
                 } else {
+                    lvItemOrders.setVisibility(View.GONE);
                     tvChildTishi.setVisibility(View.VISIBLE);
                 }
-                adapter.setDatas(lists);
-
-                if (refreshOrders.isRefreshing()){
+                if (refreshOrders.isRefreshing()) {
                     refreshOrders.setRefreshing(false);
                 }
             }
